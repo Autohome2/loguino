@@ -22,13 +22,15 @@
 */
 
 #include "WProgram.h"
-#include "OutputBase.h"
-#include "message.h"
+#include <SDOutput.h>
+#include <message.h>
+#include <SD.h>
+
 
 #define SSPIN 10
-#define CHIPSELECTPIN=4
+#define CHIPSELECTPIN 4
 
-#include <SD.h>
+
 
 
 SDOutput::SDOutput(){

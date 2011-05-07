@@ -21,36 +21,35 @@
 
 */
 
-
 #include "WProgram.h"
-
 #include "message.h"
-#include "OutputBase.h"
+#include "Output.h"
+#include "SDOutput.h"
+#include "SerialOutput.h"
 
 
-OutputBase::OutputBase(){
-  active=false;
+
+bool Output::flush(){
+  sd.flush();
+  ser.flush();
+  return true;
 }
 
-bool OutputBase::flush(){
-   return true;
-}
 
-
-bool OutputBase::begin()
+bool Output::begin()
 {
-  
+    sd.begin();
+    ser.begin();
     return true;
 }
 
 
-bool OutputBase::logMessage(Message msg){
-    return true;
+bool Output::logMessage(Message msg){
+  sd.logMessage(msg);
+  ser.logMessage(msg);
+  return true;
 }
 
-
-Output::Output(){
+Output::Output()
+{
 }
-
-
-

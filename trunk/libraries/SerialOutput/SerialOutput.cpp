@@ -21,24 +21,39 @@
 
 */
 
-#ifndef OutputBase_h
-#define OutputBase_h
 
 #include "WProgram.h"
+#include <SerialOutput.h>
+#include <message.h>
 
-#include "output.h"
-#include "message.h"
+#define SERIAL Serial1
 
 
-class OutputBase
+SerialOutput::SerialOutput(){
+    active=false;
+}
+
+bool SerialOutput::flush(){
+    if (active){
+        SERIAL.flush();
+    }
+    return active;
+}
+
+
+bool SerialOutput::begin()
 {
-    bool active;
-    public:
-        OutputBase();
-        bool begin();
-        bool logMessage(Message msg);
-        bool flush();
-};
+    SERIAL.begin(9600);
+    active=true;
+    return active;
+}
 
-#endif
+
+bool SerialOutput::logMessage(Message msg){
+    if (!active){
+        return false;
+    }
+    SERIAL.println(msg.toCSV());
+}
+
 

@@ -27,12 +27,14 @@
 
 #include "WProgram.h"
 #include "message.h"
-#include "SDOutput.h"
-#include "SerialOutput.h"
+#include <SDOutput.h>
+#include <SerialOutput.h>
 
 
 class Output
 {
+	SDOutput sd;
+	SerialOutput ser;
     public:
         Output();
         bool begin();

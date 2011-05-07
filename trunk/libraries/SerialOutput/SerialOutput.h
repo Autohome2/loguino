@@ -27,13 +27,13 @@
 #define SerialOutput_h
 
 #include "WProgram.h"
-#include "OutputBase.h"
-#include "message.h"
+
+#include <message.h>
 
 
 
 
-class SerialOutput : public OutputBase
+class SerialOutput
 {
     bool active;
     public:
