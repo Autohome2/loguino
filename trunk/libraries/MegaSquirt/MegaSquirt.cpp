@@ -37,6 +37,23 @@ bool MegaSquirtData::populate( byte table[39]){
 	// Decode these into the boolean values somehow
 	squirt=table[1];
 	engine=table[2];
+	
+	inj1squirt=get_bit(squirt,0);
+	inj2squirt=get_bit(squirt,1);
+	schedtosquirt1=get_bit(squirt,2);
+	squirting1=get_bit(squirt,3);
+	schedtosquirt2=get_bit(squirt,4);
+	squirting2=get_bit(squirt,5);
+	boostctrl=get_bit(squirt,6);
+
+	running=get_bit(engine, 0);
+	cranking=get_bit(engine, 1);
+	ase=get_bit(engine,2);
+	warmup=get_bit(engine,3);
+	tpsaccel=get_bit(engine,4);
+	decel=get_bit(engine,5);
+	mapaccel=get_bit(engine,6);
+	idle=get_bit(engine,7);
 
 	baroADC=table[3];
 	mapADC=table[4];
@@ -70,5 +87,15 @@ bool MegaSquirtData::populate( byte table[39]){
 	iTimeH=table[37];
 
 	return true;
-
 }
+
+
+bool MegaSquirtData::get_bit(byte b, int p)
+{
+    b<<=(p);
+	if (b>=127){
+		return true;
+	}
+	return false;	
+}
+

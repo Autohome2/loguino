@@ -51,6 +51,8 @@
 
 class MegaSquirtData
 {
+	bool get_bit(byte b, int p);
+
 	public:
 		// clock counter that continuously counts from 0 to 255
 		 byte clock;

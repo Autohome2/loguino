@@ -171,6 +171,10 @@ for line in open ("libraries/Output/Output.cpp"):
     result = ptnLib.findall(line)
     if result:
         libCandidates += result
+for line in open ("libraries/Poller/Poller.cpp"):
+    result = ptnLib.findall(line)
+    if result:
+        libCandidates += result
 
 
 # Hack. In version 20 of the Arduino IDE, the Ethernet library depends

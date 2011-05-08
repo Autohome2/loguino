@@ -15,33 +15,29 @@
  * You should have received a copy of the GNU General Public License
  * along with Loguino.  If not, see <http://www.gnu.org/licenses/>.
  * 
- * $Rev$:   
- * $Author$: 
- * $Date$:  
+ * $Rev$   
+ * $Author$ 
+ * $Date$  
 
 */
-#include <SD.h>
 
-#include "message.h"
-#include <Output.h>
-#include <SDOutput.h>
-#include "Poller.h"
+#ifndef Poller_h
+#define Poller_h
 
-bool logMessage(Message msg);
 
-Output Out;
-Poller Poll;
+#include "WProgram.h"
+#include "MSPoller.h"
 
-void setup(){
-  Out.begin();
-  Poll.begin();
-}
 
-void loop(){
-	Poll.poll(&logMessage);
-}
+class Poller
+{
+	MSPoller ms;
+    public:
+        Poller();
+        bool begin();
+		bool poll(bool (*ptrCallback)(Message)  );
+};
 
-bool logMessage(Message msg){
-	Out.logMessage(msg);
-}
+#endif
+
 

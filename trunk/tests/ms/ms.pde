@@ -23,8 +23,9 @@
 
 #include <MegaSquirt.h>
 
+
 void setup(){
-	 byte table[39];
+	byte table[39];
 	MegaSquirtData d;
 	
 	// Clock ticks
@@ -156,7 +157,28 @@ void setup(){
 	sprintf(line, " CLT Ignition modification: %d", d.CltIatAngle);
 	Serial.println(line);
 
+	Serial.println("Flags: ");
 
+	Serial.print(" Running: ");
+	Serial.println(d.running ? "Yes" : "No");
+
+	Serial.print(" Cranking: ");
+	Serial.println(d.cranking ? "Yes" : "No");
+	
+	Serial.print(" After Start Enrichment: ");
+	Serial.println(d.ase ? "Yes" : "No");
+
+	Serial.print(" Warmup: ");
+	Serial.println(d.warmup ? "Yes" : "No");
+	
+	Serial.print(" TPS Acceleration: ");
+	Serial.println(d.tpsaccel ? "Yes" : "No");
+	Serial.print(" Deceleration: ");
+	Serial.println(d.decel ? "Yes" : "No");
+	Serial.print(" MAP Acceleration: ");
+	Serial.println(d.mapaccel ? "Yes" : "No");
+	Serial.print(" Idle: ");
+	Serial.println(d.idle ? "Yes" : "No");
 }
 
 
