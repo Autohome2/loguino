@@ -26,7 +26,7 @@
 #include <SerialOutput.h>
 #include <message.h>
 
-#define SERIAL Serial1
+#define SERIALLIB Serial1
 
 
 SerialOutput::SerialOutput(){
@@ -35,7 +35,7 @@ SerialOutput::SerialOutput(){
 
 bool SerialOutput::flush(){
     if (active){
-        SERIAL.flush();
+        SERIALLIB.flush();
     }
     return active;
 }
@@ -43,7 +43,7 @@ bool SerialOutput::flush(){
 
 bool SerialOutput::begin()
 {
-    SERIAL.begin(9600);
+    SERIALLIB.begin(9600);
     active=true;
     return active;
 }
@@ -53,7 +53,7 @@ bool SerialOutput::logMessage(Message msg){
     if (!active){
         return false;
     }
-    SERIAL.println(msg.toCSV());
+    SERIALLIB.println(msg.toCSV());
 }
 
 
