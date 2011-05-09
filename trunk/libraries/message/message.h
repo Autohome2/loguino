@@ -30,11 +30,11 @@
 
 class Message
 {
-    unsigned long time;
-    String nameSpace;
-    String units;
-    String value;
     public:
+		unsigned long time;
+		String nameSpace;
+		String units;
+		String value;
         Message();
         String toCSV();
 };

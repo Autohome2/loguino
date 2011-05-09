@@ -16,29 +16,34 @@
  * along with Loguino.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * $Rev$   
- * $Author$ 
- * $Date$  
+ * $Author$
+ * $Date$
 
 */
 
-#ifndef MSPoller_h
-#define MSPoller_h
-
-
 #include "WProgram.h"
+#include "message.h"
+#include "DummyPoller.h"
 
 
-class MSPoller
+bool DummyPoller::begin(){
+	}
+
+
+bool DummyPoller::poll(bool (*ptrCallback)(Message)  ){
+	Message m;
+	m.units="Times";
+	m.nameSpace="Dummy.TimesCalled";
+	m.value=called++;
+	ptrCallback(m);
+
+	m.units="Milliseconds";
+	m.nameSpace="Dummy.Uptime";
+	m.value=millis();
+	ptrCallback(m);
+}
+
+DummyPoller::DummyPoller()
 {
-	int wait;
-	bool active;
-	bool available();
-    public:
-        MSPoller();
-        bool begin();
-		bool poll(bool (*ptrCallback)(Message)  );
-};
-
-#endif
-
-
+	called=0;
+}

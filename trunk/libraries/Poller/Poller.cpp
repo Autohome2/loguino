@@ -31,11 +31,13 @@
 
 bool Poller::begin(){
 	ms.begin();
+	dummy.begin();
 
 }
 
 bool Poller::poll(bool (*ptrCallback)(Message)  ){
 	ms.poll(ptrCallback);
+	dummy.poll(ptrCallback);
 	return true;
 }
 

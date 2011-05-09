@@ -21,20 +21,18 @@
 
 */
 
-#ifndef MSPoller_h
-#define MSPoller_h
+#ifndef DummyPoller_h
+#define DummyPoller_h
 
 
 #include "WProgram.h"
 
 
-class MSPoller
+class DummyPoller
 {
-	int wait;
-	bool active;
-	bool available();
+	int called;
     public:
-        MSPoller();
+        DummyPoller();
         bool begin();
 		bool poll(bool (*ptrCallback)(Message)  );
 };

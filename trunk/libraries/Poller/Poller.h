@@ -27,11 +27,13 @@
 
 #include "WProgram.h"
 #include "MSPoller.h"
+#include "DummyPoller.h"
 
 
 class Poller
 {
 	MSPoller ms;
+	DummyPoller dummy;
     public:
         Poller();
         bool begin();
