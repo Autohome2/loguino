@@ -26,7 +26,7 @@
 #include <SerialOutput.h>
 #include <message.h>
 
-#define SERIALLIB Serial1
+#define SERIALLIB Serial
 
 
 SerialOutput::SerialOutput(){

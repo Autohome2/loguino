@@ -27,7 +27,7 @@
 #include "MSPoller.h"
 
 #define SERIALPORT Serial2
-#define RETRYTIME 20
+#define RETRYTIME 200
 
 bool MSPoller::begin(){
 	SERIALPORT.begin(9600);

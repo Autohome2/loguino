@@ -56,7 +56,7 @@ AVRDUDE_CONF = None
 if platform == 'darwin':
     # For MacOS X, pick up the AVR tools from within Arduino.app
     ARDUINO_HOME_DEFAULT = '/Applications/Arduino.app/Contents/Resources/Java'
-    ARDUINO_PORT_DEFAULT = getUsbTty('/dev/tty.usbserial*')
+    ARDUINO_PORT_DEFAULT = getUsbTty('/dev/tty.usbmodem*')
 elif platform == 'win32':
     # For Windows, use environment variables.
     ARDUINO_HOME_DEFAULT = os.environ.get('ARDUINO_HOME')
