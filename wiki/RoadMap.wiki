@@ -1,0 +1,32 @@
+#summary The roadmap for the project
+#labels Phase-Design
+
+=Introduction=
+
+This is an overview of the releases, and the planned features for each release.
+
+= Version 0.1 =
+
+* Query the megasquirt and log key (raw) metrics via a serial connection.
+* Log directly to (usb) serial port
+* Log directly to storage
+
+= Version 0.2 =
+
+* Query accelerometer for 3 axis g valued
+* Query gps for speed, and location
+* Query on or more vr sensors for wheel rpm.
+
+= Version 0.3 =
+
+* Query yaw sensors for yaw, roll and pitch.
+* Query one or more resistance based valued
+* Query one or more digital inputs/outputs
+
+= Version 0.4 =
+
+* Report converted values from the megasquirt rather than just the ADC values.
+
+= Version 0.5 =
+
+* Bluetooth interface to iphone/android to download and view on thie fly.
