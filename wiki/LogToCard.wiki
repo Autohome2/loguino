@@ -1,0 +1,13 @@
+#summary Logging to SD Card allows logs to be captured on the loguino without the need for a laptop or other device to be connected.
+
+= Overview = 
+
+Logging to SD Card allows logs to be captured on the loguino without the need for a laptop or other device to be connected. The contents of the sd card can be read by removing the sd card, or by downloading via a serial link.  
+
+= Hardware = 
+
+The loguino logs to an SD card connected to the board using the SPI interface, and the SD library.
+
+= File Naming =
+
+Each time the logger starts a new log file is created.  Log files are named sequentially, once the card is full, or there are no more unique filenames, the logger stops logging to the file.
