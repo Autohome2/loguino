@@ -1,0 +1,39 @@
+#summary Definition of the data format used in all output from loguino.
+
+= Data format =
+
+Data is written in Comma Separated Value (CSV) format to disk, and where applicable to serial and other IO streams.  The following fields are defined:
+
+ # timestamp - the time in milliseconds since poweron.
+ # namespace - the name of the metric
+ # value - the actual value of the metric
+ # units - the unit of the value.
+
+= Timestamp field =
+
+The arduino boards do not have a real time clock (RTC) and whilst it i possible to obtain accurate time values from the GPS unit, it is not guaranteed to be available.  Instead the timestamp field is generated via a call to the millis() function which returns the time in milliseconds since poweron.  This gives a sequential time based field which is ultimately all that is required to order the results appropriately.
+
+Date and time will be logged, however via a metric, this enables the logger to function without depending on a GPS fix.  If required, it would be possible to derive the actual time from a single GPS time entry and add or subtract the timestamp from that value to get the real time for each entry.
+
+_Does millis ovefflow, if so after how long? How do we deal with that._
+
+= Namespace field =
+
+The namespace field is used to differentiate one metric from another.  It is a string value, with a . (period) used to denote a level in the hierarchy.   For example:
+
+`MegaSquirt.tpsADC`
+
+Indicates that the metric is the tpsADC valule from the MegSquirt subsystem.  Multiple hiearcnis are supported, for example:
+
+`Odbc2.engine.rpm`
+
+Indicates the metric rpm was gathered from the engine subsystem of the odbc2 system.
+
+= Value field =
+
+The actual value from the metric.
+
+= Units field =
+
+The unit field is a free form name for the unit of the field,  such as degrees, percent, volts etc.
+
