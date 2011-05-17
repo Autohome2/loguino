@@ -1,0 +1,19 @@
+#summary Describes the functionality provided by querying the megasquirt ECU.
+
+The MegaSquirt interface captures data from the MegaSquirt engine control unit.  The contents of the registers are downloaded from the MegaSquirt controller and logged.
+
+= Hardware Interface =
+
+The serial interface on the Arduino mega is a TTL (link) device, this operates at or below 5v, whereas the MegaSquirt uses rs232, that uses 12volts.  In order to avoid damage to the Arduino,  voltage conversion is required, the max2323 chip accomplishes this on a single chip and is used in this instance.
+
+<wiki:comment>
+Add wiring Diagram
+</wiki:comment>
+ 
+= Serial Interface =
+
+The poller queries the megasquirt by sending a the command 'R' to the megasquirt, this then returns the 39bytes of engine data.  If the megasquirt does not respond, then then the poller disables itself for a period of time.
+
+= Metrics Provided =
+
+TBD
