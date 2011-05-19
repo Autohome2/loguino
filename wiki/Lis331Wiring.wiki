@@ -1,0 +1,23 @@
+#summary How to connect up the LIS331 to the arduino to use I2C for communication.
+
+= Introduction =
+
+This page describes the various ways to connect up the [http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/DATASHEET/CD00250937.pdf LIS331] to the Arduino.  There are multiple ways to connect up the sensor, using either SPI, or I2C. The sensor has either one of two addresses based upon SA0 pin.
+
+= SA0 and Addressing =
+
+If the SA0 pin is held high (3.3v) the address of the LIS331 is set to 0b00011001. (0x19, 25)  If the pin is held low (grounded) then the address of the LIS331 is set to 0b00011000. (0x18, 24)  
+
+The manual states: "The Slave ADdress (SAD) associated to the LIS331HH is 001100xb. SDO/SA0 pad can be used to modify less significant bit of the device address. If SA0 pad is connected to voltage supply, LSb is ‘1’ (address 0011001b) else if SA0 pad is connected to ground, LSb value is ‘0’ (address 0011000b). This solution permits to connect and address two different accelerometers to the same I2C lines."
+
+= Sparkfun Breakout = 
+
+The [http://www.sparkfun.com/products/10345 SparkFun Breakout] is configured as follows:
+
+ * GND-> Ground
+ * INT1-> Ground
+ * INT2-> Ground
+ * SDA->SDA Pin (Pin 20 on the MEGA)
+ * SCL->SCL Pin (Pin 21 on the MEGA)
+ * SA0->3.3v or Ground depending on the address required.
+ * CS->3.3v
