@@ -23,18 +23,7 @@
 
 #include <LIS331.h>
 
-
 	LIS331 lis;
-void setup(){
-	Serial.begin(9600);
-
-//	lis.i2caddress=25;
-}
-
-
-
-
-
 void displayStatus(){
 	byte state;
 	state=lis.getPowerStatus();
@@ -183,6 +172,11 @@ void displayStatus(){
 	Serial.println(val, DEC);
 }
 void loop(){
+}
+
+
+void setup(){
+	Serial.begin(9600);
 	Serial.println("===================Initial Status==================");
 	displayStatus();
 	Serial.println("===================Power Off==================");
@@ -214,6 +208,26 @@ void loop(){
 	displayStatus();
 	Serial.println("===================Power NORM==================");
 	lis.setPowerStatus(LR_POWER_NORM);
+	displayStatus();
+
+	Serial.println("===================X Axis Disable==============");
+	lis.setXEnable(false);
+	displayStatus();
+	Serial.println("===================Y Axis Disable==============");
+	lis.setYEnable(false);
+	displayStatus();
+	Serial.println("===================Z Axis Disable==============");
+	lis.setZEnable(false);
+	displayStatus();
+
+	Serial.println("===================X Axis Enable==============");
+	lis.setXEnable(true);
+	displayStatus();
+	Serial.println("===================Y Axis Enable==============");
+	lis.setYEnable(true);
+	displayStatus();
+	Serial.println("===================Z Axis Enable==============");
+	lis.setZEnable(true);
 	displayStatus();
 
 	

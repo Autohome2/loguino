@@ -219,7 +219,7 @@ bool LIS331::setZEnable(bool state){
 	if (readReg(LR_CTRL_REG1, &setting)){
 		setting &= ~(1<<2);
 		if (state){
-			state != 1<<2;
+			setting |= 1<<2;
 		}
 		return writeReg(LR_CTRL_REG1,setting);
 	}
@@ -233,7 +233,7 @@ bool LIS331::setYEnable(bool state){
 	if (readReg(LR_CTRL_REG1, &setting)){
 		setting &= ~(1<<1);
 		if (state){
-			state != 1<<1;
+			setting |= 1<<1;
 		}
 		return writeReg(LR_CTRL_REG1,setting);
 	}
@@ -247,7 +247,7 @@ bool LIS331::setXEnable(bool state){
 	if (readReg(LR_CTRL_REG1, &setting)){
 		setting &= ~(1<<0);
 		if (state){
-			state != 1<<0;
+			setting |= 1<<0;
 		}
 		return writeReg(LR_CTRL_REG1,setting);
 	}
