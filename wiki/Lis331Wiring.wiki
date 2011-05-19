@@ -21,3 +21,4 @@ The [http://www.sparkfun.com/products/10345 SparkFun Breakout] is configured as 
  * SCL->SCL Pin (Pin 21 on the MEGA)
  * SA0->3.3v or Ground depending on the address required.
  * CS->3.3v
+ * VCC->3.3v
