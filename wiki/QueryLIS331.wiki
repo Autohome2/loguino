@@ -1,5 +1,5 @@
 #summary The LIS331 accelerometer is used to provide acceleration information.
-= overview =
+= Overview =
 
 The [http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/DATASHEET/CD00250937.pdf LIS331] is an accurate accelerometer that utilizes the I2C bus for communication.  This was chosen as there are numerous breakouts readily and cheaply available, the I2C bus allows many devices to be connected using only two pins on the arduino, and partly due to my asumption that other accelerometers would lose accuracy when connected via analog inputs.
 
@@ -19,7 +19,7 @@ The poller is used to query the acceleromter, and create the messages that are l
 
 Each time the poller is called, it queries the accelerometer for available data, if data is available, it is logged.
 
-= available metrics =
+= Available Metrics =
 
  * accelerometer.lis331.x: the g-force along the x axis.
  * accelerometer.lis331.y: the g-force along the y axis.
