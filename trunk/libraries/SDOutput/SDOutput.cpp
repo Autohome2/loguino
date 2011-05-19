@@ -27,8 +27,7 @@
 #include <SD.h>
 
 
-#define SSPIN 10
-#define CHIPSELECTPIN 4
+#define SSPIN 53
 
 
 
@@ -53,8 +52,7 @@ bool SDOutput::begin()
 
 
     pinMode(SSPIN, OUTPUT);
-    pinMode(CHIPSELECTPIN, OUTPUT);
-    if (!SD.begin(CHIPSELECTPIN)){
+    if (!SD.begin(SSPIN)){
         // No SD Card, reader, or other fault, bail out.
         return false;
     }
