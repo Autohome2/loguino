@@ -14,7 +14,7 @@ The device contains 2 indipendent interrupt engines able to recognize dedicated 
 
 = Wiring =
 
-The scceleromter is connected using the I2C interface, it is also possible to query it using the SPI interface, however loguino uses the SPI interface to communicate with the SD card, and the I2C bus seemed cleaner in general. The [Lis331Wiring LIS331 Wiring] page details how the accelomter is wired up to loguino.
+The scceleromter is connected using the I2C interface, it is also possible to query it using the SPI interface, however loguino uses the SPI interface to communicate with the SD card, and the I2C bus seemed cleaner in general. The [Lis331Wiring LIS331 Wiring] page details how the accelerometer is wired up to the Arduino.
 
 = Synopsis = 
 
@@ -30,6 +30,4 @@ if (state==LR_POWER_OFF){
 }
 
 }}}
-
-
 
