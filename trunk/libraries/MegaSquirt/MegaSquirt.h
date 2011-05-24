@@ -29,9 +29,11 @@
 class MegaSquirtData
 {
 	bool get_bit(byte b, int p);
-	byte reg[156];
+	byte reg[112];
 
 	public:
+		bool loadData(byte newReg[112]);
+
 		uint16_t seconds();
 		uint16_t pulseWidth1();
 		uint16_t pulseWidth2();

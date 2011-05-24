@@ -26,6 +26,14 @@
 #include "MegaSquirt.h"
 #define LAMBDA 14.1
 
+//! Loads a new set of registers.
+bool MegaSquirtData::loadData(byte newReg[112]){
+	uint8_t i=0;
+	for (i=0;i<=112;i++){
+		reg[i]=newReg[i];
+	}
+	return true;
+}
 
 //! The number of seconds since the controller was initialized.
 uint16_t MegaSquirtData::MegaSquirtData::seconds(){
