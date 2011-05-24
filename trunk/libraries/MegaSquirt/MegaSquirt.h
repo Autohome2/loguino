@@ -24,167 +24,111 @@
 #ifndef MegaSquirt_h
 #define MegaSquirt_h
 
-#define PORTB_INPUT_MAP 128
-#define PORTB_INPUT_MAT 64 
-#define PORTB_INPUT_CLT 32 
-#define PORTB_INPUT_TPS 16 
-#define PORTB_INPUT_BAT 8  
-#define PORTB_INPUT_EGO 4  
-#define PORTB_INPUT_X7  2  
-#define PORTB_INPUT_X6  1  
-
-#define PORTC_OUTPUT_COILA 128
-#define PORTC_OUTPUT_COILB 64 
-#define PORTC_OUTPUT_FAN 32 
-#define PORTC_OUTPUT_SHIFT 16 
-#define PORTC_OUTPUT_LIGHT 8   
-
-#define PORTD_OUTPUT_COILD 128
-#define PORTD_OUTPUT_NOS 64 
-#define PORTD_OUTPUT_NO_KNOCK 32 
-#define PORTD_OUTPUT_LAUNCH 16 
-#define PORTD_OUTPUT_INJ1 8   
-#define PORTD_OUTPUT_INJ2 4   
-
-
 #include "WProgram.h"
 
 class MegaSquirtData
 {
 	bool get_bit(byte b, int p);
+	byte reg[156];
 
 	public:
-		// clock counter that continuously counts from 0 to 255
-		 byte clock;
-		
-		// inj1 squirt
-		bool inj1squirt;
-		// inj2 squirt
-		bool inj2squirt;
-		// scheduled to squirt
-		bool schedtosquirt1;
-		// squirting
-		bool squirting1;
-		// injector 2 (sched2)
-		bool schedtosquirt2;
-		// squirting injector 2
-		bool squirting2;
-		// boost control Off
-		bool boostctrl;
-		
-		// Engine current status running
-		bool running;
-		// Engine current status cranking
-		bool cranking;
-		// After Start Enrichment Active
-		bool ase;
-		// Warmup Enrichment Active
-		bool warmup;
-		// TPS based acceleratrion enrichment active
-		bool tpsaccel;
-		// Deceleration mode active
-		bool decel;
-		// MAP based acceleration enrichment active
-		bool mapaccel;
-		// Idle control active
-		bool idle;
-		
-		// MAP value used for baro correction
-		 byte baroADC;
-		
-		// Current MAP value
-		 byte	mapADC;
-		
-		// Manifold air temperature
-		 byte	matADC;
-		
-		// Coolant temperature
-			 byte	cltADC;
+		uint16_t seconds();
+		uint16_t pulseWidth1();
+		uint16_t pulseWidth2();
+	    uint16_t rpm();
+		int16_t advance();
+
+		uint8_t squirt();
+		bool firing1();
+		bool firing2();
+		bool sched1();
+		bool inj1(); 
+		bool sched2();
+		bool inj2();
+			     
+		uint8_t engine();
+		bool ready();
+		bool crank();
+		bool startw();
+		bool warmup(); 
+		bool tpsaen();
+		bool tpsden(); 
+		bool mapaen();
+	  
+		uint8_t afrtgt1();
+		uint8_t afrtgt2();
+		uint8_t wbo2_en1();
+		uint8_t wbo2_en2();
 	
-		// Throttle position
-		 byte	tpsADC;
-		
-		// Battery voltage
-		 byte	batADC;
-		
-		// Exhaust gas oxygen sensor
-		 byte	egoADC;
-		
-		// Exhaust gas correction
-		 byte	egoCorrection;
-		
-		// Gair
-		 byte	airCorrection;
-		
-		// Warmup enrichment
-		 byte	warmupEnrich;
-		
-		// rpm divided by 100
-		 byte	rpm100;
-		
-		// Pulse width, divide by 10 to get ms
-		 byte	pulsewidth1;
-		
-		// 
-		 byte	accelEnrich;
-		
-		// Barometer Lookup Correction
-		 byte	baroCorrection;
-		
-		// Total Gamma Enrichments
-		 byte	gammaEnrich;
-		
-		// Current VE value in use (table 1) 
-		 byte	veCurr1;
-		
-		// Pulse width, divide by 10 to get ms
-		 byte	pulsewidth2;
-		
-		// 
-		 byte	veCurr2;
-		
-		// 
-		 byte	idleDC;
-		
-		// The interval Time - i.e. time between decoder triggers. It is used for the "hi-res" rpm calculation.  ( ctimeCommH in msns-extra.h file) This is the middle (H) byte of a 3 byte value X:H:L
-		
-		 byte	iTimeM;
-		// The interval Time - i.e. time between decoder triggers. It is used for the "hi-res" rpm calculation.	( ctimeCommH in msns-extra.h file) This is the lower byte (L) of a 3 byte value X:H:L
-		
-		 byte	iTimeL;
+		int16_t barometer();
+		int16_t map();     
+		int16_t mat();    
+		int16_t coolant();
+		int16_t tps();   
+		int16_t batteryVoltage();
+		int16_t afr1();          
+		int16_t afr2();         
+		int16_t lambda1();
+		int16_t lambda2();
+
+		int16_t knock();       
+		int16_t egoCorrection1(); 
+		int16_t egoCorrection();
+		int16_t egoCorrection2();
+		int16_t airCorrection();
+		int16_t warmupEnrich();
 	
-		// raw ignition advance value. Multiply by actual = raw*0.352-10
-		 byte	advance;
+		int16_t fuelComposition();
 		
-		// Raw ADC target that MS is trying to reach from the target table or switch  point 255 = 5V
-		 byte	afrTarget;
+		int16_t accelEnrich();
+		int16_t tpsfuelcut();
+		int16_t baroCorrection();
+		int16_t gammaEnrich();
+		int16_t veCurr1();
+		int16_t veCurr2();
+		int16_t veCurr();
+		int16_t iacstep();
+		int16_t idleDC();
+		int16_t coldAdvDeg();
+		int16_t tpsDOT();
+		int16_t mapDOT();
+		int16_t dwell();
+		int16_t maf();
+		int16_t calcMAP();
+		int16_t fuelCorrection();
 		
-		// Raw ADC from X7 (second O2 or fuel pressure or VSS sensor)
-		 byte	fuelADC;
-		
-		// Raw ADC from X6 If Exhaust gas temp. then temp in
-		// ºF = egtADC*7.15625
-		// ºC = egtADC*3.90625 if VSS Volts = egtADC*0.019
-		 byte	egtADC;
+		uint16_t portStatus();
+		bool port0();
+		bool port1();
+		bool port2();
+		bool port3();
+		bool port4();
+		bool port5();
+		bool port6();
 	
-		// Spark Angle added or removed for IAT CLT temp.
-		// Angle = raw value*0.352 (Angle < 45 Angle : -90 + Angle)
-		 byte	CltIatAngle;
 		
-		//  Spark Angle removed due to Knock System
-		 byte	KnockAngle;
-		
-		// Same as egocorrection, but this is for second O2 sensor
-		 byte	egoCorrection2;
-		
-		// TPS/MAP last value for MT Accel Wizard, so we have last and current  values to give a gauge of dot (delta)
-		 byte TPSLast;
-		
-		// The interval Time - i.e. time between decoder triggers. It is used for the "hi-res" rpm calculation.  This is the highest byte (X) of a 3 byte value X:H:L
-		 byte iTimeH;
-	
-		bool populate(byte table[39]);
-	};
+		uint8_t knockRetard();;
+		int16_t xTauFuelCorr1();
+		int16_t egoV1();
+		int16_t egoV2();
+		int16_t amcUpdates();
+		int16_t kpaix();
+		int16_t xTauFuelCorr2();
+		int16_t spare1();
+		int16_t spare2();
+		int16_t trig_fix();
+		int16_t spare4();
+		int16_t spare5();
+		int16_t spare6();
+		int16_t spare7();
+		int16_t spare8();
+		int16_t spare9();
+		int16_t spare10();
+		uint16_t tachCount();
+		uint8_t ospare();
+		uint8_t cksum();
+		uint32_t deltaT();
+};
 		
 
 #endif
