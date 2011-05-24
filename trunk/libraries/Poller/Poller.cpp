@@ -25,6 +25,7 @@
 #include "message.h"
 #include "Poller.h"
 #include "MSPoller.h"
+#include "LIS331Poller.h"
 
 
 
@@ -32,12 +33,14 @@
 bool Poller::begin(){
 	ms.begin();
 	dummy.begin();
+	lisp.begin();
 
 }
 
 bool Poller::poll(bool (*ptrCallback)(Message)  ){
 	ms.poll(ptrCallback);
 	dummy.poll(ptrCallback);
+	lisp.poll(ptrCallback);
 	return true;
 }
 

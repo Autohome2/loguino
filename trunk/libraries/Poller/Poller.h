@@ -29,11 +29,13 @@
 #include "MSPoller.h"
 #include "DummyPoller.h"
 
+#include "LIS331Poller.h"
 
 class Poller
 {
 	MSPoller ms;
 	DummyPoller dummy;
+	LIS331Poller lisp;
     public:
         Poller();
         bool begin();
