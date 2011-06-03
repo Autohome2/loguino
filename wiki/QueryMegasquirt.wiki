@@ -10,9 +10,9 @@ The serial interface on the Arduino mega is a TTL (link) device, this operates a
 Add wiring Diagram
 </wiki:comment>
  
-= Serial Interface =
+= MegaSquirt Driver =
 
-The poller queries the megasquirt by sending a the command 'R' to the megasquirt, this then returns the 39bytes of engine data.  If the megasquirt does not respond, then then the poller disables itself for a period of time.
+In order to communicate with the MegaSquirt, a [MegaSquirtDriver low level driver] has been created to provide an API on top of the raw serial commands.  This in itself does not provide any logging, or logging functions, but enables the logger to query the MegaSquirt without knowing anything about the underlying communication with the device.
 
 = Metrics Provided =
 
