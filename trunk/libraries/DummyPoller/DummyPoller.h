@@ -26,15 +26,15 @@
 
 
 #include "WProgram.h"
-
+#include "Message.h"
+#include "Logger.h"
 
 class DummyPoller
 {
-	int called;
+	static int called;
     public:
-        DummyPoller();
-        bool begin();
-		bool poll(bool (*ptrCallback)(Message)  );
+        static bool begin();
+		static bool poll();
 };
 
 #endif

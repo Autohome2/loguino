@@ -25,15 +25,21 @@
 #ifndef Logger_h
 #define Logger_h
 
+
 #include "WProgram.h"
+#include "Message.h"
+#include "SerialOutput.h"
+#include "SDOutput.h"
+
+#define LOGGER_FLUSH_MAX 100
 
 class Logger
 {
+	static byte flushCount;
 	public:
 		static void begin();
 		static void log(Message msg);
 };
-
 
 
 

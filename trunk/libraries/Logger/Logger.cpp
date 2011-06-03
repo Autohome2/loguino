@@ -25,11 +25,28 @@
 #include "WProgram.h"
 #include "Logger.h"
 
+
+byte Logger::flushCount;
+
 void Logger::begin()
 {
+	flushCount=0;
+
+	SerialOutput::begin();
+	SDOutput::begin();
 }
 
 void Logger::log(Message msg)
 {
+	if (flushCount++ > LOGGER_FLUSH_MAX){
+		SerialOutput::flush();
+		SDOutput::flush();
+		flushCount=0;
+	}
+
+
+	SerialOutput::log(msg);
+	SDOutput::log(msg);
+
 }
 

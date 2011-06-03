@@ -28,6 +28,7 @@
 #include "WProgram.h"
 #include "MSPoller.h"
 #include "LIS331Poller.h"
+#include "DummyPoller.h"
 
 class Poller
 {

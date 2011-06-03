@@ -22,28 +22,27 @@
 */
 
 #include "WProgram.h"
-#include "message.h"
 #include "DummyPoller.h"
 
 
+int DummyPoller::called;
+
 bool DummyPoller::begin(){
-	}
+	called=0;
+}
 
 
-bool DummyPoller::poll(bool (*ptrCallback)(Message)  ){
+bool DummyPoller::poll()
+{
 	Message m;
+
 	m.units="Times";
 	m.nameSpace="Dummy.TimesCalled";
 	m.value=called++;
-	ptrCallback(m);
+	Logger::log(m);
 
 	m.units="Milliseconds";
 	m.nameSpace="Dummy.Uptime";
 	m.value=millis();
-	ptrCallback(m);
-}
-
-DummyPoller::DummyPoller()
-{
-	called=0;
+	Logger::log(m);
 }

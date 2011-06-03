@@ -25,15 +25,16 @@
 #include "WProgram.h"
 #include "Poller.h"
 
-
 void Poller::begin(){
 	MSPoller::begin();
 	LIS331Poller::begin();
+	DummyPoller::begin();
 }
 
 void Poller::poll()
 {
 	MSPoller::poll();
 	LIS331Poller::poll();
+	DummyPoller::poll();
 }
 

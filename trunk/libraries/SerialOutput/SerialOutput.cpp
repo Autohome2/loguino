@@ -28,11 +28,14 @@
 
 
 
+bool SerialOutput::active;
+
 bool SerialOutput::flush(){
     if (active){
         SO_SERIAL_PORT.flush();
+		return true;
     }
-    return active;
+	return false;
 }
 
 
@@ -40,15 +43,16 @@ bool SerialOutput::begin()
 {
     SO_SERIAL_PORT.begin(SO_SERIAL_PORT_SPEED);
     active=true;
-    return active;
+    return true;
 }
 
 
-bool SerialOutput::logMessage(Message msg){
+bool SerialOutput::log(Message msg){
     if (!active){
         return false;
     }
     SO_SERIAL_PORT.println(msg.toCSV());
+	return true;
 }
 
 

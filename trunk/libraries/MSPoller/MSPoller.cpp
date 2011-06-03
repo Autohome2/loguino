@@ -22,9 +22,11 @@
 */
 
 #include "WProgram.h"
-#include "Message.h"
-#include "MegaSquirt.h"
 #include "MSPoller.h"
+
+bool MSPoller::active;
+byte MSPoller::timeouts;
+
 
 bool MSPoller::begin(){
 	MegaSquirt::begin();
@@ -37,7 +39,7 @@ bool MSPoller::poll( ){
 	if (!active)
 	{
 		// If timeouts > max time out time, then become active, and reset timeouts.
-		if (++timeouts=>MSP_WAIT_TIME){
+		if (timeouts++ > MSP_WAIT_TIME){
 			active=true;
 			timeouts=0;
 		}
@@ -65,4 +67,7 @@ bool MSPoller::poll( ){
 	m.nameSpace="MegaSquirt.Cranking";
 	m.value=d.crank() ? "True" : "False";
 	Logger::log(m);
+	
+	return true;
+}
 

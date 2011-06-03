@@ -34,10 +34,10 @@
 
 class SerialOutput
 {
-    static bool active;
+	static bool active;
     public:
         static bool begin();
-        static bool logMessage(Message msg);
+        static bool log(Message msg);
         static bool flush();
 };
 

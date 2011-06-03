@@ -167,22 +167,44 @@ for line in open (TARGET+'.pde'):
     result = ptnLib.findall(line)
     if result:
         libCandidates += result
-for line in open ("libraries/Output/Output.cpp"):
+
+for line in open ('libraries/Poller/Poller.h'):
     result = ptnLib.findall(line)
     if result:
         libCandidates += result
-for line in open ("libraries/Poller/Poller.cpp"):
+
+for line in open ('libraries/Logger/Logger.h'):
     result = ptnLib.findall(line)
     if result:
         libCandidates += result
-for line in open ("libraries/MSPoller/MSPoller.cpp"):
+
+for line in open ('libraries/MSPoller/MSPoller.h'):
     result = ptnLib.findall(line)
     if result:
         libCandidates += result
-for line in open ("libraries/DummyPoller/DummyPoller.cpp"):
+
+for line in open ('libraries/LIS331Poller/LIS331Poller.h'):
     result = ptnLib.findall(line)
     if result:
         libCandidates += result
+
+for line in open ('libraries/LIS331/LIS331.h'):
+    result = ptnLib.findall(line)
+    if result:
+        libCandidates += result
+for line in open ('libraries/MSPoller/MSPoller.h'):
+    result = ptnLib.findall(line)
+    if result:
+        libCandidates += result
+for line in open ('libraries/SDOutput/SDOutput.h'):
+    result = ptnLib.findall(line)
+    if result:
+        libCandidates += result
+
+
+
+
+
 
 
 # Hack. In version 20 of the Arduino IDE, the Ethernet library depends

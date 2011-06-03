@@ -23,29 +23,25 @@
 
 #include "WProgram.h"
 #include <SDOutput.h>
-#include <message.h>
-#include <SD.h>
 
 
-#define SSPIN 53
+bool SDOutput::active;
+File SDOutput::_File;
 
-
-
-
-SDOutput::SDOutput(){
-    active=false;
-}
 
 bool SDOutput::flush(){
     if (active){
         _File.flush();
+		return true;
     }
-    return active;
+	return false;
 }
 
 bool SDOutput::begin()
 {
   
+	active=false;
+
     char* fname;
     // Counter for filename
     byte i=0;
@@ -84,11 +80,12 @@ bool SDOutput::begin()
 }
 
 
-bool SDOutput::logMessage(Message msg){
+bool SDOutput::log(Message msg){
     if (!active){
         return false;
     }
     _File.println(msg.toCSV());
+	return true;
 }
 
 

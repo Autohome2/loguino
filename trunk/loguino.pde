@@ -20,28 +20,15 @@
  * $Date$:  
 
 */
-#include <SD.h>
 
-#include "message.h"
-#include <Output.h>
-#include <SDOutput.h>
 #include "Poller.h"
 
-bool logMessage(Message msg);
-
-Output Out;
-Poller Poll;
-
 void setup(){
-  Out.begin();
-  Poll.begin();
+	Poller::begin();
 }
 
 void loop(){
-	Poll.poll(&logMessage);
+	Poller::poll();
 }
 
-bool logMessage(Message msg){
-	Out.logMessage(msg);
-}
 

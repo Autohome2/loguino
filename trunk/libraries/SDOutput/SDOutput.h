@@ -24,22 +24,22 @@
 #ifndef SDOutput_h
 #define SDOutput_h
 
+#define SSPIN 53
+
 
 #include "WProgram.h"
-#include <message.h>
-
-#include <SD.h>
-
+#include "SD.h"
+#include "Message.h"
+#include "Logger.h"
 
 class SDOutput
 {
-    bool active;
-    File _File;
+    static bool active;
+    static File _File;
     public:
-        SDOutput();
-        bool begin();
-        bool logMessage(Message msg);
-        bool flush();
+        static bool begin();
+        static bool log(Message msg);
+        static bool flush();
 };
 
 
