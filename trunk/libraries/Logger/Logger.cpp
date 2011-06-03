@@ -24,8 +24,6 @@
 
 #include "WProgram.h"
 #include "Logger.h"
-#include "MSPoller.h"
-#include "LIS331Poller.h"
 
 void Logger::begin()
 {
@@ -33,17 +31,5 @@ void Logger::begin()
 
 void Logger::log(Message msg)
 {
-}
-
-
-void Poller::begin(){
-	MSPoller::begin();
-	LIS331Poller::begin();
-}
-
-void Poller::poll()
-{
-	MSPoller::poll();
-	LIS331Poller::poll();
 }
 

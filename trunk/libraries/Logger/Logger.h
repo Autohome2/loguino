@@ -26,15 +26,6 @@
 #define Logger_h
 
 #include "WProgram.h"
-#include "MSPoller.h"
-#include "LIS331Poller.h"
-
-class Poller
-{
-	public:
-		static void begin();
-		static void poll();
-};
 
 class Logger
 {
