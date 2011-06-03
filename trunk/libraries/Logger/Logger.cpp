@@ -33,7 +33,7 @@ void Logger::begin()
 	flushCount=0;
 
 	SerialOutput::begin();
-	SDOutput::begin();
+	// SDOutput::begin();
 }
 
 void Logger::log(Message msg)

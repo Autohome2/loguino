@@ -24,6 +24,7 @@
 #include "Poller.h"
 
 void setup(){
+	Logger::begin();
 	Poller::begin();
 }
 

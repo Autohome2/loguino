@@ -41,7 +41,9 @@ bool SerialOutput::flush(){
 
 bool SerialOutput::begin()
 {
+	
     SO_SERIAL_PORT.begin(SO_SERIAL_PORT_SPEED);
+	SO_SERIAL_PORT.println("Activating");
     active=true;
     return true;
 }
