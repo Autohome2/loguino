@@ -22,22 +22,30 @@
 */
 
 
-#ifndef Message_h
-#define Message_h
+#ifndef Logger_h
+#define Logger_h
 
 #include "WProgram.h"
+#include "MSPoller.h"
+#include "LIS331Poller.h"
 
-
-class Message
+class Poller
 {
-    public:
-		unsigned long time;
-		String nameSpace;
-		String units;
-		String value;
-        Message();
-        String toCSV();
+	public:
+		static void begin();
+		static void poll();
 };
+
+class Logger
+{
+	public:
+		static void begin();
+		static void log(Message msg);
+};
+
+
+
+
 
 #endif
 

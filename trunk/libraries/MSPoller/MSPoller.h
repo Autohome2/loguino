@@ -24,19 +24,19 @@
 #ifndef MSPoller_h
 #define MSPoller_h
 
-
 #include "WProgram.h"
+#include "Message.h"
+#include "MegaSquirt.h"
 
+#define MSP_WAIT_TIME 10
 
 class MSPoller
 {
-	int wait;
-	bool active;
-	bool available();
+	static bool active;
+	static byte timeouts;
     public:
-        MSPoller();
-        bool begin();
-		bool poll(bool (*ptrCallback)(Message)  );
+        static bool begin();
+		static bool poll();
 };
 
 #endif

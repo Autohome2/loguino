@@ -27,20 +27,18 @@
 #define SerialOutput_h
 
 #include "WProgram.h"
+#include "Logger.h"
 
-#include <message.h>
-
-
-
+#define SO_SERIAL_PORT Serial
+#define SO_SERIAL_PORT_SPEED 9600
 
 class SerialOutput
 {
-    bool active;
+    static bool active;
     public:
-        SerialOutput();
-        bool begin();
-        bool logMessage(Message msg);
-        bool flush();
+        static bool begin();
+        static bool logMessage(Message msg);
+        static bool flush();
 };
 
 #endif

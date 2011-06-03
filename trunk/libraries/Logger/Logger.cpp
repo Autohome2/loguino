@@ -21,29 +21,29 @@
 
 */
 
-#ifndef Output_h
-#define Output_h
-
 
 #include "WProgram.h"
-#include "message.h"
-#include <SDOutput.h>
-#include <SerialOutput.h>
+#include "Logger.h"
+#include "MSPoller.h"
+#include "LIS331Poller.h"
 
-
-class Output
+void Logger::begin()
 {
-	SDOutput sd;
-	SerialOutput ser;
-    public:
-        Output();
-        bool begin();
-        bool logMessage(Message msg);
-        bool flush();
-};
+}
+
+void Logger::log(Message msg)
+{
+}
 
 
+void Poller::begin(){
+	MSPoller::begin();
+	LIS331Poller::begin();
+}
 
-#endif
-
+void Poller::poll()
+{
+	MSPoller::poll();
+	LIS331Poller::poll();
+}
 

@@ -23,19 +23,14 @@
 
 
 #include "WProgram.h"
+#include "Logger.h"
 #include <SerialOutput.h>
-#include <message.h>
-
-#define SERIALLIB Serial
 
 
-SerialOutput::SerialOutput(){
-    active=false;
-}
 
 bool SerialOutput::flush(){
     if (active){
-        SERIALLIB.flush();
+        SO_SERIAL_PORT.flush();
     }
     return active;
 }
@@ -43,7 +38,7 @@ bool SerialOutput::flush(){
 
 bool SerialOutput::begin()
 {
-    SERIALLIB.begin(9600);
+    SO_SERIAL_PORT.begin(SO_SERIAL_PORT_SPEED);
     active=true;
     return active;
 }
@@ -53,7 +48,7 @@ bool SerialOutput::logMessage(Message msg){
     if (!active){
         return false;
     }
-    SERIALLIB.println(msg.toCSV());
+    SO_SERIAL_PORT.println(msg.toCSV());
 }
 
 
