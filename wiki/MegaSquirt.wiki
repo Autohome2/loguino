@@ -1,0 +1,5 @@
+#summary Overview of the Megasquirt
+
+A MegaSquirt is a complete standalone fuel injection controller with software and hardware, developed by Bruce Bowling and Al Grippo. The software for the platform is open for modification and provides for fuel, ignition and idle air control in most cases, keeping the cost low.  Whilst lacking in features compared to some controllers, for the cost it provides an excellent solution.
+
+ * [http://www.megasquirt.info/ Megasquirt Home Page]
