@@ -24,15 +24,27 @@
 #ifndef MegaSquirt_h
 #define MegaSquirt_h
 
+#define LAMBDA 14.1
+#define MS_PORT Serial1
+#define MS_TABLE_LENGTH 112
+#define MS_MAX_RETRY_COUNT 30
+#define MS_WAIT_TIME 2
+
+#define MS_COMM_SUCCESS 0
+#define MS_ERR_COMM_TIMEOUT 1
+#define MS_ERR_COMM_OVERFLOW 2
+
+
+
 #include "WProgram.h"
 
 class MegaSquirtData
 {
 	bool get_bit(byte b, int p);
-	byte reg[112];
+	byte reg[MS_TABLE_LENGTH];
 
 	public:
-		bool loadData(byte newReg[112]);
+		bool loadData(byte newReg[MS_TABLE_LENGTH]);
 
 		uint16_t seconds();
 		uint16_t pulseWidth1();
@@ -130,6 +142,17 @@ class MegaSquirtData
 		uint8_t ospare();
 		uint8_t cksum();
 		uint32_t deltaT();
+};
+
+class MegaSquirt
+{
+	public:
+		static byte begin();
+		static byte runCommand(byte cmd[], byte cmdLength, byte data[], byte dataLength);
+		static byte signature(String *sig);
+		static byte seconds(uint16_t *secs);
+		static byte revision(String *rev);
+		static byte getData(byte table[MS_TABLE_LENGTH]);
 };
 		
 

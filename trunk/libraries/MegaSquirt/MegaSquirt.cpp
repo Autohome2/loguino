@@ -26,6 +26,9 @@
 #include "MegaSquirt.h"
 #define LAMBDA 14.1
 
+
+
+
 //! Loads a new set of registers.
 bool MegaSquirtData::loadData(byte newReg[112]){
 	uint8_t i=0;
@@ -69,32 +72,32 @@ uint8_t MegaSquirtData::squirt(){
 
 //! Bank1 Ignition firing.
 bool MegaSquirtData::firing1(){
-	return get_bit(squirt(), 1);
+	return get_bit(squirt(), 0);
 }
 
 //! Bank2 Ignition firing.
 bool MegaSquirtData::firing2(){
-	return get_bit(squirt(), 2);
+	return get_bit(squirt(), 1);
 }
 
 //! Injector Circuit 1 scheduled to squirt.
 bool MegaSquirtData::sched1(){
-	return get_bit(squirt(), 3);
+	return get_bit(squirt(), 2);
 }
 
 //! Injector Circuit 1 Squirting.
 bool MegaSquirtData::inj1(){
-	return get_bit(squirt(), 4);
+	return get_bit(squirt(), 3);
 }
 
 //! Injector Circuit 2 scheduled to squirt.
 bool MegaSquirtData::sched2(){
-	return get_bit(squirt(), 5);
+	return get_bit(squirt(), 4);
 }
 
 //! Injector Circuit 2 Squirting.
 bool MegaSquirtData::inj2(){
-	return get_bit(squirt(), 6);
+	return get_bit(squirt(), 5);
 }
 
 
@@ -106,38 +109,38 @@ uint8_t MegaSquirtData::engine(){
 
 //! Engine ready to run.
 bool MegaSquirtData::ready(){
-	return get_bit(engine(),1);
+	return get_bit(engine(),0);
 }
 
 //! Engine Cranking.
 bool MegaSquirtData::crank(){
-	return get_bit(engine(),2);
+	return get_bit(engine(),1);
 }
 
 //! Engine in After Start Warmup Enrichment.
 bool MegaSquirtData::startw(){
-	return get_bit(engine(),3);
+	return get_bit(engine(),2);
 }
 
 //! Engine in Warmup Enrichment.
 bool MegaSquirtData::warmup(){
-	return get_bit(engine(), 4);
+	return get_bit(engine(), 3);
 }
 
 //! TPS Based Acceleration active.
 bool MegaSquirtData::tpsaen(){
-	return get_bit(engine(), 5);
+	return get_bit(engine(), 4);
 }
 
 //! TPS Based Deceleration active.
 bool MegaSquirtData::tpsden(){
-	return get_bit(engine(), 6);
+	return get_bit(engine(), 5);
 }
 
 
 //! MAP Based Acceleration enrichment active.
 bool MegaSquirtData::mapaen(){
-	return get_bit(engine(), 7);
+	return get_bit(engine(), 6);
 }
 
 
@@ -163,24 +166,24 @@ uint8_t MegaSquirtData::wbo2_en2(){
 
 
 
-//! Barometric pressure.
+//! Barometric pressure in kPa x 10.   
 int16_t MegaSquirtData::barometer(){
 	return ((reg[16] <<8)|reg[17]);
 }
 
-//! Manifold Air Pressure.
+//! Manifold Air Pressure in kPA x 10.
 int16_t MegaSquirtData::map(){
 	return ((reg[18] <<8)|reg[19]);
 }
 
-//! Manifold Air Temperature.
+//! Manifold Air Temperature in Fahrenheit x 10.
 int16_t MegaSquirtData::mat(){
 	return ((reg[20] <<8)|reg[21]);
 }
 
 //! Coolant Temperature.
 int16_t MegaSquirtData::coolant(){
-	return ((reg[22] <<8)|reg[23]);
+	return int16_t(((reg[22] <<8)|reg[23]));
 }
 
 //! Throttle Position.
@@ -335,7 +338,7 @@ uint16_t MegaSquirtData::MegaSquirtData::portStatus()
 }
 bool MegaSquirtData::port0()
 {
-	return get_bit(portStatus(),1);
+	return get_bit(portStatus(),0);
 }
 bool MegaSquirtData::port1()
 {
@@ -344,27 +347,27 @@ bool MegaSquirtData::port1()
 }
 bool MegaSquirtData::port2()
 {
-	return get_bit(portStatus(),3);
+	return get_bit(portStatus(),2);
 
 }
 bool MegaSquirtData::port3()
 {
-	return get_bit(portStatus(),4);
+	return get_bit(portStatus(),3);
 
 }
 bool MegaSquirtData::port4()
 {
-	return get_bit(portStatus(),5);
+	return get_bit(portStatus(),4);
 
 }
 bool MegaSquirtData::port5()
 {
-	return get_bit(portStatus(),6);
+	return get_bit(portStatus(),5);
 
 }
 bool MegaSquirtData::port6()
 {
-	return get_bit(portStatus(),7);
+	return get_bit(portStatus(),6);
 
 }
 
@@ -496,10 +499,220 @@ uint32_t MegaSquirtData::deltaT()
 
 bool MegaSquirtData::get_bit(byte b, int p)
 {
-    b<<=(p);
+    b<<=(7-p);
 	if (b>=127){
 		return true;
 	}
 	return false;	
 }
+
+
+
+
+byte MegaSquirt::begin(){
+	MS_PORT.begin(115200);
+}
+//! Sends the specified array of commands to the megasquirt and sets the 
+//! contents of data to the data returned by the controller.  If 
+//! the controller returns the exact amount of data specified, then
+//! returns MS_COMM_SUCCESS.  
+//! 
+//! However, if the amount of data returned by the controller is less than
+//! the amount expected, returns MS_ERR_COMM_TIMEOUT.  If the amount
+//! of data returned is more than the amount expected, returns 
+//! MS_ERR_COMM_OVERFLOW
+//! 
+//! Use this to send an arbitrary command to the MegaSquirt, and capture
+//! any bytes returned by the controller.
+//!
+//! @param cmd An array of bytes to send to the controller
+//! @param cmdLength The length of the cmd array.
+//! @param data An array of bytes that will be populated with the data returned from the MegaSquirt
+//! @param dataLength The number of bytes to be returned by the ECU.
+
+byte MegaSquirt::runCommand(byte cmd[], byte cmdLength,  byte data[], byte dataLength)
+{	
+	// Flush any leftover data from the last command.
+	MS_PORT.flush();
+	
+	// Send the specified command to the controller.
+	byte i;
+	for (i=0;i<cmdLength;i++){
+		MS_PORT.write(cmd[i]);
+	}
+
+	byte tries=0;
+	// Wait for output
+	delay(MS_WAIT_TIME);
+
+	// Keep waiting for output until sufficiant data is available
+	// or the number of retries maxes out.
+	while(tries<MS_MAX_RETRY_COUNT && MS_PORT.available()<dataLength)
+	{
+		delay(MS_WAIT_TIME);
+		++tries;
+	}
+
+	// If insufficiant data is received, raise a time out error.
+	if (MS_PORT.available()<dataLength)
+	{
+		return MS_ERR_COMM_TIMEOUT;
+	}
+	byte chars=0;
+
+	// Read the required amount of data from the device
+	while(chars<dataLength)
+	{
+		data[chars]=MS_PORT.read();
+		++chars;
+	}
+
+	// If there is still data pending to be read, raise OVERFLOW error.
+	if (MS_PORT.available()>0)
+	{
+		return MS_ERR_COMM_OVERFLOW;
+	}
+
+	// Otherwise return success.
+	return MS_COMM_SUCCESS;
+}
+
+
+//! Sets sig to the signature of the megasquirt controller.
+//! Use this to check the signature and version of the megasquirt.
+//! @param sig Pointer to a String that will be set to the signature. 
+byte MegaSquirt::signature(String *sig)
+{
+
+	// Signature (from Megasquirt main.c) is 32 bytes long.
+	byte data[32];
+	byte status;
+	byte cmd[1];
+	cmd[0]='S';
+	status=runCommand(cmd,1,data,32);
+	byte i=0;
+	for (i=0;i<32;i++){
+		*sig=*sig+(char)data[i];
+	}
+	return status;
+}
+
+
+//! Sets secs to the number of seconds the controller has been online.
+//! The megasquirt controller records its uptime in seconds, this is primarily used for testing
+//! communications with the controller.
+//! @param secs pointer to  uint16_t, that gets set to the number of seconds since power on.
+byte MegaSquirt::seconds(uint16_t *secs)
+{
+	byte status;
+	byte data[2];
+	byte cmd[1];
+	cmd[0]='c';
+	status=runCommand(cmd,1,data,2);
+	// combine the two bytes into one 16 bit value.
+	*secs=((uint16_t)data[0]<<8)|data[1];
+	return status;
+}
+
+
+//! Sets rev to the revision string returned by the megasquirt controller.
+//! The revision string contains the version of the megasquirt controller.
+//! @params rev Pointer to a string containing the revision of the controller.
+byte MegaSquirt::revision(String *rev)
+{
+	byte data[20];
+	byte status;
+	byte cmd[1];
+	cmd[0]='Q';
+	status=runCommand(cmd,1,data,20);
+	byte i=0;
+	for (i=0;i<20;i++){
+		*rev=*rev+String((char)data[i]);
+	}
+
+	return status;
+}
+
+
+//! Queries the megasquirt for a dump of all registers
+//! @param table An array of MS_TABLE_SIZE bytes which is populated with the register data
+/*
+
+	Offset	Size	Description
+	0		16		seconds
+	2		16		pulsewidth1
+	4		16		pulswidth 2
+	6		16		rpm
+	8		16		advance
+	10		8		engine
+	11		8		megasquirt
+	12		8		AFR Target 1
+	13		8		AFR Target 2
+	14		8		wb02 1
+	15		8		wb02 2
+	16		16		barometer
+	18		16		map
+	20		16		mat
+	22		16		coolant
+	24		16		tps
+	26		16		battery voltage
+	28		16		afr1
+	30		16		afr2
+	32		16		knock
+	34		16		egoCorrection1
+	36		16		EgoCorrection2
+	38		16		airCorrection
+	40		16		Warmup Enrichment
+	42		16		accelEnrich
+	44		16		tpsfuelcut
+	46		16		baroCorrection
+	48		16		gammaEnrich
+    50		16		veCurr1
+    52		16		veCurr2
+   54		16		iacstep 
+   56		16		idleDC   
+   56		16		coldAdvDeg
+   58		16		tpsDOT   
+   60		16		mapDOT    
+   62		16		dwell      
+   64		16		maf         
+   66		16		calcMAP      
+   68		16		fuelCorrection
+   70		8		portStatus
+   71		8		knockRetard      
+   72		16		xTauFuelCorr1   
+   74		16		egoV1          
+   76		16		egoV2         
+   78		16		amcUpdates   
+   80		16		kpaix       
+   82		16		xTauFuelCorr2
+   84		16		spare1      
+   86		16		spare2     
+   88		16		trig_fix  
+   90		16		spare4   
+   92		16		spare5  
+   94		16		spare6 
+   96		16		spare7
+   98		16		spare8
+   100		16		spare9
+   102		16		spare10
+   104		16		tachCount
+   106		8		ospare 
+   107		8		cksum 
+   108		32		deltaT
+*/
+byte MegaSquirt::getData(byte table[])
+{
+	byte status;
+	byte cmd[3];
+	cmd[0]='a';
+	cmd[1]=byte(0);
+	cmd[2]=byte(6);
+
+	status=runCommand(cmd,3, table,MS_TABLE_LENGTH);
+	return status;
+}
+
+
+
 
