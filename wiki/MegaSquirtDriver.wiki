@@ -49,13 +49,8 @@ registers.loadDAta(regTable);
 
 Serial.println(registers.lambda1()/10,DEC )
 
-
-
-
-
-
-
-
-
-
 }}}
+
+= Code = 
+
+The [http://code.google.com/p/loguino/source/browse/#svn%2Ftrunk%2Flibraries%2FMegaSquirt Library] and a [http://code.google.com/p/loguino/source/browse/#svn%2Ftrunk%2Flibraries%2FMegaSquirt Testcase] is located in SVN.
