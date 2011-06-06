@@ -20,7 +20,9 @@ Periodically, the flush() method is called by application.  When called, it is e
 
 Once the logger class has been created, it must be activated, this is done by modifying the logger class in arduino so that the appropriate method calls are made()
 
-Example:
+=Example==
+
+The following example writes all log messages to the Serial line.
 
 Header file for Serial Logger:
 
