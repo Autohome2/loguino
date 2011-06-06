@@ -1,0 +1,88 @@
+#summary Howto add a new logger to loguino
+
+=Logger Howto= 
+
+Loggers are responsible for capturing messages sent by pollers, and acting on the data, usually by logging the message to a device, but ultimately a logger could be used to do just about anything based upon the contents of a message received.
+
+When a poller sends a message through the logger subsystem, the log() method of each logger receives the message from the poller.
+
+=Implementing a logger=
+
+A logger consists of a logger class, this class has three mandatory methods, these are: begin(), log(), and flush().  All three of these methods must be static methods.
+
+At logger start up, the begin() method is called be the application,  the begin method is responsible for conditioning the environment so that messages may be logged.  Such actions could include: opening and configuring any required ports or opening a file for writing.
+
+Each time a message is broadcast, the log() method is called. The log method is responsible for taking the message and acting on it accordingly.  Normally this would be formatting the message appropriately and writing it to the storage device.
+
+Periodically, the flush() method is called by application.  When called, it is expected that any buffers are flushed by the class.
+
+=Activating a logger=
+
+Once the logger class has been created, it must be activated, this is done by modifying the logger class in arduino so that the appropriate method calls are made()
+
+Example:
+
+Header file for Serial Logger:
+
+{{{
+// SerialOutput.h
+
+#ifndef SerialOutput_h
+#define SerialOutput_h
+
+ #include "WProgram.h"
+ #include "Logger.h"
+
+ #define SO_SERIAL_PORT Serial
+ #define SO_SERIAL_PORT_SPEED 9600
+
+ class SerialOutput
+ {
+         static bool active;
+     public:
+         static bool begin();
+         static bool log(Message msg);
+         static bool flush();
+ };
+
+#endif
+}}}
+
+Cpp file for SerialLogger
+
+{{{
+// SerialOutput.cpp
+
+
+bool SerialOutput::active;
+
+bool SerialOutput::flush(){
+    if (active){
+        SO_SERIAL_PORT.flush();
+                return true;
+    }
+        return false;
+}
+
+
+bool SerialOutput::begin()
+{
+        
+    SO_SERIAL_PORT.begin(SO_SERIAL_PORT_SPEED);
+        SO_SERIAL_PORT.println("Activating");
+    active=true;
+    return true;
+}
+
+
+bool SerialOutput::log(Message msg){
+    if (!active){
+        return false;
+    }
+    SO_SERIAL_PORT.println(msg.toCSV());
+        return true;
+}
+
+
+
+}}}
