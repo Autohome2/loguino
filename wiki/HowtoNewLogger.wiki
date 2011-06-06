@@ -50,7 +50,7 @@ Header file for Serial Logger:
 #endif
 }}}
 
-Cpp file for SerialLogger
+Cpp file for Serial Logger
 
 {{{
 // SerialOutput.cpp
