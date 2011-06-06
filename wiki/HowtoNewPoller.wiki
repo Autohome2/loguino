@@ -25,3 +25,61 @@ For each log message created, the poller must call logger::log() to send the mes
 =Activating a poller=
 
 Once the poller class has been created, it must be activated, this is done by modifying the poller class in arduino so that the appropriate method calls are made()
+
+=Example=
+
+This example logs a couple of messages, the uptime of the arduino, and the number of times the poller has been called.
+
+Header file:
+
+{{{
+#ifndef DummyPoller_h
+#define DummyPoller_h
+
+
+#include "WProgram.h"
+#include "Message.h"
+#include "Logger.h"
+
+class DummyPoller
+{
+        static int called;
+    public:
+        static bool begin();
+                static bool poll();
+};
+
+#endif
+}}}
+
+
+And the corresponding source file:
+
+{{{
+// DummyPoller.cpp
+#include "WProgram.h"
+#include "DummyPoller.h"
+
+
+int DummyPoller::called;
+
+bool DummyPoller::begin(){
+        called=0;
+}
+
+
+bool DummyPoller::poll()
+{
+        Message m;
+
+        m.units="Times";
+        m.nameSpace="Dummy.TimesCalled";
+        m.value=called++;
+        Logger::log(m);
+
+        m.units="Milliseconds";
+        m.nameSpace="Dummy.Uptime";
+        m.value=millis();
+        Logger::log(m);
+}
+}}}
