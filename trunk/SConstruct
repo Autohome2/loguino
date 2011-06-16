@@ -202,6 +202,10 @@ for line in open ('libraries/SDOutput/SDOutput.h'):
         libCandidates += result
 
 
+for line in open ('libraries/GPSPoller/GPSPoller.h'):
+	result = ptnLib.findall(line)
+	if result:
+		libCandidates += result
 
 
 

@@ -29,6 +29,7 @@
 #include "MSPoller.h"
 #include "LIS331Poller.h"
 #include "DummyPoller.h"
+#include "GPSPoller.h"
 
 class Poller
 {

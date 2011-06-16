@@ -15,28 +15,35 @@
  * You should have received a copy of the GNU General Public License
  * along with Loguino.  If not, see <http://www.gnu.org/licenses/>.
  * 
- * $Rev$:   
- * $Author$: 
- * $Date$:  
+ * $Rev$   
+ * $Author$
+ * $Date$
 
 */
 
-
 #include "WProgram.h"
-#include "Poller.h"
+#include "message.h"
+#include "DummyPoller.h"
 
-void Poller::begin(){
-	MSPoller::begin();
-	LIS331Poller::begin();
-	DummyPoller::begin();
-	GPSPoller::begin();
+
+bool DummyPoller::begin(){
+	}
+
+
+bool DummyPoller::poll(bool (*ptrCallback)(Message)  ){
+	Message m;
+	m.units="Times";
+	m.nameSpace="Dummy.TimesCalled";
+	m.value=called++;
+	ptrCallback(m);
+
+	m.units="Milliseconds";
+	m.nameSpace="Dummy.Uptime";
+	m.value=millis();
+	ptrCallback(m);
 }
 
-void Poller::poll()
+DummyPoller::DummyPoller()
 {
-	MSPoller::poll();
-	LIS331Poller::poll();
-	DummyPoller::poll();
-	GPSPoller::poll();
+	called=0;
 }
-

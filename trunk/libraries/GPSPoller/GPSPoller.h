@@ -15,28 +15,32 @@
  * You should have received a copy of the GNU General Public License
  * along with Loguino.  If not, see <http://www.gnu.org/licenses/>.
  * 
- * $Rev$:   
- * $Author$: 
- * $Date$:  
+ * $Rev$
+ * $Author$
+ * $Date$  
 
 */
 
+#ifndef GPSPoller_h
+#define GPSPoller_h
+#define GPS_SERIAL_DEV Serial2
+#define GPS_SERIAL_WAIT 10
+#define GPS_SERIAL_DEV_SPEED 4800
+#define GPS_SERIAL_MAX_RETRIES 10
 
-#include "WProgram.h"
-#include "Poller.h"
 
-void Poller::begin(){
-	MSPoller::begin();
-	LIS331Poller::begin();
-	DummyPoller::begin();
-	GPSPoller::begin();
-}
 
-void Poller::poll()
+#include "Logger.h"
+#include "Message.h"
+#include "TinyGPS.h"
+
+class GPSPoller
 {
-	MSPoller::poll();
-	LIS331Poller::poll();
-	DummyPoller::poll();
-	GPSPoller::poll();
-}
+    public:
+        static bool begin();
+		static bool poll();
+};
+
+#endif
+
 
