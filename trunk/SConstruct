@@ -124,7 +124,7 @@ MCU = getBoardConf(r'^%s\.build\.mcu=(.*)'%ARDUINO_BOARD)
 F_CPU = getBoardConf(r'^%s\.build\.f_cpu=(.*)'%ARDUINO_BOARD)
 
 # There should be a file with the same name as the folder and with the extension .pde
-TARGET = os.path.basename(os.path.realpath(os.curdir))
+TARGET = 'loguino'
 assert(os.path.exists(TARGET+'.pde'))
 
 cFlags = ['-ffunction-sections', '-fdata-sections', '-fno-exceptions',
