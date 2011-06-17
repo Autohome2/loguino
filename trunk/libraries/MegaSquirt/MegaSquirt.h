@@ -92,7 +92,6 @@ class MegaSquirtData
 		int16_t airCorrection();
 		int16_t warmupEnrich();
 	
-		int16_t fuelComposition();
 		
 		int16_t accelEnrich();
 		int16_t tpsfuelcut();
@@ -102,7 +101,6 @@ class MegaSquirtData
 		int16_t veCurr2();
 		int16_t veCurr();
 		int16_t iacstep();
-		int16_t idleDC();
 		int16_t coldAdvDeg();
 		int16_t tpsDOT();
 		int16_t mapDOT();
