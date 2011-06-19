@@ -8,23 +8,16 @@ This is an overview of the releases, and the planned features for each release.
  * [QueryMegasquirt Query the megasquirt] and log key (raw) metrics via a serial connection.
  * [LogToSerial Log directly to (usb) serial port]
  * [LogToCard Log directly to SD storage]
-
-== Version 0.2 ==
-
  * [QueryLIS331 Query accelerometer] for 3 axis g valued
  * [QueryGPS Query a GPS] for speed, and location
+
+== Near Term ==
+
  * [QueryVRSensor Query VR sensors] for wheel rpm.
-
-== Version 0.3 ==
-
  * [QueryYaw Query yaw sensors] for yaw, roll and pitch.
  * [QueryResistance Query one or more resistance based values]
  * [QueryDigitalIO Query one or more digital inputs/outputs]
 
-== Version 0.4 ==
-
- * Report converted values from the megasquirt rather than just the ADC values.
-
-== Version 0.5 ==
+== Long Term ==
 
  * Bluetooth interface to iphone/android to download and view on thie fly.
