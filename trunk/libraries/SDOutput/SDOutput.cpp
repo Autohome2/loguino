@@ -40,37 +40,46 @@ bool SDOutput::flush(){
 bool SDOutput::begin()
 {
   
+	debug (INFO, "SDOutput::begin - Setting up");
 	active=false;
+	
+	pinMode(10, OUTPUT);
+	if (!SD.begin(4)) {
+		debug(ERROR, "SDOutput::begin - SD Card initialization failed!");
+		return false;
+	}
 
-    char* fname;
+	debug(INFO, "SDOutput::begin - SD Card initialization complete.");
+
+    char fname[13];
     // Counter for filename
     byte i=0;
 
-
-    pinMode(SSPIN, OUTPUT);
-    if (!SD.begin(SSPIN)){
-        // No SD Card, reader, or other fault, bail out.
-        return false;
-    }
     // Start at zero, and increase the filenumber until 
     // the filename doesnt conflict with anything on the 
     // card already.
-    sprintf(fname, "%08d.log");
+    sprintf(fname, "%08d.log",i);
     
     while (SD.exists(fname)){
+
         i++;
+		debug(INFO, "SDOutput::begin - Trying filename: " + String(fname));
+
         // free fname?
-        sprintf(fname, "%08d.log");
+        sprintf(fname, "%08d.log",i);
     }
     
     if (SD.exists(fname)){
         // Run out of filenames
+		debug(ERROR, "SDOutput::begin - No Spare Filenames");
         return false;
     }
 
     // Try to open the actual file
+	debug(INFO, "SDOutput::begin - Opening File: "+String(fname));
     _File=SD.open(fname,FILE_WRITE);
     if (!_File){
+		debug(ERROR, "SDOutput::begin - Not able to open File.");
         return false;
     }
 

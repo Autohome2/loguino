@@ -28,6 +28,7 @@
 #include "Message.h"
 #include "MegaSquirt.h"
 #include "Logger.h"
+#include "Debug.h"
 
 #define MSP_WAIT_TIME 10
 

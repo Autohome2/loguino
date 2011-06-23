@@ -15,35 +15,42 @@
  * You should have received a copy of the GNU General Public License
  * along with Loguino.  If not, see <http://www.gnu.org/licenses/>.
  * 
- * $Rev$:   
- * $Author$: 
- * $Date$:  
+ * $Rev$   
+ * $Author$
+ * $Date$
 
 */
 
-
-#ifndef Logger_h
-#define Logger_h
-
-
 #include "WProgram.h"
-#include "Message.h"
-#include "SerialOutput.h"
-#include "SDOutput.h"
-
 #include "Debug.h"
-#define LOGGER_FLUSH_MAX 100
 
-class Logger
-{
-	static byte flushCount;
-	public:
-		static void begin();
-		static void log(Message msg);
-};
+void debug(int level, String message){
+	if (level<=DEBUG_LEVEL){
+		message="# " + message;
+		switch (level){
+			case FATAL:
+				message = "# FATAL: " + message;
+				break;
+			case ERROR:
+				message = "# ERROR: " + message;
+				break;
+			case WARN:
+				message = "#  WARN: " + message;
+				break;
+			case INFO:
+				message = "#  INFO: " + message;
+				break;
+			case DEBUG: 
+				message = "# DEBUG: " + message;
+				break;
+			case TRACE:
+				message = "# TRACE: " + message;
+				break;
+			default : 
+				message = "# BROKE: " + message;
+		}
+		Serial.println(message);
+	}
+}
 
-
-
-
-#endif
 

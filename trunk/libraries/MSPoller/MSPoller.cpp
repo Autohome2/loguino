@@ -42,10 +42,12 @@ bool MSPoller::poll( ){
 		if (timeouts++ > MSP_WAIT_TIME){
 			active=true;
 			timeouts=0;
+			debug(INFO, "MSPoller::poll - Megasquirt inactive, retrying");
 		}
 		// timeouts not reached, just return.
 		else
 		{
+			debug(INFO, "MSPoller::poll - Megasquirt inactive, not polling");
 			return false;
 		}
 	}
@@ -56,12 +58,16 @@ bool MSPoller::poll( ){
 	status=MegaSquirt::getData(table);
 	if (status != MS_COMM_SUCCESS)
 	{
+		debug(INFO, "MSPoller::poll - No response from Megasquirt, going offline");
 		active=false;
 		return false;
 	}
 
+
+	debug(INFO, "MSPoller::poll - Received response from MegaSquirt, loading data");
 	d.loadData(table);
 
+	debug(INFO, "MSPoller::poll - Loaded data, sending messages");
 	Message m;
 
 	m.units="ms";
@@ -360,7 +366,7 @@ bool MSPoller::poll( ){
 	Logger::log(m);
 
 
-
+	debug(INFO, "MSPoller::poll - Finished polling");
 	return true;
 }
 

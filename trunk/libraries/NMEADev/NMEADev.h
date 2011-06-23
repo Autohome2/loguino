@@ -15,35 +15,47 @@
  * You should have received a copy of the GNU General Public License
  * along with Loguino.  If not, see <http://www.gnu.org/licenses/>.
  * 
- * $Rev$:   
- * $Author$: 
- * $Date$:  
+ * $Rev$
+ * $Author$
+ * $Date$
 
 */
 
-
-#ifndef Logger_h
-#define Logger_h
+#ifndef NMEADEV_H
+#define NMEADEV
 
 
 #include "WProgram.h"
-#include "Message.h"
-#include "SerialOutput.h"
-#include "SDOutput.h"
-
+#include <stdlib.h>
+#include <string.h>
 #include "Debug.h"
-#define LOGGER_FLUSH_MAX 100
 
-class Logger
-{
-	static byte flushCount;
+#define NMEA_SERIAL_DEV Serial2
+#define NMEA_SERIAL_WAIT 10
+
+#define NMEA_READ_DATA 1
+#define NMEA_READ_END 2
+
+#define NMEA_SERIAL_WAIT 10
+#define NMEA_TYPE_GGA 0
+#define NMEA_TYPE_GLL 1
+#define NMEA_TYPE_GSA 2
+#define NMEA_TYPE_GSV 3
+#define NMEA_TYPE_RMC 4
+#define NMEA_TYPE_VTG 5
+#define NMEA_TYPE_MSS 6
+#define NMEA_TYPE_ZDA 8
+
+class NMEADev{
+	private:
+		void createMsg(String &message);
+		char sumMsg(String &message);
 	public:
-		static void begin();
-		static void log(Message msg);
+		void setSpeed(long speed);
+		void setQueryRate(int messageType, uint8_t rate);
+		bool query(int messageType, uint8_t retries, String &message);
+
+	
 };
 
-
-
-
 #endif
-

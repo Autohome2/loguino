@@ -24,10 +24,10 @@
 #ifndef SDOutput_h
 #define SDOutput_h
 
-#define SSPIN 53
-
+#define SSPIN 10
 
 #include "WProgram.h"
+#include "Debug.h"
 #include "SD.h"
 #include "Message.h"
 #include "Logger.h"

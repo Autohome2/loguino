@@ -28,24 +28,39 @@
 
 byte Logger::flushCount;
 
+//! Sets up the logger, by calling begin on all attached loggers.
 void Logger::begin()
 {
+	debug(INFO, "Logger::begin: Setting up Logger");
 	flushCount=0;
 
+	debug(INFO, "Logger::begin: Setting up SerialOutput");
 	SerialOutput::begin();
-	// SDOutput::begin();
+
+
+	debug(INFO, "Logger::begin: Setting up SD Output");
+	SDOutput::begin();
 }
 
+
+//! Sends the supplied message object to each logger attached.
+//! @param msg - The Message object to log.
 void Logger::log(Message msg)
 {
+	debug(INFO, "Logger::log: Logging message");
 	if (flushCount++ > LOGGER_FLUSH_MAX){
+		debug(INFO, "Logger::log: Flush count reached, flushing SerialOutput");
 		SerialOutput::flush();
+		debug(INFO, "Logger::log: Flush count reached, flushing SDOutput");
 		SDOutput::flush();
+
 		flushCount=0;
 	}
 
 
+	debug(INFO, "Logger::log: Sending message to serial output");	
 	SerialOutput::log(msg);
+	debug(INFO, "Logger::log: Sending message to SD output");	
 	SDOutput::log(msg);
 
 }
