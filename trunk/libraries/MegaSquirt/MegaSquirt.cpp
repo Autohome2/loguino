@@ -181,7 +181,7 @@ int16_t MegaSquirtData::mat(){
 	return ((reg[20] <<8)|reg[21]);
 }
 
-//! Coolant Temperature.
+//! Coolant Temperature in Fahrenheit x 10.
 int16_t MegaSquirtData::coolant(){
 	return int16_t(((reg[22] <<8)|reg[23]));
 }

@@ -38,7 +38,7 @@ class SDOutput
     static File _File;
     public:
         static bool begin();
-        static bool log(Message msg);
+        static bool log(Message &msg);
         static bool flush();
 };
 

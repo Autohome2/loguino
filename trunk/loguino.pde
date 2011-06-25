@@ -25,15 +25,15 @@
 #include "Debug.h"
 
 void setup(){
-	debug(INFO, "Entering Setup");
+//	debug(INFO, "Entering Setup");
 
-	debug(INFO, "Setup: Setting up Logger");
+//	debug(INFO, "Setup: Setting up Logger");
 	Logger::begin();
 
-	debug(INFO, "Setup: Setting up Poller");
+//	debug(INFO, "Setup: Setting up Poller");
 	Poller::begin();
 
-	debug(INFO, "Setup Complete.");
+//	debug(INFO, "Setup Complete.");
 }
 
 void loop(){

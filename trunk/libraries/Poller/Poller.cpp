@@ -34,8 +34,8 @@ void Poller::begin(){
 
 void Poller::poll()
 {
-//	MSPoller::poll();
-	LIS331Poller::poll();
-	DummyPoller::poll();
+	MSPoller::poll();
+//	LIS331Poller::poll();
+//	DummyPoller::poll();
 //	GPSPoller::poll();
 }

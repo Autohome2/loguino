@@ -49,7 +49,7 @@ bool SerialOutput::begin()
 }
 
 
-bool SerialOutput::log(Message msg){
+bool SerialOutput::log(Message &msg){
     if (!active){
         return false;
     }

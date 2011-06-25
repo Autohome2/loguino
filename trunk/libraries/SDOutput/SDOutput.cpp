@@ -77,7 +77,7 @@ bool SDOutput::begin()
 
     // Try to open the actual file
 	debug(INFO, "SDOutput::begin - Opening File: "+String(fname));
-    _File=SD.open(fname,FILE_WRITE);
+    _File=SD.open(fname,O_WRITE|O_CREAT);
     if (!_File){
 		debug(ERROR, "SDOutput::begin - Not able to open File.");
         return false;
@@ -89,7 +89,7 @@ bool SDOutput::begin()
 }
 
 
-bool SDOutput::log(Message msg){
+bool SDOutput::log(Message &msg){
     if (!active){
         return false;
     }

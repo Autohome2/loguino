@@ -36,6 +36,12 @@ class MSPoller
 {
 	static bool active;
 	static byte timeouts;
+	static MegaSquirtData d;
+	static void systemState();
+	static void keyMetrics();
+	static void secondaryMetrics();
+	static void afrMetrics();
+	static void correctionMetrics();
     public:
         static bool begin();
 		static bool poll();

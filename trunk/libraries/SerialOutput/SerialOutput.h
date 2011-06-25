@@ -30,14 +30,14 @@
 #include "Logger.h"
 
 #define SO_SERIAL_PORT Serial
-#define SO_SERIAL_PORT_SPEED 9600
+#define SO_SERIAL_PORT_SPEED 115200
 
 class SerialOutput
 {
 	static bool active;
     public:
         static bool begin();
-        static bool log(Message msg);
+        static bool log(Message &msg);
         static bool flush();
 };
 

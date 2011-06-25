@@ -176,7 +176,7 @@ void loop(){
 
 
 void setup(){
-	Serial.begin(9600);
+	Serial.begin(115200);
 	Serial.println("===================Initial Status==================");
 	displayStatus();
 	Serial.println("===================Power Off==================");

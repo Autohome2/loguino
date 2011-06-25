@@ -32,14 +32,14 @@
 #include "SDOutput.h"
 
 #include "Debug.h"
-#define LOGGER_FLUSH_MAX 100
+#define LOGGER_FLUSH_MAX 30 
 
 class Logger
 {
 	static byte flushCount;
 	public:
 		static void begin();
-		static void log(Message msg);
+		static void log(Message &msg);
 };
 
 

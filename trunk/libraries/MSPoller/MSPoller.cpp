@@ -26,6 +26,7 @@
 
 bool MSPoller::active;
 byte MSPoller::timeouts;
+	MegaSquirtData MSPoller::d;
 
 
 bool MSPoller::begin(){
@@ -53,7 +54,6 @@ bool MSPoller::poll( ){
 	}
 	
 	byte status;
-	MegaSquirtData d;
 	byte table[MS_TABLE_LENGTH];
 	status=MegaSquirt::getData(table);
 	if (status != MS_COMM_SUCCESS)
@@ -68,52 +68,147 @@ bool MSPoller::poll( ){
 	d.loadData(table);
 
 	debug(INFO, "MSPoller::poll - Loaded data, sending messages");
-	Message m;
 
-	m.units="ms";
+	MSPoller::systemState();
+	MSPoller::keyMetrics();
+	MSPoller::secondaryMetrics();
+	MSPoller::afrMetrics();
+	MSPoller::correctionMetrics();
+	return true;
+}
+
+void MSPoller::keyMetrics(){
+	Message m;
+	m.units="ms*1000";
 	m.nameSpace="Megasquirt.PulseWidth1";
 	m.value=String(d.pulseWidth1(), DEC);
 	Logger::log(m);
 	m.nameSpace="Megasquirt.PulseWidth2";
 	m.value=String(d.pulseWidth2(), DEC);
 	Logger::log(m);
-
 	m.units="RPM";
 	m.nameSpace="Megasquirt.RPM";
 	m.value=String(d.rpm(), DEC);
 	Logger::log(m);
-
-	m.units="Degrees";
+	m.units="Degrees*10";
 	m.nameSpace="Megasquirt.Advance";
 	m.value=String(d.advance(), DEC);
 	Logger::log(m);
+	m.units="Voltsx10";
+	m.nameSpace="Megasquirt.BatteryVoltage";
+	m.value=String(d.batteryVoltage(), DEC);
+	Logger::log(m);
+	m.units="kPa";
+	m.nameSpace="Megasquirt.ManifoldAirPressure";
+	m.value=String(d.map(), DEC);
+	Logger::log(m);
 
+	m.units="F*10";
+	m.nameSpace="Megasquirt.CoolantTemperature";
+	m.value=String(d.coolant(), DEC);
+	Logger::log(m);
+
+	m.units="%x10";
+	m.nameSpace="Megasquirt.ThrottlePosition";
+	m.value=String(d.tps(), DEC);
+	Logger::log(m);
+	
+	//m.units="DegreesC";
+	//m.nameSpace="Megasquirt.ManifoldAirTemperature";
+	//m.value=String(d.mat(), DEC);
+	//Logger::log(m);
+}
+
+void MSPoller::secondaryMetrics(){
+	Message m;
+
+	m.units="kPa";
+	m.nameSpace="Megasquirt.Barometer";
+	m.value=String(d.barometer(), DEC);
+	Logger::log(m);
+	
+	m.units="Knock";
+	m.nameSpace="Megasquirt.Knock";
+	m.value=String(d.knock(), DEC);
+	Logger::log(m);
+		
+	m.units="Degrees";
+	m.nameSpace="Megasquirt.DwellAngle";
+	m.value=String(d.dwell(), DEC);
+	Logger::log(m);
+
+	m.units="MAF";
+	m.nameSpace="Megasquirt.ManifoldAbsoluteFlow";
+	m.value=String(d.maf(), DEC);
+	Logger::log(m);
+
+	m.units="kPa";
+	m.nameSpace="Megasquirt.CalculatedManifoldPressure";
+	m.value=String(d.calcMAP(), DEC);
+	Logger::log(m);
+
+m.units="UNKNOWN";
+	m.nameSpace="Megasquirt.IACStepper";
+	m.value=String(d.iacstep(), DEC);
+	Logger::log(m);
+
+
+	m.units="DoT";
+	m.nameSpace="Megasquirt.TPSDot";
+	m.value=String(d.tpsDOT(), DEC);
+	Logger::log(m);
+	
+	m.units="DoT";
+	m.nameSpace="Megasquirt.MAPDot";
+	m.value=String(d.mapDOT(), DEC);
+	Logger::log(m);
+
+	
+	m.units="ms";
+	m.nameSpace="Megasquirt.VECurrent1";
+	m.value=String(d.veCurr1(), DEC);
+	Logger::log(m);
+
+	m.units="ms";
+	m.nameSpace="Megasquirt.VECurrent2";
+	m.value=String(d.veCurr2(), DEC);
+	Logger::log(m);
+
+
+
+
+
+}
+void MSPoller::systemState(){
+
+	Message m;
+
+//	m.units="Boolean";
+//	m.nameSpace="MegaSquirt.Firing1";
+//	m.value=d.firing1() ? "True" : "False";
+//	Logger::log(m);
+
+//	m.nameSpace="MegaSquirt.Firing2";
+//	m.value=d.firing2() ? "True" : "False";
+//	Logger::log(m);
+
+//	m.nameSpace="MegaSquirt.Sched1";
+//	m.value=d.sched1() ? "True" : "False";
+//	Logger::log(m);
+
+//	m.nameSpace="MegaSquirt.Injecting1";
+//	m.value=d.inj1() ? "True" : "False";
+//	Logger::log(m);
+
+//	m.nameSpace="MegaSquirt.Sched2";
+//	m.value=d.sched2() ? "True" : "False";
+//	Logger::log(m);
+
+//	m.nameSpace="MegaSquirt.Inj2";
+//	m.value=d.crank() ? "True" : "False";
+//	Logger::log(m);
 
 	m.units="Boolean";
-	m.nameSpace="MegaSquirt.Firing1";
-	m.value=d.firing1() ? "True" : "False";
-	Logger::log(m);
-
-	m.nameSpace="MegaSquirt.Firing2";
-	m.value=d.firing2() ? "True" : "False";
-	Logger::log(m);
-
-	m.nameSpace="MegaSquirt.Sched1";
-	m.value=d.sched1() ? "True" : "False";
-	Logger::log(m);
-
-	m.nameSpace="MegaSquirt.Injecting1";
-	m.value=d.inj1() ? "True" : "False";
-	Logger::log(m);
-
-	m.nameSpace="MegaSquirt.Sched2";
-	m.value=d.sched2() ? "True" : "False";
-	Logger::log(m);
-
-	m.nameSpace="MegaSquirt.Inj2";
-	m.value=d.crank() ? "True" : "False";
-	Logger::log(m);
-
 	m.nameSpace="MegaSquirt.Ready";
 	m.value=d.ready() ? "True" : "False";
 	Logger::log(m);
@@ -142,164 +237,7 @@ bool MSPoller::poll( ){
 	m.value=d.mapaen() ? "True" : "False";
 	Logger::log(m);
 
-	m.units="AFR";
-	m.nameSpace="Megasquirt.AFRTarget1";
-	m.value=String(d.afrtgt1(), DEC);
-	Logger::log(m);
-
-	m.units="AFR";
-	m.nameSpace="Megasquirt.AFRTarget2";
-	m.value=String(d.afrtgt2(), DEC);
-	Logger::log(m);
-
-	m.units="AFR";
-	m.nameSpace="Megasquirt.WBO2_en1";
-	m.value=String(d.wbo2_en1(), DEC);
-	Logger::log(m);
-
-	m.units="AFR";
-	m.nameSpace="Megasquirt.WB02_en2";
-	m.value=String(d.wbo2_en2(), DEC);
-	Logger::log(m);
-
-	m.units="kPa/100";
-	m.nameSpace="Megasquirt.Barometer";
-	m.value=String(d.barometer(), DEC);
-	Logger::log(m);
-
-	m.units="kPa/100";
-	m.nameSpace="Megasquirt.ManifoldAirPressure";
-	m.value=String(d.map(), DEC);
-	Logger::log(m);
-
-	m.units="DegreesC";
-	m.nameSpace="Megasquirt.ManifoldAirTemperature";
-	m.value=String(d.mat(), DEC);
-	Logger::log(m);
-
-	m.units="DegreesC";
-	m.nameSpace="Megasquirt.CoolantTemperature";
-	m.value=String(d.coolant(), DEC);
-	Logger::log(m);
-
-	m.units="Percent";
-	m.nameSpace="Megasquirt.ThrottlePosition";
-	m.value=String(d.tps(), DEC);
-	Logger::log(m);
-
-	m.units="Volts";
-	m.nameSpace="Megasquirt.BatteryVoltage";
-	m.value=String(d.batteryVoltage(), DEC);
-	Logger::log(m);
-
-	m.units="AFR";
-	m.nameSpace="Megasquirt.AFR1";
-	m.value=String(d.afr1(), DEC);
-	Logger::log(m);
-
-	m.units="AFR";
-	m.nameSpace="Megasquirt.AFR2";
-	m.value=String(d.afr2(), DEC);
-	Logger::log(m);
-
-	m.units="Knock";
-	m.nameSpace="Megasquirt.Knock";
-	m.value=String(d.knock(), DEC);
-	Logger::log(m);
-
-	m.units="Percent";
-	m.nameSpace="Megasquirt.EGOCorrection1";
-	m.value=String(d.egoCorrection1(), DEC);
-	Logger::log(m);
-	
-	m.units="Percent";
-	m.nameSpace="Megasquirt.EGOCorrection2";
-	m.value=String(d.egoCorrection2(), DEC);
-	Logger::log(m);
-
-	m.units="Percent";
-	m.nameSpace="Megasquirt.AirCorrection";
-	m.value=String(d.airCorrection(), DEC);
-	Logger::log(m);
-
-	m.units="Percent";
-	m.nameSpace="Megasquirt.WarmupEnrichment";
-	m.value=String(d.egoCorrection1(), DEC);
-	Logger::log(m);
-
-	m.units="Percent";
-	m.nameSpace="Megasquirt.AccelerationEnrichment";
-	m.value=String(d.accelEnrich(), DEC);
-	Logger::log(m);
-
-
-	m.units="Percent";
-	m.nameSpace="Megasquirt.TPSFuelCut";
-	m.value=String(d.tpsfuelcut(), DEC);
-	Logger::log(m);
-
-	m.units="Percent";
-	m.nameSpace="Megasquirt.BarometricCorrection";
-	m.value=String(d.baroCorrection(), DEC);
-	Logger::log(m);
-
-	m.units="Percent";
-	m.nameSpace="Megasquirt.GammaEnrichment";
-	m.value=String(d.gammaEnrich(), DEC);
-	Logger::log(m);
-
-	m.units="ms";
-	m.nameSpace="Megasquirt.VECurrent1";
-	m.value=String(d.veCurr1(), DEC);
-	Logger::log(m);
-
-	m.units="ms";
-	m.nameSpace="Megasquirt.VECurrent2";
-	m.value=String(d.veCurr2(), DEC);
-	Logger::log(m);
-
-	m.units="UNKNOWN";
-	m.nameSpace="Megasquirt.IACStepper";
-	m.value=String(d.iacstep(), DEC);
-	Logger::log(m);
-
-	m.units="Degrees";
-	m.nameSpace="Megasquirt.ColdAdvanceDegrees";
-	m.value=String(d.coldAdvDeg(), DEC);
-	Logger::log(m);
-
-	m.units="DoT";
-	m.nameSpace="Megasquirt.TPSDot";
-	m.value=String(d.tpsDOT(), DEC);
-	Logger::log(m);
-	
-	m.units="DoT";
-	m.nameSpace="Megasquirt.MAPDot";
-	m.value=String(d.mapDOT(), DEC);
-	Logger::log(m);
-	
-	m.units="Degrees";
-	m.nameSpace="Megasquirt.DwellAngle";
-	m.value=String(d.dwell(), DEC);
-	Logger::log(m);
-	
-	m.units="MAF";
-	m.nameSpace="Megasquirt.ManifoldAbsoluteFlow";
-	m.value=String(d.maf(), DEC);
-	Logger::log(m);
-
-	m.units="kPa";
-	m.nameSpace="Megasquirt.CalculatedManifoldPressure";
-	m.value=String(d.calcMAP(), DEC);
-	Logger::log(m);
-
-	m.units="ms";
-	m.nameSpace="Megasquirt.FuelCorrection";
-	m.value=String(d.fuelCorrection(), DEC);
-	Logger::log(m);
-
-
-	m.units="Boolean";
+		m.units="Boolean";
 	m.nameSpace="MegaSquirt.Port1Active";
 	m.value=d.port1() ? "True" : "False";
 	Logger::log(m);
@@ -324,15 +262,40 @@ bool MSPoller::poll( ){
 	m.value=d.port6() ? "True" : "False";
 	Logger::log(m);
 
-	m.units="Degrees";
-	m.nameSpace="Megasquirt.KnockRetardation";
-	m.value=String(d.knockRetard(), DEC);
+
+
+}
+
+void MSPoller::afrMetrics(){
+	Message m;
+	m.units="AFR*10";
+	m.nameSpace="Megasquirt.AFRTarget1";
+	m.value=String(d.afrtgt1(), DEC);
 	Logger::log(m);
 
+	m.units="AFR*10";
+	m.nameSpace="Megasquirt.AFRTarget2";
+	m.value=String(d.afrtgt2(), DEC);
+	Logger::log(m);
 
-	m.units="Percent";
-	m.nameSpace="Megasquirt.xTAUFuelCorrection1";
-	m.value=String(d.xTauFuelCorr1(), DEC);
+	m.units="AFR*10";
+	m.nameSpace="Megasquirt.WBO2_en1";
+	m.value=String(d.wbo2_en1(), DEC);
+	Logger::log(m);
+
+	m.units="AFR*10";
+	m.nameSpace="Megasquirt.WB02_en2";
+	m.value=String(d.wbo2_en2(), DEC);
+	Logger::log(m);
+	
+	m.units="AFRx10";
+	m.nameSpace="Megasquirt.AFR1";
+	m.value=String(d.afr1(), DEC);
+	Logger::log(m);
+
+	m.units="AFRx10";
+	m.nameSpace="Megasquirt.AFR2";
+	m.value=String(d.afr2(), DEC);
 	Logger::log(m);
 
 	m.units="Volts";
@@ -345,14 +308,68 @@ bool MSPoller::poll( ){
 	m.value=String(d.egoV2(), DEC);
 	Logger::log(m);
 
-	m.units="Unknown";
-	m.nameSpace="Megasquirt.AMCUpdates";
-	m.value=String(d.amcUpdates(), DEC);
+	m.units="Percent";
+	m.nameSpace="Megasquirt.EGOCorrection1";
+	m.value=String(d.egoCorrection1(), DEC);
+	Logger::log(m);
+	
+	m.units="Percent";
+	m.nameSpace="Megasquirt.EGOCorrection2";
+	m.value=String(d.egoCorrection2(), DEC);
 	Logger::log(m);
 
-	m.units="Unknown";
-	m.nameSpace="Megasquirt.KPAIX";
-	m.value=String(d.kpaix(), DEC);
+
+}
+
+void MSPoller::correctionMetrics(){
+
+
+	Message m;
+	m.units="Percent";
+	m.nameSpace="Megasquirt.AirCorrection";
+	m.value=String(d.airCorrection(), DEC);
+	Logger::log(m);
+
+	m.units="Percent";
+	m.nameSpace="Megasquirt.WarmupEnrichment";
+	m.value=String(d.egoCorrection1(), DEC);
+	Logger::log(m);
+
+	m.units="Percent";
+	m.nameSpace="Megasquirt.AccelerationEnrichment";
+	m.value=String(d.accelEnrich(), DEC);
+	Logger::log(m);
+
+	m.units="ms";
+	m.nameSpace="Megasquirt.FuelCorrection";
+	m.value=String(d.fuelCorrection(), DEC);
+	Logger::log(m);
+
+
+	m.units="Degrees";
+	m.nameSpace="Megasquirt.KnockRetardation";
+	m.value=String(d.knockRetard(), DEC);
+	Logger::log(m);
+
+
+	m.units="Percent";
+	m.nameSpace="Megasquirt.xTAUFuelCorrection1";
+	m.value=String(d.xTauFuelCorr1(), DEC);
+	Logger::log(m);
+
+	m.units="Percent";
+	m.nameSpace="Megasquirt.BarometricCorrection";
+	m.value=String(d.baroCorrection(), DEC);
+	Logger::log(m);
+
+	m.units="Percent";
+	m.nameSpace="Megasquirt.GammaEnrichment";
+	m.value=String(d.gammaEnrich(), DEC);
+	Logger::log(m);
+
+	m.units="Percent";
+	m.nameSpace="Megasquirt.TPSFuelCut";
+	m.value=String(d.tpsfuelcut(), DEC);
 	Logger::log(m);
 
 	m.units="Percent";
@@ -360,13 +377,28 @@ bool MSPoller::poll( ){
 	m.value=String(d.xTauFuelCorr2(), DEC);
 	Logger::log(m);
 
-	m.units="Number";
-	m.nameSpace="Megasquirt.TachCount";
-	m.value=String(d.tachCount(), DEC);
+	m.units="Degrees";
+	m.nameSpace="Megasquirt.ColdAdvanceDegrees";
+	m.value=String(d.coldAdvDeg(), DEC);
 	Logger::log(m);
 
 
-	debug(INFO, "MSPoller::poll - Finished polling");
-	return true;
+
+
 }
+
+	
+
+
+
+
+
+
+
+	
+	
+	
+
+
+
 
