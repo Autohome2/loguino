@@ -32,78 +32,59 @@ bool GPSPoller::begin(){
 
 bool GPSPoller::poll(){
 	
-	GPS_SERIAL_DEV.flush();
-	delay(GPS_SERIAL_WAIT);
-
-	byte tries=0;
 	TinyGPS gps;
 	Message m;
 	long lat, lon;
 	unsigned long fix_age;
 	unsigned long time, date;
 
-	// Try to get a position fix (GPMRC) from the GPS
-	while(tries++ < GPS_SERIAL_MAX_RETRIES)
+	while(GPS_SERIAL_DEV.available())
 	{
-		while(GPS_SERIAL_DEV.available())
+		if(gps.encode(GPS_SERIAL_DEV.read()))
 		{
-			if(gps.encode(GPS_SERIAL_DEV.read()))
+			// Successful sentance
+			gps.get_position(&lat, &lon, &fix_age);
+			// Check if it actually got a fix or not.
+			if (fix_age != TinyGPS::GPS_INVALID_AGE)
 			{
-				// Successful sentance
-				gps.get_position(&lat, &lon, &fix_age);
+				// It has a fix.
+				gps.get_datetime(&date, &time, &fix_age);				
+				m.units="Bool";
+				m.nameSpace="GPS.hasFix";
+				m.value="Yes";
+				Logger::log(m);
 
-				// Check if it actually got a fix or not.
-				if (fix_age != TinyGPS::GPS_INVALID_AGE)
-				{
-					// It has a fix.
-					gps.get_datetime(&date, &time, &fix_age);
-				
-					m.units="Bool";
-					m.nameSpace="GPS.hasFix";
-					m.value="Yes";
-					Logger::log(m);
-
-					m.units="Degrees/100000";
-					m.nameSpace="GPS.Latitude";
-					m.value=String(lat,DEC);
-					Logger::log(m);
-
-					m.units="Degrees/100000";
-					m.nameSpace="GPS.Longitude";
-					m.value=String(lon,DEC);
-					Logger::log(m);
+				m.units="Degrees/100000";
+				m.nameSpace="GPS.Latitude";
+				m.value=String(lat,DEC);
+				Logger::log(m);
+				m.units="Degrees/100000";
+				m.nameSpace="GPS.Longitude";
+				m.value=String(lon,DEC);
+				Logger::log(m);
 					
-					char dbuff[6];
-					sprintf(dbuff, "%06d",date);
-					char tbuff[8];
-					sprintf(tbuff, "%08d",time);
-						
-					m.units="ddmmyy - hhmmsscc";
-					m.nameSpace="GPS.DateTime";
-					m.value=String(dbuff) + " - " + String(tbuff);
-					Logger::log(m);
-
-					m.units="M/Sec";
-					m.nameSpace="GPS.Speed";
-					m.value=String(gps.speed());
-					Logger::log(m);
-				
-					m.units="Degrees";
-					m.nameSpace="GPS.Course";
-					m.value=String(gps.course());
-					Logger::log(m);
-					return true;
-				}
+				char dbuff[6];
+				sprintf(dbuff, "%06d",date);
+				char tbuff[8];
+				sprintf(tbuff, "%08d",time);
+					
+				m.units="ddmmyy - hhmmsscc";
+				m.nameSpace="GPS.DateTime";
+				m.value=String(dbuff) + " - " + String(tbuff);
+				Logger::log(m);
+				m.units="M/Sec";
+				m.nameSpace="GPS.Speed";
+				m.value=String(gps.speed());
+				Logger::log(m);
+			
+				m.units="Degrees";
+				m.nameSpace="GPS.Course";
+				m.value=String(gps.course());
+				Logger::log(m);
+				return true;
 			}
 		}
-
 	}
-
-	// No fix, log and exit.
-	m.units="Bool";
-	m.nameSpace="GPS.hasFix";
-	m.value="No";
-	Logger::log(m);
 
 	return false;
 }
