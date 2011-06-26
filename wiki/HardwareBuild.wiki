@@ -1,0 +1,32 @@
+#summary How to build the hardware for Loguino
+#labels Howto,HardwareBuild
+
+This article describes how to build the loguino hardware.
+
+= Shopping List = 
+
+You will need:
+
+ * Arduino Mega2560 or compatible controller such as this one.
+ * Adafruit [http://www.adafruit.com/products/98 GPS Logger Shield] or equivalent. 
+ * Sparkfun [http://www.sparkfun.com/products/10345 LIS331 breakout] or equivalent.
+ * Arduino Mega [http://www.eztronics.nl/webshop/catalog/product_info.php/products_id/239 Protoshield Board]
+ * RS232 to TTL converter:
+  * MAX3232 Serial Convertor IC.
+  * 5x0.1uf Capacitors
+  * 2x5k resistors
+ * Suitably large enclosure
+ * RS232 Male Socket.
+
+= Quickstart = 
+
+ * Wire the GPS logger shield so that the GPS is permenantly on (Pwr connects direct to ground.)
+ * Wire the GPS to Serial2.  
+ * Wire the RS232 side of the RS232 converter to the RS232 Port
+ * Wire the TTL side of the RS232 converter to Serial1
+ * Wire the LIS331 in i2c configuration.
+ 
+= Wiring the GPS Shield = 
+
+Build the GPS shield as per the [http://www.ladyada.net/make/gpsshield/solder.html instructions].  Connect the TX pin on the GPS shield to pin 17 on the protoshield. Connect the RX pin on the GPS shield to pin 16 on the proto shield.  Connect the power pin to the ground pin on the GPS shield.  
+
