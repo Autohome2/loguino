@@ -26,14 +26,16 @@
 
 bool MSPoller::active;
 byte MSPoller::timeouts;
-	MegaSquirtData MSPoller::d;
+MegaSquirtData MSPoller::d;
 
-
+//! Initializes the connection to the mega squirt controller. 
 bool MSPoller::begin(){
 	MegaSquirt::begin();
 	active=true;
 	timeouts=0;
 }
+
+//! Polls the controller for values, and logs them.
 
 bool MSPoller::poll( ){
 	// IF inactive, check if its time to try again.
@@ -58,7 +60,7 @@ bool MSPoller::poll( ){
 	status=MegaSquirt::getData(table);
 	if (status != MS_COMM_SUCCESS)
 	{
-		debug(INFO, "MSPoller::poll - No response from Megasquirt, going offline");
+		debug(WARN, "MSPoller::poll - No response from Megasquirt, going offline");
 		active=false;
 		return false;
 	}

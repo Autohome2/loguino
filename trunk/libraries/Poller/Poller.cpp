@@ -37,5 +37,5 @@ void Poller::poll()
 	MSPoller::poll();
 //	LIS331Poller::poll();
 //	DummyPoller::poll();
-//	GPSPoller::poll();
+	GPSPoller::poll();
 }

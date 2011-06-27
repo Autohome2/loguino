@@ -24,18 +24,18 @@
 #ifndef GPSPoller_h
 #define GPSPoller_h
 #define GPS_SERIAL_DEV Serial2
-#define GPS_SERIAL_WAIT 10
 #define GPS_SERIAL_DEV_SPEED 4800
-#define GPS_SERIAL_MAX_RETRIES 10
 
 
 
 #include "Logger.h"
 #include "Message.h"
-#include "TinyGPS.h"
+#include "NMEA.h"
+
 
 class GPSPoller
 {
+	static NMEA n;
     public:
         static bool begin();
 		static bool poll();

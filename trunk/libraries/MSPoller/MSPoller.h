@@ -30,13 +30,15 @@
 #include "Logger.h"
 #include "Debug.h"
 
+//!The time to wait after polling the megasquirt controller for an answer.
 #define MSP_WAIT_TIME 10
 
+//! Queries the megasquirt and logs each value retrieved.
 class MSPoller
 {
-	static bool active;
-	static byte timeouts;
-	static MegaSquirtData d;
+	static bool active;//< when active, the megasquirt is online.
+	static byte timeouts;//< The number of times since the last attempt to poll.
+	static MegaSquirtData d;//< Megasquirt device
 	static void systemState();
 	static void keyMetrics();
 	static void secondaryMetrics();

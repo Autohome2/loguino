@@ -25,66 +25,50 @@
 #include "GPSPoller.h"
 
 
+NMEA GPSPoller::n;
+
 bool GPSPoller::begin(){
 	GPS_SERIAL_DEV.begin(GPS_SERIAL_DEV_SPEED);
 }
 
-
 bool GPSPoller::poll(){
+	while(GPS_SERIAL_DEV.available()){
+		if (n.addChar(GPS_SERIAL_DEV.read())){
+			if (n.validFix()){
+				Message m;
 	
-	TinyGPS gps;
-	Message m;
-	long lat, lon;
-	unsigned long fix_age;
-	unsigned long time, date;
-
-	while(GPS_SERIAL_DEV.available())
-	{
-		if(gps.encode(GPS_SERIAL_DEV.read()))
-		{
-			// Successful sentance
-			gps.get_position(&lat, &lon, &fix_age);
-			// Check if it actually got a fix or not.
-			if (fix_age != TinyGPS::GPS_INVALID_AGE)
-			{
-				// It has a fix.
-				gps.get_datetime(&date, &time, &fix_age);				
-				m.units="Bool";
-				m.nameSpace="GPS.hasFix";
-				m.value="Yes";
-				Logger::log(m);
-
-				m.units="Degrees/100000";
-				m.nameSpace="GPS.Latitude";
-				m.value=String(lat,DEC);
-				Logger::log(m);
-				m.units="Degrees/100000";
-				m.nameSpace="GPS.Longitude";
-				m.value=String(lon,DEC);
-				Logger::log(m);
-					
-				char dbuff[6];
-				sprintf(dbuff, "%06d",date);
-				char tbuff[8];
-				sprintf(tbuff, "%08d",time);
-					
-				m.units="ddmmyy - hhmmsscc";
-				m.nameSpace="GPS.DateTime";
-				m.value=String(dbuff) + " - " + String(tbuff);
-				Logger::log(m);
-				m.units="M/Sec";
-				m.nameSpace="GPS.Speed";
-				m.value=String(gps.speed());
-				Logger::log(m);
-			
 				m.units="Degrees";
 				m.nameSpace="GPS.Course";
-				m.value=String(gps.course());
+				m.value=n.getCourse();
 				Logger::log(m);
-				return true;
+	
+				m.units="Knots";
+				m.nameSpace="GPS.Speed";
+				m.value=n.getSpeed();
+				Logger::log(m);
+	
+				m.units="Latitude";
+				m.nameSpace="GPS.Latitude";
+				m.value=n.getLatitude();
+				Logger::log(m);
+	
+				m.units="Longitude";
+				m.nameSpace="GPS.Longitude";
+				m.value=n.getLongitude();
+				Logger::log(m);
+
+				m.units="Date";
+				m.nameSpace="GPS.Date";
+				m.value=n.getDate();
+				Logger::log(m);
+	
+				m.units="Time";
+				m.nameSpace="GPS.Time";
+				m.value=n.getTime();
+				Logger::log(m);
 			}
 		}
 	}
-
-	return false;
 }
+
+

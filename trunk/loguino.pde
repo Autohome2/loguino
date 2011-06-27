@@ -39,6 +39,7 @@ void setup(){
 void loop(){
 	debug(INFO, "Loop: Starting Poll Run");
 	Poller::poll();
+	delay(50);
 	debug(INFO, "Loop: Poll Run Complete.");
 }
 

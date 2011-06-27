@@ -21,41 +21,32 @@
 
 */
 
-#ifndef NMEADEV_H
-#define NMEADEV
 
-
+#ifndef NMEA_H
+#define NMEA_H
 #include "WProgram.h"
-#include <stdlib.h>
-#include <string.h>
 #include "Debug.h"
 
-#define NMEA_SERIAL_DEV Serial2
-#define NMEA_SERIAL_WAIT 10
 
-#define NMEA_READ_DATA 1
-#define NMEA_READ_END 2
 
-#define NMEA_SERIAL_WAIT 10
-#define NMEA_TYPE_GGA 0
-#define NMEA_TYPE_GLL 1
-#define NMEA_TYPE_GSA 2
-#define NMEA_TYPE_GSV 3
-#define NMEA_TYPE_RMC 4
-#define NMEA_TYPE_VTG 5
-#define NMEA_TYPE_MSS 6
-#define NMEA_TYPE_ZDA 8
-
-class NMEADev{
-	private:
-		void createMsg(String &message);
-		char sumMsg(String &message);
+class NMEA{
+	String getField(int field);
+	char sumMsg(String &message);
+	String readSentence;
+	String activeSentence;
+	int state;
 	public:
-		void setSpeed(long speed);
-		void setQueryRate(int messageType, uint8_t rate);
-		bool query(int messageType, uint8_t retries, String &message);
-
-	
+		bool addChar(char c);
+		bool validFix();
+		String getTime();
+		char fixType();
+		String getLatitude();
+		String getLongitude();
+		String getSpeed();
+		String getCourse();
+		String getDate();
 };
+
+
 
 #endif
