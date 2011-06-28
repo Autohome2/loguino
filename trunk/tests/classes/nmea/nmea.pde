@@ -23,6 +23,7 @@
 #include "WProgram.h"
 #include "Debug.h"
 #include "NMEA.h"
+#include "Test.h"
 
 
 
