@@ -43,29 +43,13 @@ void setup(){
 		}
 	}
 
-	if (n.validFix()){
-		Serial.println("PASS: validFix()");
-	}else{
-		Serial.println("FAIL: validFix()");
-	}
-
-	Serial.print( n.getTime()=="081836" ? "PASS: " : "FAIL: ");
-	Serial.println("getTime()");
-
-	Serial.print( n.getLatitude()=="3751.65S" ? "PASS: " : "FAIL: ");
-	Serial.println("getLatitude()");
-
-	Serial.print( n.getLongitude()=="14507.36E" ? "PASS: " : "FAIL: ");
-	Serial.println("getLongitude()");
-
-	Serial.print( n.getSpeed()=="000.0" ? "PASS: " : "FAIL: ");
-	Serial.println("getSpeed()");
-
-	Serial.print( n.getCourse()=="360.0" ? "PASS: " : "FAIL: ");
-	Serial.println("getCourse()");
-
-	Serial.print( n.getDate()=="130998" ? "PASS: " : "FAIL: ");
-	Serial.println("getDate()");
+	test (n.validFix(), "validFix()");
+	test ( ( n.getTime()=="081836"), "getTime()");
+	test ( ( n.getLatitude()=="3751.65S"), "getLatitude()");
+	test ( ( n.getLongitude()=="14507.36E"), "getLongitude()");
+	test ( ( n.getSpeed()=="000.0"), "getSpeed()");
+	test ( ( n.getCourse()=="360.0"), "getCourse()");
+	test ( ( n.getDate()=="130998" ), "getDate()");
 }
 
 
