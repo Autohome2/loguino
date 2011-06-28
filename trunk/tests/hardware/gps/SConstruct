@@ -167,13 +167,6 @@ for line in open (TARGET+'.pde'):
     result = ptnLib.findall(line)
     if result:
         libCandidates += result
-for line in open ('../../libraries/LIS331/LIS331.cpp'):
-    result = ptnLib.findall(line)
-    if result:
-        libCandidates += result
-
-
-
 
 # Hack. In version 20 of the Arduino IDE, the Ethernet library depends
 # implicitly on the SPI library.
