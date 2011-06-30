@@ -147,7 +147,8 @@ sputnik:gps irvined$
 
 Once it has flashed succesfully, open arduino, and use the serial monitor to view the output.  The speed used is 115200.  The output should look something like:
 
-{{{getTime() 205511.000
+{{{
+getTime() 205511.000
 getLatitude() 5205.9563N
 getLongitude() 00508.0047E
 getSpeed() 0.73
