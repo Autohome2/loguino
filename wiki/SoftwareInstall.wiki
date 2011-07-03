@@ -1,4 +1,5 @@
 #summary How to test the hardware and install the correct firmware
+<wiki:toc max_depth="2" />
 
 Once your hardware is built, you must flash it with the latest firmware, to do so, you will need a compute with a USB port, and a USB cable to connect up your loguino board.  In this tutorial, [http://www.nongnu.org/avrdude/ avrdude] is used, other options include [http://smileymicros.com/blog/2010/10/11/ardup-an-arduino-hex-file-uploader/ ardup] which may be easier for windows users.  I chose avrdude however as it is bundled with [http://www.arduino.cc Arduino] and as such should be available on all systems.
 
@@ -164,7 +165,50 @@ getDate() 300611
 
 If there is no output, then the GPS is not sending data to the loguino.
 
+= Installing Loguino = 
 
+Once you have tested the various components (Or, if you're feeling lucky) you can then install the loguino.hex file to your loguino device.  Flash the hardware using avrdude:
+
+{{{
+sputnik:loguino irvined$ /Applications/Arduino.app/Contents/Resources/Java/hardware/tools/avr/bin/avrdude -V -F -c stk500v2 -b 115200 -p atmega2560 -P /dev/tty.usbmodem3d11 -U flash:w:loguino.hex -C /Applications/Arduino.app/Contents/Resources/Java/hardware/tools/avr/etc/avrdude.conf
+
+avrdude: AVR device initialized and ready to accept instructions
+
+Reading | ################################################## | 100% 0.01s
+
+avrdude: Device signature = 0x1e9801
+avrdude: NOTE: FLASH memory has been specified, an erase cycle will be performed
+         To disable this feature, specify the -D option.
+avrdude: erasing chip
+avrdude: reading input file "loguino.hex"
+avrdude: input file loguino.hex auto detected as Intel Hex
+avrdude: writing flash (34004 bytes):
+
+Writing | ################################################## | 100% 4.91s
+
+avrdude: 34004 bytes of flash written
+
+avrdude: safemode: Fuses OK
+
+avrdude done.  Thank you.
+sputnik:loguino irvined$ 
+}}}
+
+Once flashed, you can open the serial monitor in arduino, you should see some output: 
+
+{{{
+28470,GPS.Longitude,00508.0144E,Longitude,
+28470,GPS.Date,030711,Date,
+28470,GPS.Time,124320.000,Time,
+29451,GPS.Course,199.16,Degrees,
+29451,GPS.Speed,0.22,Knots,
+29451,GPS.Latitude,5205.9547N,Latitude,
+29451,GPS.Longitude,00508.0143E,Longitude,
+29451,GPS.Date,030711,Date,
+29451,GPS.Time,124321.000,Time,
+}}}
+
+If you do, then your ready to install loguino in your vehicle and start logging.
 
 
 
