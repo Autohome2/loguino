@@ -84,6 +84,8 @@ bool SDOutput::begin()
     }
 
     active=true;
+	pinMode(SD_ACTIVE_PIN, OUTPUT);
+	digitalWrite(SD_ACTIVE_PIN, active);
     return active;
 
 }

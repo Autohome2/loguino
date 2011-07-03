@@ -26,7 +26,7 @@
 #ifndef Debug_h
 #define Debug_h
 
-#define DEBUG_LEVEL 4
+#define DEBUG_LEVEL 0
 #define OFF 0
 #define FATAL 1
 #define ERROR 2

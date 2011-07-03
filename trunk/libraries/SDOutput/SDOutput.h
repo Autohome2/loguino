@@ -24,7 +24,7 @@
 #ifndef SDOutput_h
 #define SDOutput_h
 
-#define SSPIN 10
+#define SD_ACTIVE_PIN 8 
 
 #include "WProgram.h"
 #include "Debug.h"
