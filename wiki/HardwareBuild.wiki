@@ -1,7 +1,10 @@
 #summary How to build the hardware for Loguino
 #labels Howto,HardwareBuild
+<wiki:toc max_depth="2" />
 
-This article describes how to build the loguino hardware.
+This article describes how to build the loguino hardware.  Once built, it should look something like this:
+
+<img>http://farm6.static.flickr.com/5313/5896627429_80b40356ee.jpg</img>
 
 = Shopping List = 
 
@@ -28,5 +31,33 @@ You will need:
  
 = Wiring the GPS Shield = 
 
-Build the GPS shield as per the [http://www.ladyada.net/make/gpsshield/solder.html instructions].  Connect the TX pin on the GPS shield to pin 17 on the protoshield. Connect the RX pin on the GPS shield to pin 16 on the proto shield.  Connect the power pin to the ground pin on the GPS shield.  
+Build the GPS shield as per the [http://www.ladyada.net/make/gpsshield/solder.html instructions].  
+
+Connect the internal pins as follows:
+
+<img>http://farm6.static.flickr.com/5268/5896609545_10a12c049d.jpg</img>
+
+ * Connect the TX pin on the GPS shield to pin 17 on the protoshield. 
+ * Connect the RX pin on the GPS shield to pin 16 on the proto shield.  
+ * Connect the power pin to the ground pin on the GPS shield.  
+ * Connect LED 1 to pin 9
+ * Connect LED 2 to pin 8
+
+= Wiring the LIS331 Breakout = 
+
+The LIS331 breakout is mounted onto the proto Shield, you can choose to mount it either using header pins soldered to the proto shield, or by carefully drilling two holes in the shield and mounting using bolts and a spacer.
+
+<img>http://farm6.static.flickr.com/5119/5896652539_7ec0a7de40.jpg</img>
+
+The pins on the LIS331 are wired as follows, all connections are made to the protoshield.
+
+ * vcc -> 3.3v (Pin 
+ * cs -> 3.3v
+ * sa0 ->3.3v
+ * scl -> SCL Pin 21
+ * sda -> SDA Pin 22
+ * int1 -> Ground
+ * int2 -> Ground
+ * gnd-> Ground
+
 
