@@ -60,6 +60,11 @@ The pins on the LIS331 are wired as follows, all connections are made to the pro
  * int2 -> Ground
  * gnd-> Ground
 
+== SA0 and Addressing ==
+If the SA0 pin is held high (3.3v) the address of the LIS331 is set to 0b00011001. (0x19, 25) If the pin is held low (grounded) then the address of the LIS331 is set to 0b00011000. (0x18, 24)
+
+The manual states: "The Slave ADdress (SAD) associated to the LIS331HH is 001100xb. SDO/SA0 pad can be used to modify less significant bit of the device address. If SA0 pad is connected to voltage supply, LSb is ‘1’ (address 0011001b) else if SA0 pad is connected to ground, LSb value is ‘0’ (address 0011000b). This solution permits to connect and address two different accelerometers to the same I2C lines."
+
 = Wiring the MAX 3232 = 
 
 The MAX3232 is the trickiest part of the loguino to assemble, i used the DIP area on the protoshield, but if you are less confident you could use some stripboard, and mount that using some header pins.  
@@ -71,6 +76,4 @@ The MAX3232 converts the TTL level (5v) signals from the serial output of the lo
 I used some stripboard initially then transferred on to the DIP Area once it was working correctly.  
 
 <img>http://farm6.static.flickr.com/5156/5896738525_e9c436f7b0.jpg</img>
-
-
 
