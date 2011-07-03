@@ -32,6 +32,7 @@
 
 //!The time to wait after polling the megasquirt controller for an answer.
 #define MSP_WAIT_TIME 10
+#define MS_STATUS_PIN 9
 
 //! Queries the megasquirt and logs each value retrieved.
 class MSPoller

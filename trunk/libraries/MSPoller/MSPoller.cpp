@@ -33,6 +33,7 @@ bool MSPoller::begin(){
 	MegaSquirt::begin();
 	active=true;
 	timeouts=0;
+	pinMode(MS_STATUS_PIN, OUTPUT);	
 }
 
 //! Polls the controller for values, and logs them.
@@ -62,9 +63,11 @@ bool MSPoller::poll( ){
 	{
 		debug(WARN, "MSPoller::poll - No response from Megasquirt, going offline");
 		active=false;
+		digitalWrite(MS_STATUS_PIN, LOW);
 		return false;
 	}
 
+	digitalWrite(MS_STATUS_PIN, HIGH);
 
 	debug(INFO, "MSPoller::poll - Received response from MegaSquirt, loading data");
 	d.loadData(table);
