@@ -60,4 +60,17 @@ The pins on the LIS331 are wired as follows, all connections are made to the pro
  * int2 -> Ground
  * gnd-> Ground
 
+= Wiring the MAX 3232 = 
+
+The MAX3232 is the trickiest part of the loguino to assemble, i used the DIP area on the protoshield, but if you are less confident you could use some stripboard, and mount that using some header pins.  
+
+The MAX3232 converts the TTL level (5v) signals from the serial output of the loguino, to the RS232 (12v) signals from the Megasquirt.  This is the diagram of the circuit:
+
+<img>http://farm7.static.flickr.com/6021/5897281044_71a4ecba95.jpg</img>
+
+I used some stripboard initially then transferred on to the DIP Area once it was working correctly.  
+
+<img>http://farm6.static.flickr.com/5156/5896738525_e9c436f7b0.jpg</img>
+
+
 
