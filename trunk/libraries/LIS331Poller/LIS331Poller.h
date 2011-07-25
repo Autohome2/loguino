@@ -53,7 +53,7 @@
   Bus address is either 24 or 25 
 */
 
-#define LIS_BUS_ADDRESS 24
+#define LIS_BUS_ADDRESS 25
 
 class LIS331Poller
 {

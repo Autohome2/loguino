@@ -22,6 +22,7 @@
 */
 
 #include <LIS331.h>
+#include "Test.h"
 
 	LIS331 lis;
 void displayStatus(){
@@ -180,7 +181,7 @@ void setup(){
 	Serial.println("===================Initial Status==================");
 	displayStatus();
 	Serial.println("===================Power Off==================");
-	lis.setPowerStatus(LR_POWER_OFF);
+	test(lis.setPowerStatus(LR_POWER_OFF), "Power Off");
 	displayStatus();
 	Serial.println("===================Power NORM==================");
 	lis.setPowerStatus(LR_POWER_NORM);
