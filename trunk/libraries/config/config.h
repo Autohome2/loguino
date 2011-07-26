@@ -97,4 +97,12 @@
 //! Enable the Dummy Poller
 #define ENABLE_DUMMY_POLLER
 
+//! Enable the Digital Input Poller
+#define ENABLE_DIGITAL_POLLER
+#ifdef ENABLE_DIGITAL_POLLER
+	//! A list, comma seperated of digital pins that will be read for a value.
+	#define DIGITAL_PINS 31,32,33,34,35,36
+	//! A list, comma seperated of pins that will be held high.
+	#define INVERT_DIGITAL_PINS 32,33
+#endif
 
