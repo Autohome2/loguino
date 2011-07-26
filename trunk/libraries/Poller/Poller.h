@@ -25,6 +25,7 @@
 #ifndef Poller_h
 #define Poller_h
 
+#include <config.h>
 #include "WProgram.h"
 #include "MSPoller.h"
 #include "LIS331Poller.h"

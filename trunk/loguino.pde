@@ -21,26 +21,18 @@
 
 */
 
+#include "config.h"
+
 #include "Poller.h"
 #include "Debug.h"
 
 void setup(){
-//	debug(INFO, "Entering Setup");
-
-//	debug(INFO, "Setup: Setting up Logger");
 	Logger::begin();
-
-//	debug(INFO, "Setup: Setting up Poller");
 	Poller::begin();
-
-//	debug(INFO, "Setup Complete.");
 }
 
 void loop(){
-	debug(INFO, "Loop: Starting Poll Run");
 	Poller::poll();
-	delay(50);
-	debug(INFO, "Loop: Poll Run Complete.");
 }
 
 

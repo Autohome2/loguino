@@ -23,14 +23,21 @@
 
 #ifndef GPSPoller_h
 #define GPSPoller_h
-#define GPS_SERIAL_DEV Serial2
-#define GPS_SERIAL_DEV_SPEED 4800
 
 
 
+#include <config.h>
 #include "Logger.h"
 #include "Message.h"
 #include "NMEA.h"
+
+#ifdef ENABLE_GPS_POLLER
+	#ifndef GPS_SERIAL_DEV 
+		#error GPS_SERIAL_DEV must be set to a valid arduino serial port.
+	#endif
+	#ifndef GPS_SERIAL_DEV_SPEED
+		#error GPS_SERIAL_DEV_SPEED not set.
+	#endif
 
 
 class GPSPoller
@@ -41,6 +48,7 @@ class GPSPoller
 		static bool poll();
 };
 
+#endif
 #endif
 
 

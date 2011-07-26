@@ -22,12 +22,13 @@
 */
 
 
+#include <config.h>
 #include "WProgram.h"
 #include "Logger.h"
 #include <SerialOutput.h>
 
 
-
+#ifdef ENABLE_SERIAL_OUTPUT
 bool SerialOutput::active;
 
 bool SerialOutput::flush(){
@@ -41,7 +42,6 @@ bool SerialOutput::flush(){
 
 bool SerialOutput::begin()
 {
-	
     SO_SERIAL_PORT.begin(SO_SERIAL_PORT_SPEED);
 	SO_SERIAL_PORT.println("Activating");
     active=true;
@@ -56,5 +56,5 @@ bool SerialOutput::log(Message &msg){
     SO_SERIAL_PORT.println(msg.toCSV());
 	return true;
 }
-
+#endif
 

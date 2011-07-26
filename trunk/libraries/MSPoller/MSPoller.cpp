@@ -21,8 +21,11 @@
 
 */
 
+#include <config.h>
 #include "WProgram.h"
 #include "MSPoller.h"
+
+#ifdef ENABLE_MS_POLLER
 
 bool MSPoller::active;
 byte MSPoller::timeouts;
@@ -406,4 +409,6 @@ void MSPoller::correctionMetrics(){
 
 
 
+
+#endif
 

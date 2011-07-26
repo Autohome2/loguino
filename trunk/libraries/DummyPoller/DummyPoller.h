@@ -25,6 +25,9 @@
 #define DummyPoller_h
 
 
+#include <config.h>
+
+#ifdef ENABLE_DUMMY_POLLER
 #include "WProgram.h"
 #include "Message.h"
 #include "Logger.h"
@@ -37,6 +40,7 @@ class DummyPoller
 		static bool poll();
 };
 
+#endif
 #endif
 
 

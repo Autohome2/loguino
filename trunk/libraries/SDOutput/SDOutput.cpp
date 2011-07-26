@@ -21,10 +21,12 @@
 
 */
 
+#include <config.h>
 #include "WProgram.h"
 #include <SDOutput.h>
 
 
+#ifdef ENABLE_SD_OUTPUT
 bool SDOutput::active;
 File SDOutput::_File;
 
@@ -101,3 +103,4 @@ bool SDOutput::log(Message &msg){
 
 
 
+#endif

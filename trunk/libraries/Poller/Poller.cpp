@@ -22,20 +22,37 @@
 */
 
 
+#include <config.h>
 #include "WProgram.h"
 #include "Poller.h"
 
 void Poller::begin(){
-	MSPoller::begin();
-	LIS331Poller::begin();
-	DummyPoller::begin();
-	GPSPoller::begin();
+	#ifdef ENABLE_MS_POLLER
+		MSPoller::begin();
+	#endif
+	#ifdef ENABLE_LIS331_POLLER
+		LIS331Poller::begin();
+	#endif
+	#ifdef ENABLE_DUMMY_POLLER
+		DummyPoller::begin();
+	#endif
+	#ifdef ENABLE_GPS_POLLER
+		GPSPoller::begin();
+	#endif
 }
 
 void Poller::poll()
 {
-	MSPoller::poll();
-//	LIS331Poller::poll();
-//	DummyPoller::poll();
-	GPSPoller::poll();
+	#ifdef ENABLE_MS_POLLER
+		MSPoller::poll();
+	#endif
+	#ifdef ENABLE_LIS331_POLLER
+		LIS331Poller::poll();
+	#endif
+	#ifdef ENABLE_DUMMY_POLLER
+		DummyPoller::poll();
+	#endif
+	#ifdef ENABLE_GPS_POLLER
+		GPSPoller::poll();
+	#endif
 }

@@ -21,6 +21,8 @@
 
 */
 
+#include <config.h>
+#ifdef ENABLE_DUMMY_POLLER
 #include "WProgram.h"
 #include "DummyPoller.h"
 
@@ -46,3 +48,5 @@ bool DummyPoller::poll()
 	m.value=millis();
 	Logger::log(m);
 }
+#endif
+

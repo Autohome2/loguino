@@ -26,13 +26,16 @@
 #define Logger_h
 
 
+#include "config.h"
 #include "WProgram.h"
 #include "Message.h"
 #include "SerialOutput.h"
 #include "SDOutput.h"
-
 #include "Debug.h"
-#define LOGGER_FLUSH_MAX 30 
+
+#ifndef LOGGER_FLUSH_MAX
+	#error "LOGGER_FLUSH_MAX must be defined as an integer value."
+#endif
 
 class Logger
 {

@@ -21,9 +21,13 @@
 
 */
 
+
+#include <config.h>
 #include "WProgram.h"
 #include "LIS331Poller.h"
 
+
+#ifdef ENABLE_LIS331_POLLER
 
 LIS331 LIS331Poller::lis;
 bool LIS331Poller::active;
@@ -62,3 +66,5 @@ bool LIS331Poller::poll(){
 	Logger::log(m);
 
 }
+#endif
+

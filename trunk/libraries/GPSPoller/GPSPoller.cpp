@@ -21,10 +21,11 @@
 
 */
 
+#include <config.h>
 #include "WProgram.h"
 #include "GPSPoller.h"
 
-
+#ifdef ENABLE_GPS_POLLER
 NMEA GPSPoller::n;
 
 bool GPSPoller::begin(){
@@ -71,4 +72,6 @@ bool GPSPoller::poll(){
 	}
 }
 
+
+#endif
 

@@ -22,6 +22,7 @@
 */
 
 
+#include <config.h>
 #include "WProgram.h"
 #include "Logger.h"
 
@@ -33,8 +34,12 @@ void Logger::begin()
 {
 	flushCount=0;
 
+#ifdef ENABLE_SERIAL_OUTPUT
 	SerialOutput::begin();
+#endif
+#ifdef ENABLE_SD_OUTPUT
 	SDOutput::begin();
+#endif
 }
 
 
@@ -43,17 +48,24 @@ void Logger::begin()
 void Logger::log(Message &msg)
 {
 	if (flushCount++ > LOGGER_FLUSH_MAX){
-		debug(INFO, "Logger::log: Flush count reached, flushing SerialOutput");
-		SerialOutput::flush();
-		debug(INFO, "Logger::log: Flush count reached, flushing SDOutput");
-		SDOutput::flush();
+		#ifdef ENABLE_SERIAL_OUTPUT
+			debug(INFO, "Logger::log: Flush count reached, flushing SerialOutput");
+			SerialOutput::flush();
+		#endif
+		#ifdef ENABLE_SD_OUTPUT
+			debug(INFO, "Logger::log: Flush count reached, flushing SDOutput");
+			SDOutput::flush();
+		#endif
 
 		flushCount=0;
 	}
 
-
-	SerialOutput::log(msg);
-	SDOutput::log(msg);
+	#ifdef ENABLE_SERIAL_OUTPUT
+		SerialOutput::log(msg);
+	#endif
+	#ifdef ENABLE_SD_OUTPUT
+		SDOutput::log(msg);
+	#endif
 
 }
 

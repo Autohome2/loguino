@@ -25,35 +25,18 @@
 #define LIS331Poller_h
 
 
+#include <config.h>
 #include "WProgram.h"
 #include "Wire.h"
 #include "LIS331.h"
 #include "Logger.h"
 #include "Message.h"
 
+#ifdef ENABLE_LIS331_POLLER
+#ifndef LIS_BUS_ADDRESS
+	#error LIS_BUS_ADDRESS must be set to the address of the LIS331 device
+#endif
 
-/*
- * 0
- * 0
- * 16 1
- * 8  1
- * 4  0
- * 2  0
- * 1  0
- */
-
-/* 
-  The Slave ADdress (SAD) associated to the LIS331HH is 001100xb. SDO/SA0 pad 
-  can be used to modify less significant bit of the device address. If SA0 pad 
-  is connected to voltage supply, LSb is ‘1’ (address 0011001b) else if SA0 pad 
-  is connected to ground, LSb value is ‘0’ (address 0011000b). This solution 
-  permits to connect and address two different accelerometers to the same I2C 
-  lines.
-
-  Bus address is either 24 or 25 
-*/
-
-#define LIS_BUS_ADDRESS 25
 
 class LIS331Poller
 {
@@ -68,3 +51,4 @@ class LIS331Poller
 #endif
 
 
+#endif

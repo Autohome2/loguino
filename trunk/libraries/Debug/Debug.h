@@ -21,12 +21,12 @@
 
 */
 
+#include <config.h>
 #include "WProgram.h"
 
 #ifndef Debug_h
 #define Debug_h
 
-#define DEBUG_LEVEL 0
 #define OFF 0
 #define FATAL 1
 #define ERROR 2

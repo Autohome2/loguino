@@ -21,6 +21,7 @@
 
 */
 
+#include <config.h>
 #include "WProgram.h"
 #include "Debug.h"
 

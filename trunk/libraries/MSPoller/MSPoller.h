@@ -24,15 +24,22 @@
 #ifndef MSPoller_h
 #define MSPoller_h
 
+#include <config.h>
 #include "WProgram.h"
 #include "Message.h"
 #include "MegaSquirt.h"
 #include "Logger.h"
 #include "Debug.h"
 
-//!The time to wait after polling the megasquirt controller for an answer.
-#define MSP_WAIT_TIME 10
-#define MS_STATUS_PIN 9
+#ifdef ENABLE_MS_POLLER
+#ifndef MSP_WAIT_TIME
+	#error MSP_WAIT_TIME not defined.
+#endif
+#ifndef MS_STATUS_PIN
+	#error MS_STATUS_PIN not defined.
+#endif
+
+
 
 //! Queries the megasquirt and logs each value retrieved.
 class MSPoller
@@ -52,4 +59,6 @@ class MSPoller
 
 #endif
 
+
+#endif
 
