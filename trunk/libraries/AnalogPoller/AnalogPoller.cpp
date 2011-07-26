@@ -15,34 +15,39 @@
  * You should have received a copy of the GNU General Public License
  * along with Loguino.  If not, see <http://www.gnu.org/licenses/>.
  * 
- * $Rev$:   
- * $Author$: 
- * $Date$:  
+ * $Rev$   
+ * $Author$
+ * $Date$
 
 */
 
-
-#ifndef Poller_h
-#define Poller_h
-
 #include <config.h>
+#ifdef ENABLE_ANALOG_POLLER
 #include "WProgram.h"
-#include "MSPoller.h"
-#include "LIS331Poller.h"
-#include "DummyPoller.h"
-#include "GPSPoller.h"
-#include <DigitalPoller.h>
-#include <AnalogPoller.h>
+#include "AnalogPoller.h"
 
-class Poller
+
+int AnalogPoller::called;
+
+bool AnalogPoller::begin(){
+	called=0;
+	analogReference(EXTERNAL);
+}
+
+bool AnalogPoller::poll()
 {
-	public:
-		static void begin();
-		static void poll();
-};
+	int pins[]={ANALOG_PINS};
+	int numpins=sizeof(pins)/sizeof(int);
+	Message m;
+	int16_t val;
+	m.units="Bool";
+	int i;			    
+	for (i=0;i<numpins;i++){
+		m.nameSpace=String("AnalogInput.Pin")+String(pins[i]);
+		m.value=String(analogRead(pins[i]));
+		Logger::log(m);
+	}
 
-
-
-
+}
 #endif
 

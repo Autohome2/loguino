@@ -15,34 +15,36 @@
  * You should have received a copy of the GNU General Public License
  * along with Loguino.  If not, see <http://www.gnu.org/licenses/>.
  * 
- * $Rev$:   
- * $Author$: 
- * $Date$:  
+ * $Rev$   
+ * $Author$ 
+ * $Date$  
 
 */
 
+#ifndef AnalogPoller_h
+#define AnalogPoller_h
 
-#ifndef Poller_h
-#define Poller_h
 
 #include <config.h>
-#include "WProgram.h"
-#include "MSPoller.h"
-#include "LIS331Poller.h"
-#include "DummyPoller.h"
-#include "GPSPoller.h"
-#include <DigitalPoller.h>
-#include <AnalogPoller.h>
 
-class Poller
-{
-	public:
-		static void begin();
-		static void poll();
-};
+#ifdef ENABLE_ANALOG_POLLER
+	#ifndef ANALOG_PINS
+		#error ANALOG_PINS is not defined.
+	#endif
 
-
-
+	#include "WProgram.h"
+	#include "Message.h"
+	#include "Logger.h"
+	
+	class AnalogPoller
+	{
+		static int called;
+	    public:
+	        static bool begin();
+			static bool poll();
+	};
 
 #endif
+#endif
+
 

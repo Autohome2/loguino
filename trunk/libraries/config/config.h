@@ -106,3 +106,9 @@
 	#define INVERT_DIGITAL_PINS 32,33
 #endif
 
+//! Enable the Analog Input Poller
+#define ENABLE_ANALOG_POLLER
+#ifdef ENABLE_ANALOG_POLLER
+	//! A list, comma seperated of digital pins that will be read for a value.
+	#define ANALOG_PINS 2,3,4
+#endif

@@ -42,6 +42,9 @@ void Poller::begin(){
 	#ifdef ENABLE_DIGITAL_POLLER
 		DigitalPoller::begin();
 	#endif
+	#ifdef ENABLE_ANALOG_POLLER
+		AnalogPoller::begin();
+	#endif
 }
 
 void Poller::poll()
@@ -60,5 +63,8 @@ void Poller::poll()
 	#endif
 	#ifdef ENABLE_DIGITAL_POLLER
 		DigitalPoller::poll();
+	#endif
+	#ifdef ENABLE_ANALOG_POLLER
+		AnalogPoller::poll();
 	#endif
 }
