@@ -27,42 +27,59 @@
 #include "DigitalPoller.h"
 
 
-int DigitalPoller::called;
 
+/**
+ * Configures the poller module ready to actually read the values by
+ * iterating through each DIGITAL_PIN and setting its mode to INPUT
+ * and its value to LOW.
+ * 
+ * For each INVERTED_DIGITAL_PIN, pulls the value high.
+ */
 bool DigitalPoller::begin(){
-	called=0;
+	// pins - an array of pin numbers to check the state of
 	int pins[]={DIGITAL_PINS};
-	int invpins[]={INVERT_DIGITAL_PINS};
-	int numpins=sizeof(pins)/sizeof(int);
-	int numipins=sizeof(invpins)/sizeof(int);
+	// invPins - an array of pin numbers that should be held high
+	int invPins[]={INVERT_DIGITAL_PINS};
+	// numPins - The number of pins in total.
+	int numPins=sizeof(pins)/sizeof(int);
+	// numIPins - the number of inverted pins.
+	int numIPins=sizeof(invPins)/sizeof(int);
 
+	// Iterate through each pin, set it to an input pin.
+	// Hold the pin LOW.
 	int i;
-
-	for (i=0;i<numpins;i++){
+	for ( i=0; i<numPins; i++){
 		pinMode(pins[i],INPUT);
 		digitalWrite(pins[i], LOW);
 	}
 
-	for(i=0;i<numipins;i++){
-		digitalWrite(invpins[i], HIGH);
+	// For each pin marked inverted, hold it HIGH.
+	for(i=0; i<numIPins; i++){
+		digitalWrite(invPins[i], HIGH);
 	}
 }
 
-
+/**
+ * Reads the value of each digital pin specified and sends a message
+ * with the appropriate value.
+ */
 bool DigitalPoller::poll()
 {
+	// pins - array of pin numbers to check.
 	int pins[]={DIGITAL_PINS};
-	int numpins=sizeof(pins)/sizeof(int);
+	// numPins - total number of pins to check.
+	int numPins=sizeof(pins)/sizeof(int);
+	// m - message object containing each message.
 	Message m;
-	int16_t val;
 	m.units="Bool";
 	int i;			    
-	for (i=0;i<numpins;i++){
+	// For each pin, set the nameSpace, the value, then send the 
+	// message.
+	for (i=0;i<numPins;i++){
 		m.nameSpace=String("DigitalInput.Pin")+String(pins[i]);
 		m.value=digitalRead(pins[i]) ? "HIGH":"LOW";
 		Logger::log(m);
 	}
-
 }
 #endif
 

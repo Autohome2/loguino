@@ -35,7 +35,10 @@
 	#include "WProgram.h"
 	#include "Message.h"
 	#include "Logger.h"
-	
+	/**	
+	 * The analog logs the analog value of pins specified in ANALOG_PINS.
+	 * specified analog inputs.  
+	 */
 	class AnalogPoller
 	{
 		static int called;

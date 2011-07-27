@@ -26,6 +26,12 @@
 #include "WProgram.h"
 #include "Poller.h"
 
+/* 
+ * Initializes the poller layer, so that all subsystems can be polled
+ * at a later time. 
+ *
+ * Iterates through each enabled poller and call the begin() method on them.
+ */
 void Poller::begin(){
 	#ifdef ENABLE_MS_POLLER
 		MSPoller::begin();
@@ -47,6 +53,11 @@ void Poller::begin(){
 	#endif
 }
 
+/**
+ * Responsible for polling all connected hardware and generating log messages.
+ * 
+ * Iterates through each enabled poller, and calls the poll() method.
+ */
 void Poller::poll()
 {
 	#ifdef ENABLE_MS_POLLER
