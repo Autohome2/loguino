@@ -24,7 +24,7 @@
 
 #include <config.h>
 #ifdef ENABLE_LIS331_POLLER
-#include <debug.h>
+#include <Debug.h>
 #include "WProgram.h"
 #include "LIS331Poller.h"
 
@@ -90,7 +90,7 @@ bool LIS331Poller::begin(){
  */
 bool LIS331Poller::poll(){
 	if (!active){
-		return;
+		return false;
 	}
 	Message m;
 	int16_t val;
