@@ -26,14 +26,17 @@
 #include "WProgram.h"
 #include "DummyPoller.h"
 
-
+//! Records how often the poller has been called.
 int DummyPoller::called;
 
+//! Initializes the poller by setting called to zero.
 bool DummyPoller::begin(){
 	called=0;
 }
 
-
+/** Increments called by one, and logs two messages: Dummy.TimesCalled and 
+ * Dummy.Uptime.
+ */
 bool DummyPoller::poll()
 {
 	Message m;

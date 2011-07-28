@@ -32,6 +32,17 @@
 #include "Message.h"
 #include "Logger.h"
 
+/**
+ * Logs a series of useless log messages for testing purposes.  Each polling 
+ * run it generates two log messages, the first: Dummy.TimesCalled equates to 
+ * the number of poll runs made. The second: Dummy.Uptime logs the uptime
+ * in millis since the arduino was started.
+ *
+ * This is primarily meant for testing the output system, as it enables data
+ * to be sent to the loggers without any sensors connected.  It can also be
+ * used for profiling as you can work out the time per poll based on the 
+ * two metrics provided.
+ */
 class DummyPoller
 {
 	static int called;

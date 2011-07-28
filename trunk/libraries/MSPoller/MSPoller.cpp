@@ -26,12 +26,16 @@
 #include "MSPoller.h"
 
 #ifdef ENABLE_MS_POLLER
-
+//! Set to true when there is a megasquirt device responding on the serial line.
 bool MSPoller::active;
+//! Number of poller iterations since the last response from the device
 byte MSPoller::timeouts;
+//! Megasquirt Interface
 MegaSquirtData MSPoller::d;
 
-//! Initializes the connection to the mega squirt controller. 
+/* Initializes the connection to the mega squirt controller. This configures
+ * the MSPoller object, sets active to true, and lights up the MegaSquirt LED.
+ */
 bool MSPoller::begin(){
 	MegaSquirt::begin();
 	active=true;
@@ -39,8 +43,19 @@ bool MSPoller::begin(){
 	pinMode(MS_STATUS_PIN, OUTPUT);	
 }
 
-//! Polls the controller for values, and logs them.
-
+/*
+ * If active, polls the megasquirt controller, if successful, logs values of 
+ * metrics.  
+ *
+ * If the poller is inactive, increases the value of timeouts by one, if the
+ * value of timeouts then exceeds MSP_WAIT_TIME, the logger retries the 
+ * communication between the Loguino and Megasquirt.  Timout is set to zero, 
+ * and if there is a response, active is set back to true.
+ *
+ * If successfully polled, d now contains up to date date, each logging 
+ * function is then called, these send the actual messages out.
+ *
+ */
 bool MSPoller::poll( ){
 	// IF inactive, check if its time to try again.
 	if (!active)
@@ -85,6 +100,10 @@ bool MSPoller::poll( ){
 	return true;
 }
 
+/**
+ * Logs the primary metrics from the controller, such as RPM, Ignition advance,
+ * Pulse Width, and coolant temperature.
+ */
 void MSPoller::keyMetrics(){
 	Message m;
 	m.units="ms*1000";
@@ -127,6 +146,10 @@ void MSPoller::keyMetrics(){
 	//Logger::log(m);
 }
 
+/**
+ * Logs secondary information, such as atmospheric pressure, knock detection
+ * Dwell Angle, and idle control values.
+ */
 void MSPoller::secondaryMetrics(){
 	Message m;
 
@@ -181,12 +204,13 @@ m.units="UNKNOWN";
 	m.nameSpace="Megasquirt.VECurrent2";
 	m.value=String(d.veCurr2(), DEC);
 	Logger::log(m);
-
-
-
-
-
 }
+/**
+ * Logs the system state of the controller, the controller has a number of
+ * boolean values, such as whether the engine is being cranked, is in 
+ * warmup, or acceleration/decelleration mode, these are logged by this
+ * method.
+ */
 void MSPoller::systemState(){
 
 	Message m;
@@ -273,7 +297,10 @@ void MSPoller::systemState(){
 
 
 }
-
+/**
+ * Logs any metrics related to Air Fuel Ratio, such as the target AFR and 
+ * actual AFR.
+ */
 void MSPoller::afrMetrics(){
 	Message m;
 	m.units="AFR*10";
@@ -329,6 +356,11 @@ void MSPoller::afrMetrics(){
 
 }
 
+/**
+ * Logs information about the corrections that the controller is undertaking.
+ * For example the amount of additional fuel being used due to atmospheric
+ * pressure differences, or engine temperature.
+ */
 void MSPoller::correctionMetrics(){
 
 

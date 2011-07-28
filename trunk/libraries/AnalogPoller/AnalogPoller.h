@@ -37,11 +37,16 @@
 	#include "Logger.h"
 	/**	
 	 * The analog logs the analog value of pins specified in ANALOG_PINS.
-	 * specified analog inputs.  
+	 * It can be configured to use an external reference voltage, this
+	 * is the default, behavior.
+	 *
+	 * Each pin in ANALOG_PINS is queried each poll run, and the value 
+	 * logged as a message within the AnalogInput namespace.
+	 *
+	 * Pin values are in the range of 0-1023, where 0 is 0v, and 1023 is 5v.
 	 */
 	class AnalogPoller
 	{
-		static int called;
 	    public:
 	        static bool begin();
 			static bool poll();

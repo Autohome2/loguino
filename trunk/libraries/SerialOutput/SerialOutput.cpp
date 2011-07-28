@@ -23,14 +23,15 @@
 
 
 #include <config.h>
+#ifdef ENABLE_SERIAL_OUTPUT
 #include "WProgram.h"
 #include "Logger.h"
 #include <SerialOutput.h>
 
-
-#ifdef ENABLE_SERIAL_OUTPUT
+//! When the serial device is online, active is set to true.
 bool SerialOutput::active;
 
+//! Flushes the serial buffer.
 bool SerialOutput::flush(){
     if (active){
         SO_SERIAL_PORT.flush();
@@ -39,16 +40,22 @@ bool SerialOutput::flush(){
 	return false;
 }
 
-
+/**
+ * Initializes the SerialOutput module by setting the BAUD rate on the serial 
+ * port. Sets active to true.
+ */
 bool SerialOutput::begin()
 {
     SO_SERIAL_PORT.begin(SO_SERIAL_PORT_SPEED);
-	SO_SERIAL_PORT.println("Activating");
     active=true;
     return true;
 }
 
 
+/**
+ * Calls the toCSV method on the message and writes the data to the serial 
+ * port.
+ */
 bool SerialOutput::log(Message &msg){
     if (!active){
         return false;

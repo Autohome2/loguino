@@ -38,7 +38,20 @@
 	#error GPS_SERIAL_DEV_SPEED not set.
 #endif
 
-
+/*
+ * GPS Poller queries an NMEA compatible GPS device and logs position and
+ * speed.  The poller expects the GPS to send its position without being 
+ * prompted, this is the case with most GPS devices.  The default options 
+ * are suitable for the EM406 GPS, or any other NMEA device with a 4800
+ * BAUD.
+ *
+ * Currently, the data logged is based on GPRMC messages, however in the
+ * future this may expand to include other message types.
+ *
+ * Currently logged messages are: GPS.Course, GPS.Speed, GPS.Latitude, 
+ * GPS.Longitude, GPS.Date, GPS.Time.
+ *
+ */
 class GPSPoller
 {
 	static NMEA n;

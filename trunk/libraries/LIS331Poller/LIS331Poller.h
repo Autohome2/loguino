@@ -24,6 +24,7 @@
 #ifndef LIS331Poller_h
 #define LIS331Poller_h
 
+#ifdef ENABLE_LIS331_POLLER
 
 #include <config.h>
 #include "WProgram.h"
@@ -32,12 +33,15 @@
 #include "Logger.h"
 #include "Message.h"
 
-#ifdef ENABLE_LIS331_POLLER
 #ifndef LIS_BUS_ADDRESS
 	#error LIS_BUS_ADDRESS must be set to the address of the LIS331 device
 #endif
 
 
+/**
+ * The LIS331 Poller queries for a LIS331 accelerometer and logs the G-Force
+ * on each axis.
+ */
 class LIS331Poller
 {
 	static LIS331 lis;

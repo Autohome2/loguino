@@ -26,12 +26,23 @@
 #include "WProgram.h"
 #include "GPSPoller.h"
 
+//! The current NMEA message.
 NMEA GPSPoller::n;
 
+/**
+ * Configures the GPS poller by configuring the serial port that the 
+ * GPS device is connected to. This is defined by two configuration options
+ * GPS_SERIAL_DEV, the device, and GPS_SERIAL_DEV_SPEED the BAUD rate.
+ */
 bool GPSPoller::begin(){
 	GPS_SERIAL_DEV.begin(GPS_SERIAL_DEV_SPEED);
 }
 
+/**
+ * Reads the GPS device for any buffered input, if there are any unprocessed
+ * chars in the input buffer, they are read, and appended to the NMEA Sentance.
+ * Once a valid NMEA sentance is recieved, the messages are logged.
+ */
 bool GPSPoller::poll(){
 	while(GPS_SERIAL_DEV.available()){
 		if (n.addChar(GPS_SERIAL_DEV.read())){

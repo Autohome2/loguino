@@ -27,27 +27,33 @@
 #include "AnalogPoller.h"
 
 
-int AnalogPoller::called;
 
+/**
+ * Configures the analog input pins for use.  Configures the external 
+ * reference voltage if required.
+ */
 bool AnalogPoller::begin(){
-	called=0;
-	analogReference(EXTERNAL);
+	#ifndef NO_ANALOG_EXTERN_REF
+		analogReference(EXTERNAL);
+	#endif
 }
 
+/* 
+ * Queries each in in ANALOG_PINS and logs the value.  The value is 
+ * logged as an integer between 0 and 1023, where 0, is 0v, and 1023 is 5v.
+ */
 bool AnalogPoller::poll()
 {
 	int pins[]={ANALOG_PINS};
-	int numpins=sizeof(pins)/sizeof(int);
+	int numPins=sizeof(pins)/sizeof(int);
 	Message m;
-	int16_t val;
-	m.units="Bool";
+	m.units="Volts*5/1023";
 	int i;			    
-	for (i=0;i<numpins;i++){
+	for (i=0; i<numPins; i++){
 		m.nameSpace=String("AnalogInput.Pin")+String(pins[i]);
 		m.value=String(analogRead(pins[i]));
 		Logger::log(m);
 	}
-
 }
 #endif
 

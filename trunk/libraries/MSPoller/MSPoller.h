@@ -23,6 +23,7 @@
 
 #ifndef MSPoller_h
 #define MSPoller_h
+#ifdef ENABLE_MS_POLLER
 
 #include <config.h>
 #include "WProgram.h"
@@ -31,7 +32,6 @@
 #include "Logger.h"
 #include "Debug.h"
 
-#ifdef ENABLE_MS_POLLER
 #ifndef MSP_WAIT_TIME
 	#error MSP_WAIT_TIME not defined.
 #endif
@@ -41,7 +41,14 @@
 
 
 
-//! Queries the megasquirt and logs each value retrieved.
+/**
+ * Queries the megasquirt and logs each value retrieved.  The megasquirt device
+ * is connected via a serial device, CAN style commands are sent over the serial
+ * line and decoded by the MegaSquirtData object.
+ *
+ * When successful, each metric is logged as a message to the logging system.
+ *
+ */
 class MSPoller
 {
 	static bool active;//< when active, the megasquirt is online.

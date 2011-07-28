@@ -25,6 +25,11 @@
 #include "WProgram.h"
 #include "Message.h"
 
+/*
+ * Initializes the object by setting the default values of the attributes.
+ * time is set to the current uptime, nameSpace and units are set to "Unset" 
+ * and the value is set to 0.
+ */
 Message::Message(){
     time=millis();
     nameSpace="Unset";
@@ -32,7 +37,9 @@ Message::Message(){
     value="0";
 }
 
-
+/**
+ * Returns a comma delimited string containing the message data.
+ */
 String Message::toCSV(){
     String CSV;
     CSV=String(time);

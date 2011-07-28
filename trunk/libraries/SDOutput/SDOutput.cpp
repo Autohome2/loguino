@@ -22,15 +22,18 @@
 */
 
 #include <config.h>
+#ifdef ENABLE_SD_OUTPUT
 #include "WProgram.h"
 #include <SDOutput.h>
 
 
-#ifdef ENABLE_SD_OUTPUT
 bool SDOutput::active;
 File SDOutput::_File;
 
 
+/**
+ * Flushes the output buffer on the SD card.  
+ */
 bool SDOutput::flush(){
     if (active){
         _File.flush();
@@ -39,6 +42,9 @@ bool SDOutput::flush(){
 	return false;
 }
 
+/**
+ * Initializes the SD library and opens the file ready for logging. 
+ */
 bool SDOutput::begin()
 {
   
@@ -77,6 +83,26 @@ bool SDOutput::begin()
         return false;
     }
 
+	/**
+ 	* The default behavior for the FAT library is to flush after every 
+	* character is written out.  This has dire affects on performance, 
+	* fat16lib state on the forum: 
+	*
+	* "Print does character at a time writes when it formats numbers.  SD has 
+ 	* been setup to do a flush after every write.  This means that println(n) 
+ 	* will call flush six times for a four digit number, four times for the 
+ 	* digits and two times for the new line. SD cards can only be read or 
+	* written in 512 byte blocks and SdFat has a single 512 byte buffer.  A 
+	* flush causes the data block to be written, the directory block to be 
+	* read, updated and written.  The next write requires the data block to 
+	* be read so it can be updated.  This is 2048 bytes of I/O. Therefore 
+	* writing the four byte number and a new line requires  12,288 bytes of 
+	* I/O to the SD card."
+	*
+	* Subsequently, the file is opened without flushing automatically.  This 
+	* means it must be manually flushed.
+	*/
+ 
     // Try to open the actual file
 	debug(INFO, "SDOutput::begin - Opening File: "+String(fname));
     _File=SD.open(fname,O_WRITE|O_CREAT);
@@ -93,6 +119,7 @@ bool SDOutput::begin()
 }
 
 
+//! Logs a message to the log file using the toCSV() method.
 bool SDOutput::log(Message &msg){
     if (!active){
         return false;
