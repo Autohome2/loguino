@@ -34,6 +34,7 @@ void Logger::begin()
 {
 	flushCount=0;
 
+
 #ifdef ENABLE_SERIAL_OUTPUT
 	SerialOutput::begin();
 #endif

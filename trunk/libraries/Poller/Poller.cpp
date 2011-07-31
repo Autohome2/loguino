@@ -23,8 +23,7 @@
 
 
 #include <config.h>
-#include "WProgram.h"
-#include "Poller.h"
+#include <Poller.h>
 
 /* 
  * Initializes the poller layer, so that all subsystems can be polled
@@ -50,6 +49,9 @@ void Poller::begin(){
 	#endif
 	#ifdef ENABLE_ANALOG_POLLER
 		AnalogPoller::begin();
+	#endif
+	#ifdef ENABLE_ITG3200_POLLER
+		ITG3200Poller::begin();
 	#endif
 }
 
@@ -77,5 +79,8 @@ void Poller::poll()
 	#endif
 	#ifdef ENABLE_ANALOG_POLLER
 		AnalogPoller::poll();
+	#endif
+	#ifdef ENABLE_ITG3200_POLLER
+		ITG3200Poller::poll();
 	#endif
 }

@@ -22,7 +22,7 @@
 */
 
 #include "config.h"
-
+#include "Logger.h"
 #include "Poller.h"
 #include "Debug.h"
 
@@ -33,6 +33,7 @@ void setup(){
 
 void loop(){
 	Poller::poll();
+	delay(10);
 }
 
 

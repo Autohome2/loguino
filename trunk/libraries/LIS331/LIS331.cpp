@@ -31,6 +31,7 @@ bool LIS331::readReg(byte addr, byte *val){
   Wire.beginTransmission(i2cAddress);
   Wire.send(addr);
   Wire.endTransmission();
+
   Wire.requestFrom(i2cAddress,1);
   int timeouts=0;
   while(!Wire.available() && timeouts++<=LR_MAX_TRIES){
@@ -40,6 +41,7 @@ bool LIS331::readReg(byte addr, byte *val){
 		*val=Wire.receive();
 		return true;
   }else{
+	Serial.println("FAIL");
     return false;
   }
 }

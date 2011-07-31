@@ -188,6 +188,10 @@ for line in open ('libraries/LIS331Poller/LIS331Poller.h'):
     if result:
         libCandidates += result
 
+for line in open ('libraries/ITG3200Poller/ITG3200Poller.h'):
+    result = ptnLib.findall(line)
+    if result:
+        libCandidates += result
 for line in open ('libraries/LIS331/LIS331.h'):
     result = ptnLib.findall(line)
     if result:

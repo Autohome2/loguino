@@ -43,7 +43,7 @@ bool MSPoller::begin(){
 	pinMode(MS_STATUS_PIN, OUTPUT);	
 }
 
-/*
+/**
  * If active, polls the megasquirt controller, if successful, logs values of 
  * metrics.  
  *

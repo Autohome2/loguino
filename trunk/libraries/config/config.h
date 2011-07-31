@@ -57,7 +57,7 @@
 // Input
 
 //! Enable the GPS Poller
-#define ENABLE_GPS_POLLER
+#define NOENABLE_GPS_POLLER
 #ifdef ENABLE_GPS_POLLER
 	//! Sets the serial device of the GPS
 	//#define GPS_SERIAL_DEV Serial
@@ -70,7 +70,7 @@
 #endif
 
 //! Enable the MegaSquirt Poller
-#define ENABLE_MS_POLLER
+#define NOENABLE_MS_POLLER
 #ifdef ENABLE_MS_POLLER
 	//! The time to wait after polling the megasquirt controller for an answer.
 	#define MSP_WAIT_TIME 10
@@ -79,7 +79,7 @@
 #endif
 
 //! Enable the LIS331 Poller
-#define ENABLE_LIS331_POLLER
+#define NOENABLE_LIS331_POLLER
 #ifdef ENABLE_LIS331_POLLER
 	/**
 	 * The Slave ADdress (SAD) associated to the LIS331HH is 001100xb. SDO/SA0 pad 
@@ -95,10 +95,10 @@
 #endif
 
 //! Enable the Dummy Poller
-#define ENABLE_DUMMY_POLLER
+#define NOENABLE_DUMMY_POLLER
 
 //! Enable the Digital Input Poller
-#define ENABLE_DIGITAL_POLLER
+#define NOENABLE_DIGITAL_POLLER
 #ifdef ENABLE_DIGITAL_POLLER
 	//! A list, comma seperated of digital pins that will be read for a value.
 	#define DIGITAL_PINS 31,32,33,34,35,36
@@ -107,8 +107,15 @@
 #endif
 
 //! Enable the Analog Input Poller
-#define ENABLE_ANALOG_POLLER
+#define NOENABLE_ANALOG_POLLER
 #ifdef ENABLE_ANALOG_POLLER
 	//! A list, comma seperated of digital pins that will be read for a value.
 	#define ANALOG_PINS 2,3,4
+#endif
+
+//! Enable the ITG 3200 Poller
+#define ENABLE_ITG3200_POLLER
+#ifdef ENABLE_ITG3200_POLLER
+	//! The I2C Address of the itg3200
+	#define ITG3200_ADDRESS 0x69
 #endif

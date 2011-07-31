@@ -26,13 +26,14 @@
 #define Poller_h
 
 #include <config.h>
-#include "WProgram.h"
-#include "MSPoller.h"
-#include "LIS331Poller.h"
-#include "DummyPoller.h"
-#include "GPSPoller.h"
+#include <WProgram.h>
+#include <MSPoller.h>
+#include <LIS331Poller.h>
+#include <DummyPoller.h>
+#include <GPSPoller.h>
 #include <DigitalPoller.h>
 #include <AnalogPoller.h>
+#include <ITG3200Poller.h>
 
 /**
  * The poller is responsible for querying each device and sending out 

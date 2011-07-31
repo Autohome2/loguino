@@ -48,6 +48,7 @@ byte LIS331Poller::timeouts;
  */
 bool LIS331Poller::begin(){
 	bool status;
+	Serial.println("START LIS331");
 	status=true;
 	timeouts=0;
 
@@ -56,6 +57,7 @@ bool LIS331Poller::begin(){
 				"Set Power Status NORM failed during LIS331 Initialization");
 		status=false;
 	}
+
 
 	if (!lis.setXEnable(true)){
 		debug(ERROR,
