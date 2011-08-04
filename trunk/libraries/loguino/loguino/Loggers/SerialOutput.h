@@ -15,37 +15,37 @@
  * You should have received a copy of the GNU General Public License
  * along with Loguino.  If not, see <http://www.gnu.org/licenses/>.
  * 
- * $Rev$
- * $Author$
- * $Date$
+ * $Rev$:   
+ * $Author$: 
+ * $Date$:  
 
 */
 
 
-#ifndef NMEA_H
-#define NMEA_H
-#include "WProgram.h"
+
+#ifndef SerialOutput_h
+#define SerialOutput_h
+
+#ifdef ENABLE_SERIAL_OUTPUT
+#include <loguino/config.h>
+#include <WProgram.h>
+	#ifndef SO_SERIAL_PORT
+		#error SO_SERIAL_PORT must be defined as a valid arduino Serial device
+	#endif
+	#ifndef SO_SERIAL_PORT_SPEED
+		#error SO_SERIAL_PORT_SPEED must be defined as the speed to log to the serial port
+	#endif
 
 
-
-class NMEA{
-	String getField(int field);
-	char sumMsg(String &message);
-	String readSentence;
-	String activeSentence;
-	int state;
-	public:
-		bool addChar(char c);
-		bool validFix();
-		String getTime();
-		char fixType();
-		String getLatitude();
-		String getLongitude();
-		String getSpeed();
-		String getCourse();
-		String getDate();
+class SerialOutput
+{
+	static bool active;
+    public:
+        static bool begin();
+        static bool log(Message &msg);
+        static bool flush();
 };
-
-
+#endif
 
 #endif
+

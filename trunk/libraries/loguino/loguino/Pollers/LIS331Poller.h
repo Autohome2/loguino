@@ -17,35 +17,42 @@
  * 
  * $Rev$
  * $Author$
- * $Date$
+ * $Date$  
 
 */
 
-
-#ifndef NMEA_H
-#define NMEA_H
-#include "WProgram.h"
+#ifndef LIS331Poller_h
+#define LIS331Poller_h
 
 
+#include <loguino/config.h>
+#ifdef ENABLE_LIS331_POLLER
+#include <WProgram.h>
+#include <Wire.h>
+#include <LIS331.h>
+#include <loguino/Logger.h>
+#include <loguino/Message.h>
 
-class NMEA{
-	String getField(int field);
-	char sumMsg(String &message);
-	String readSentence;
-	String activeSentence;
-	int state;
-	public:
-		bool addChar(char c);
-		bool validFix();
-		String getTime();
-		char fixType();
-		String getLatitude();
-		String getLongitude();
-		String getSpeed();
-		String getCourse();
-		String getDate();
+#ifndef LIS_BUS_ADDRESS
+	#error LIS_BUS_ADDRESS must be set to the address of the LIS331 device
+#endif
+
+
+/**
+ * The LIS331 Poller queries for a LIS331 accelerometer and logs the G-Force
+ * on each axis.
+ */
+class LIS331Poller
+{
+	static LIS331 lis;
+	static bool active;
+	static byte timeouts;
+    public:
+        static bool begin();
+		static bool poll();
 };
 
+#endif
 
 
 #endif

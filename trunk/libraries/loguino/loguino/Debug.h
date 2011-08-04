@@ -15,37 +15,28 @@
  * You should have received a copy of the GNU General Public License
  * along with Loguino.  If not, see <http://www.gnu.org/licenses/>.
  * 
- * $Rev$
- * $Author$
- * $Date$
+ * $Rev$   
+ * $Author$ 
+ * $Date$  
 
 */
 
+#include <WProgram.h>
+#include <loguino/config.h>
 
-#ifndef NMEA_H
-#define NMEA_H
-#include "WProgram.h"
+#ifndef Debug_h
+#define Debug_h
 
+#define OFF 0
+#define FATAL 1
+#define ERROR 2
+#define WARN 3
+#define INFO 4
+#define DEBUG 5
+#define TRACE 6
 
-
-class NMEA{
-	String getField(int field);
-	char sumMsg(String &message);
-	String readSentence;
-	String activeSentence;
-	int state;
-	public:
-		bool addChar(char c);
-		bool validFix();
-		String getTime();
-		char fixType();
-		String getLatitude();
-		String getLongitude();
-		String getSpeed();
-		String getCourse();
-		String getDate();
-};
-
-
+void debug(int level, String message);
 
 #endif
+
+

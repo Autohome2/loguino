@@ -138,7 +138,6 @@ String NMEA::getField(int field){
 
 //! Returns the checksum of the message.
 char NMEA::sumMsg(String &message){
-    debug(TRACE, "GPSPoller::sumMsg - Entering Function");
 
     int i=0;
     char checksum=0;

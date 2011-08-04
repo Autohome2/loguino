@@ -15,37 +15,42 @@
  * You should have received a copy of the GNU General Public License
  * along with Loguino.  If not, see <http://www.gnu.org/licenses/>.
  * 
- * $Rev$
- * $Author$
- * $Date$
+ * $Rev$:   
+ * $Author$: 
+ * $Date: $:  
 
 */
 
 
-#ifndef NMEA_H
-#define NMEA_H
-#include "WProgram.h"
+#include <loguino/Message.h>
+
+/*
+ * Initializes the object by setting the default values of the attributes.
+ * time is set to the current uptime, nameSpace and units are set to "Unset" 
+ * and the value is set to 0.
+ */
+Message::Message(){
+    time=millis();
+    nameSpace="Unset";
+    units="Unset";
+    value="0";
+}
+
+/**
+ * Returns a comma delimited string containing the message data.
+ */
+String Message::toCSV(){
+    String CSV;
+    CSV=String(time);
+    CSV.concat(",");
+    CSV.concat(nameSpace);
+    CSV.concat(",");
+    CSV.concat(value);
+    CSV.concat(",");
+    CSV.concat(units);
+    CSV.concat(",");
+    return CSV;
+}
 
 
 
-class NMEA{
-	String getField(int field);
-	char sumMsg(String &message);
-	String readSentence;
-	String activeSentence;
-	int state;
-	public:
-		bool addChar(char c);
-		bool validFix();
-		String getTime();
-		char fixType();
-		String getLatitude();
-		String getLongitude();
-		String getSpeed();
-		String getCourse();
-		String getDate();
-};
-
-
-
-#endif

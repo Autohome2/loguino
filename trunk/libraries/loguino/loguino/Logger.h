@@ -15,37 +15,38 @@
  * You should have received a copy of the GNU General Public License
  * along with Loguino.  If not, see <http://www.gnu.org/licenses/>.
  * 
- * $Rev$
- * $Author$
- * $Date$
+ * $Rev$:   
+ * $Author$: 
+ * $Date$:  
 
 */
 
 
-#ifndef NMEA_H
-#define NMEA_H
-#include "WProgram.h"
+#ifndef Logger_h
+#define Logger_h
 
 
+#include <WProgram.h>
+#include <loguino/config.h>
+#include <loguino/Message.h>
+#include <loguino/Loggers/SerialOutput.h>
+#include <loguino/Loggers/SDOutput.h>
+#include <loguino/Debug.h>
 
-class NMEA{
-	String getField(int field);
-	char sumMsg(String &message);
-	String readSentence;
-	String activeSentence;
-	int state;
+#ifndef LOGGER_FLUSH_MAX
+	#error "LOGGER_FLUSH_MAX must be defined as an integer value."
+#endif
+
+class Logger
+{
+	static byte flushCount;
 	public:
-		bool addChar(char c);
-		bool validFix();
-		String getTime();
-		char fixType();
-		String getLatitude();
-		String getLongitude();
-		String getSpeed();
-		String getCourse();
-		String getDate();
+		static void begin();
+		static void log(Message &msg);
 };
 
 
 
+
 #endif
+

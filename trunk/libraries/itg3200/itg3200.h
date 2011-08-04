@@ -18,6 +18,7 @@
  *   <http://www.gnu.org/licenses/>.
  */
 #include <Wire.h> 
+#include <WProgram.h>
  
 #ifndef ITG3200_H_
 #define ITG3200_H_

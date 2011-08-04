@@ -15,37 +15,40 @@
  * You should have received a copy of the GNU General Public License
  * along with Loguino.  If not, see <http://www.gnu.org/licenses/>.
  * 
- * $Rev$
+ * $Rev$   
  * $Author$
  * $Date$
 
 */
 
+#include <loguino/config.h>
+#ifdef ENABLE_DUMMY_POLLER
+#include <loguino/Pollers/DummyPoller.h>
 
-#ifndef NMEA_H
-#define NMEA_H
-#include "WProgram.h"
+//! Records how often the poller has been called.
+int DummyPoller::called;
 
+//! Initializes the poller by setting called to zero.
+bool DummyPoller::begin(){
+	called=0;
+}
 
+/** Increments called by one, and logs two messages: Dummy.TimesCalled and 
+ * Dummy.Uptime.
+ */
+bool DummyPoller::poll()
+{
+	Message m;
 
-class NMEA{
-	String getField(int field);
-	char sumMsg(String &message);
-	String readSentence;
-	String activeSentence;
-	int state;
-	public:
-		bool addChar(char c);
-		bool validFix();
-		String getTime();
-		char fixType();
-		String getLatitude();
-		String getLongitude();
-		String getSpeed();
-		String getCourse();
-		String getDate();
-};
+	m.units="Times";
+	m.nameSpace="Dummy.TimesCalled";
+	m.value=called++;
+	Logger::log(m);
 
-
-
+	m.units="Milliseconds";
+	m.nameSpace="Dummy.Uptime";
+	m.value=millis();
+	Logger::log(m);
+}
 #endif
+
