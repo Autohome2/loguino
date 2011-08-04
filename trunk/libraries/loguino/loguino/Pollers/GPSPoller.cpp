@@ -23,7 +23,6 @@
 
 #include <loguino/config.h>
 #ifdef ENABLE_GPS_POLLER
-#include <WProgram.h>
 #include <loguino/Pollers/GPSPoller.h>
 
 //! The current NMEA message.

@@ -29,7 +29,7 @@
 #include <loguino/config.h>
 #include <loguino/Logger.h>
 #include <Loguino/Message.h>
-#include <NMEA.h>
+#include <loguino/NMEA.h>
 
 #ifndef GPS_SERIAL_DEV 
 	#error GPS_SERIAL_DEV must be set to a valid arduino serial port.
