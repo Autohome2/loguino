@@ -27,7 +27,7 @@
 #include <loguino/config.h>
 #ifdef ENABLE_MS_POLLER
 #include <WProgram.h>
-#include <MegaSquirt.h>
+#include <loguino/Hardware/MegaSquirt.h>
 #include <loguino/Logger.h>
 #include <loguino/Message.h>
 #include <loguino/Debug.h>

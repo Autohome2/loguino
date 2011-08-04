@@ -18,9 +18,7 @@
  *
 */
 
-#include "LIS331.h"
-#include "WProgram.h"
-#include "Wire.h"
+#include <loguino/Hardware/LIS331.h>
 
 LIS331::LIS331(){
 	i2cAddress=25;

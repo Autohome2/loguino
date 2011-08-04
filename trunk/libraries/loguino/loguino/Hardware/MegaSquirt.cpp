@@ -22,8 +22,7 @@
 */
 
 
-#include "WProgram.h"
-#include "MegaSquirt.h"
+#include <loguino/Hardware/MegaSquirt.h>
 #define LAMBDA 14.1
 
 

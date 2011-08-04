@@ -21,8 +21,8 @@
 #ifndef LIS331_h
 #define LIS331_h
 
-#include "WProgram.h"
-#include "Wire.h"
+#include <WProgram.h>
+#include <Wire.h>
 
 #define LR_MAX_TRIES 12
 

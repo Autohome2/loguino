@@ -29,7 +29,7 @@
 #ifdef ENABLE_LIS331_POLLER
 #include <WProgram.h>
 #include <Wire.h>
-#include <LIS331.h>
+#include <loguino/Hardware/LIS331.h>
 #include <loguino/Logger.h>
 #include <loguino/Message.h>
 
