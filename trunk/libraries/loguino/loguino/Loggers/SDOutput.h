@@ -25,6 +25,7 @@
 #define SDOutput_h
 #include <loguino/config.h>
 #ifdef ENABLE_SD_OUTPUT
+#error we
 #include <WProgram.h>
 #include <SD.h>
 #include <loguino/Debug.h>

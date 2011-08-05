@@ -21,6 +21,50 @@
 
 */
 #include <WProgram.h>
-#include <loguino/Logger.h>
-#include <loguino/Poller.h>
+#include <loguino/config.h>
+#include <loguino/Message.h>
+#include <loguino/Loggers/SerialOutput.h>
+#include <loguino/Loggers/SDOutput.h>
+#include <loguino/Debug.h>
+#include <loguino/Pollers/MSPoller.h>
+#include <loguino/Pollers/LIS331Poller.h>
+#include <loguino/Pollers/DummyPoller.h>
+#include <loguino/Pollers/GPSPoller.h>
+#include <loguino/Pollers/DigitalPoller.h>
+#include <loguino/Pollers/AnalogPoller.h>
+#include <loguino/Pollers/ITG3200Poller.h>
+
+/**
+ * The poller is responsible for querying each device and sending out 
+ * messages to the messaging system. 
+ *
+ * In order to make adding and removing support for different hardware 
+ * setups easier each query type has its own sub poller, this 
+ * implementation simply has to call the methods on each of the sub 
+ * pollers based on the configuration options set.
+ *
+ */
+class Poller
+{
+	public:
+		static void begin();
+		static void poll();
+};
+
+
+
+
+#ifndef LOGGER_FLUSH_MAX
+    #error "LOGGER_FLUSH_MAX must be defined as an integer value."
+#endif
+
+class Logger
+{
+	static byte flushCount;
+	public:
+		static void begin();
+		static void log(Message &msg);
+};
+
+
 

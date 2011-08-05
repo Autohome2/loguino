@@ -27,7 +27,7 @@
 #ifdef ENABLE_GPS_POLLER
 
 #include <loguino/config.h>
-#include <loguino/Logger.h>
+#include <loguino.h>
 #include <Loguino/Message.h>
 #include <loguino/NMEA.h>
 

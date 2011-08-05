@@ -24,7 +24,6 @@
 
 #include <WProgram.h>
 #include <loguino.h>
-#include <SD.h>
 
 void setup(){
 	Logger::begin();

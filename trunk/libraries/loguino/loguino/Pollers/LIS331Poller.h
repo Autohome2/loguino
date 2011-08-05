@@ -30,7 +30,7 @@
 #include <WProgram.h>
 #include <Wire.h>
 #include <loguino/Hardware/LIS331.h>
-#include <loguino/Logger.h>
+#include <loguino.h>
 #include <loguino/Message.h>
 
 #ifndef LIS_BUS_ADDRESS

@@ -30,7 +30,7 @@
 #ifdef ENABLE_DUMMY_POLLER
 #include <WProgram.h>
 #include <loguino/Message.h>
-#include <loguino/Logger.h>
+#include <loguino.h>
 
 /**
  * Logs a series of useless log messages for testing purposes.  Each polling 

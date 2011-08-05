@@ -32,7 +32,7 @@
 
 #include <WProgram.h>
 #include <loguino/Message.h>
-#include <loguino/Logger.h>
+#include <loguino.h>
 
 #ifndef DIGITAL_PINS
 	#error DIGITAL_PINS is not defined.

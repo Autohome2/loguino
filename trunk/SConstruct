@@ -2,6 +2,7 @@
 TARGET = 'loguino'
 FILES=[
 		TARGET+'.pde',
+		'libraries/loguino/loguino.h',
 	]
 
 # scons script for the Arduino sketch

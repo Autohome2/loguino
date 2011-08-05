@@ -32,9 +32,9 @@
 		#error ANALOG_PINS is not defined.
 	#endif
 
+	#include <loguino.h>
 	#include <WProgram.h>
 	#include <loguino/Message.h>
-	#include <loguino/Logger.h>
 	/**	
 	 * The analog logs the analog value of pins specified in ANALOG_PINS.
 	 * It can be configured to use an external reference voltage, this

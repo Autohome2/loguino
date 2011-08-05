@@ -21,3 +21,109 @@
 
 */
 #include <loguino.h>
+byte Logger::flushCount;
+
+//! Sets up the logger, by calling begin on all attached loggers.
+void Logger::begin()
+{
+    flushCount=0;
+
+
+#ifdef ENABLE_SERIAL_OUTPUT
+    SerialOutput::begin();
+#endif
+#ifdef ENABLE_SD_OUTPUT
+    SDOutput::begin();
+#endif
+}
+
+
+//! Sends the supplied message object to each logger attached.
+//! @param msg - The Message object to log.
+void Logger::log(Message &msg)
+{
+    if (flushCount++ > LOGGER_FLUSH_MAX){
+        #ifdef ENABLE_SERIAL_OUTPUT
+            debug(INFO, "Logger::log: Flush count reached, flushing SerialOutput");
+            SerialOutput::flush();
+        #endif
+        #ifdef ENABLE_SD_OUTPUT
+            debug(INFO, "Logger::log: Flush count reached, flushing SDOutput");
+            SDOutput::flush();
+        #endif
+
+        flushCount=0;
+    }
+
+    #ifdef ENABLE_SERIAL_OUTPUT
+        SerialOutput::log(msg);
+    #endif
+    #ifdef ENABLE_SD_OUTPUT
+        SDOutput::log(msg);
+    #endif
+
+}
+
+
+
+/* 
+ * Initializes the poller layer, so that all subsystems can be polled
+ * at a later time. 
+ *
+ * Iterates through each enabled poller and call the begin() method on them.
+ */
+void Poller::begin(){
+    #ifdef ENABLE_MS_POLLER
+        MSPoller::begin();
+    #endif
+    #ifdef ENABLE_LIS331_POLLER
+        LIS331Poller::begin();
+    #endif
+    #ifdef ENABLE_DUMMY_POLLER
+        DummyPoller::begin();
+    #endif
+    #ifdef ENABLE_GPS_POLLER
+        GPSPoller::begin();
+    #endif
+    #ifdef ENABLE_DIGITAL_POLLER
+        DigitalPoller::begin();
+    #endif
+    #ifdef ENABLE_ANALOG_POLLER
+        AnalogPoller::begin();
+    #endif
+    #ifdef ENABLE_ITG3200_POLLER
+        ITG3200Poller::begin();
+    #endif
+}
+
+
+/**
+ * Responsible for polling all connected hardware and generating log messages.
+ * 
+ * Iterates through each enabled poller, and calls the poll() method.
+ */
+void Poller::poll()
+{
+    #ifdef ENABLE_MS_POLLER
+        MSPoller::poll();
+    #endif
+    #ifdef ENABLE_LIS331_POLLER
+        LIS331Poller::poll();
+    #endif
+    #ifdef ENABLE_DUMMY_POLLER
+        DummyPoller::poll();
+    #endif
+    #ifdef ENABLE_GPS_POLLER
+        GPSPoller::poll();
+    #endif
+    #ifdef ENABLE_DIGITAL_POLLER
+        DigitalPoller::poll();
+    #endif
+    #ifdef ENABLE_ANALOG_POLLER
+        AnalogPoller::poll();
+    #endif
+    #ifdef ENABLE_ITG3200_POLLER
+        ITG3200Poller::poll();
+    #endif
+}
+

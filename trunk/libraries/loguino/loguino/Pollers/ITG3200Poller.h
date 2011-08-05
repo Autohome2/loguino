@@ -30,7 +30,7 @@
 #ifdef ENABLE_ITG3200_POLLER
 #include <WProgram.h>
 #include <loguino/Message.h>
-#include <loguino/Logger.h>
+#include <loguino.h>
 #include <loguino/Hardware/itg3200/itg3200.h>
 #ifndef ITG3200_ADDRESS
 	#error ITG3200_ADDRESS must be defined.

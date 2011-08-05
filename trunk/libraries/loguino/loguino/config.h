@@ -46,7 +46,7 @@
 #endif
 
 //! Enable the SD Output Module
-#define ENABLE_SD_OUTPUT
+#define NOENABLE_SD_OUTPUT
 #ifdef ENABLE_SD_OUTPUT
 	//! The pin that the output LED is connected to, this lights up when 
 	//! the SD card module has found a card, and is writing data to it.
