@@ -13,14 +13,15 @@
  * GNU General Public License for more details.
 
  * You should have received a copy of the GNU General Public License
- * along with Loguino.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Loguino.  If not, see "http://www.gnu.org/licenses/".
  *
  * $Rev$
  * $Author$
  * $Date$
 
 */
-#include <loguino.h>
+#include "loguino.h"
+
 byte Logger::flushCount;
 
 //! Sets up the logger, by calling begin on all attached loggers.
@@ -29,11 +30,11 @@ void Logger::begin()
     flushCount=0;
 
 
-#ifdef ENABLE_SERIAL_OUTPUT
-    SerialOutput::begin();
+#ifdef ENABLE_SERIAL_LOGGER
+    SerialLogger::begin();
 #endif
-#ifdef ENABLE_SD_OUTPUT
-    SDOutput::begin();
+#ifdef ENABLE_SD_LOGGER
+    SDLogger::begin();
 #endif
 }
 
@@ -44,22 +45,22 @@ void Logger::log(Message &msg)
 {
     if (flushCount++ > LOGGER_FLUSH_MAX){
         #ifdef ENABLE_SERIAL_OUTPUT
-            debug(INFO, "Logger::log: Flush count reached, flushing SerialOutput");
-            SerialOutput::flush();
+            debug(INFO, "Logger::log: Flush count reached, flushing SerialLogger");
+            SerialLogger::flush();
         #endif
         #ifdef ENABLE_SD_OUTPUT
-            debug(INFO, "Logger::log: Flush count reached, flushing SDOutput");
-            SDOutput::flush();
+            debug(INFO, "Logger::log: Flush count reached, flushing SDLogger");
+            SDLogger::flush();
         #endif
 
         flushCount=0;
     }
 
     #ifdef ENABLE_SERIAL_OUTPUT
-        SerialOutput::log(msg);
+        SerialLogger::log(msg);
     #endif
     #ifdef ENABLE_SD_OUTPUT
-        SDOutput::log(msg);
+        SDLogger::log(msg);
     #endif
 
 }

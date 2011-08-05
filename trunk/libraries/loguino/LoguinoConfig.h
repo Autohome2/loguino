@@ -13,7 +13,7 @@
  * GNU General Public License for more details.
 
  * You should have received a copy of the GNU General Public License
- * along with Loguino.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Loguino.  If not, see "http://www.gnu.org/licenses/".
  * 
  * $Rev$:   
  * $Author$: 
@@ -33,8 +33,8 @@
 // Output
 
 //! Enable the serial output module
-#define ENABLE_SERIAL_OUTPUT
-#ifdef ENABLE_SERIAL_OUTPUT
+#define ENABLE_SERIAL_LOGGER
+#ifdef ENABLE_SERIAL_LOGGER
 	//! Serial Port to use, select 1 of the following:
 	#define SO_SERIAL_PORT Serial
 	//#define SO_SERIAL_PORT Serial1
@@ -46,8 +46,8 @@
 #endif
 
 //! Enable the SD Output Module
-#define NOENABLE_SD_OUTPUT
-#ifdef ENABLE_SD_OUTPUT
+#define NOENABLE_SD_LOGGER
+#ifdef ENABLE_SD_LOGGER
 	//! The pin that the output LED is connected to, this lights up when 
 	//! the SD card module has found a card, and is writing data to it.
 	#define SD_ACTIVE_PIN 8 
@@ -114,7 +114,7 @@
 #endif
 
 //! Enable the ITG 3200 Poller
-#define ENABLE_ITG3200_POLLER
+#define NOENABLE_ITG3200_POLLER
 #ifdef ENABLE_ITG3200_POLLER
 	//! The I2C Address of the itg3200
 	#define ITG3200_ADDRESS 0x69

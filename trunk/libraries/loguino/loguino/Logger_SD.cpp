@@ -13,7 +13,7 @@
  * GNU General Public License for more details.
 
  * You should have received a copy of the GNU General Public License
- * along with Loguino.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Loguino.  If not, see "http://www.gnu.org/licenses/".
  * 
  * $Rev$:   
  * $Author$: 
@@ -21,19 +21,21 @@
 
 */
 
-#include <loguino/config.h>
-#ifdef ENABLE_SD_OUTPUT
-#include <loguino/Loggers/SDOutput.h>
+#error foo
+#ifdef ENABLE_SD_LOGGER
 
 
-bool SDOutput::active;
-File SDOutput::_File;
+#include "Logger_SD.h"
+
+
+bool SDLogger::active;
+File SDLogger::_File;
 
 
 /**
  * Flushes the output buffer on the SD card.  
  */
-bool SDOutput::flush(){
+bool SDLogger::flush(){
     if (active){
         _File.flush();
 		return true;
@@ -44,19 +46,16 @@ bool SDOutput::flush(){
 /**
  * Initializes the SD library and opens the file ready for logging. 
  */
-bool SDOutput::begin()
+bool SDLogger::begin()
 {
   
-	debug (INFO, "SDOutput::begin - Setting up");
 	active=false;
 	
 	pinMode(10, OUTPUT);
 	if (!SD.begin(4)) {
-		debug(ERROR, "SDOutput::begin - SD Card initialization failed!");
 		return false;
 	}
 
-	debug(INFO, "SDOutput::begin - SD Card initialization complete.");
 
     char fname[13];
     // Counter for filename
@@ -70,7 +69,6 @@ bool SDOutput::begin()
     while (SD.exists(fname)){
 
         i++;
-		debug(INFO, "SDOutput::begin - Trying filename: " + String(fname));
 
         // free fname?
         sprintf(fname, "%08d.log",i);
@@ -78,7 +76,6 @@ bool SDOutput::begin()
     
     if (SD.exists(fname)){
         // Run out of filenames
-		debug(ERROR, "SDOutput::begin - No Spare Filenames");
         return false;
     }
 
@@ -103,10 +100,8 @@ bool SDOutput::begin()
 	*/
  
     // Try to open the actual file
-	debug(INFO, "SDOutput::begin - Opening File: "+String(fname));
     _File=SD.open(fname,O_WRITE|O_CREAT);
     if (!_File){
-		debug(ERROR, "SDOutput::begin - Not able to open File.");
         return false;
     }
 
@@ -119,7 +114,7 @@ bool SDOutput::begin()
 
 
 //! Logs a message to the log file using the toCSV() method.
-bool SDOutput::log(Message &msg){
+bool SDLogger::log(Message &msg){
     if (!active){
         return false;
     }

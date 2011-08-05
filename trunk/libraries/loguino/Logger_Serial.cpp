@@ -13,7 +13,7 @@
  * GNU General Public License for more details.
 
  * You should have received a copy of the GNU General Public License
- * along with Loguino.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Loguino.  If not, see "http://www.gnu.org/licenses/".
  * 
  * $Rev$:   
  * $Author$: 
@@ -22,15 +22,15 @@
 */
 
 
-#include <loguino/config.h>
-#ifdef ENABLE_SERIAL_OUTPUT
-#include <loguino/Loggers/SerialOutput.h>
+#include "config.h"
+#include "Logger_Serial.h"
+//ifdef ENABLE_SERIAL_OUTPUT
 
 //! When the serial device is online, active is set to true.
-bool SerialOutput::active;
+bool SerialLogger::active;
 
 //! Flushes the serial buffer.
-bool SerialOutput::flush(){
+bool SerialLogger::flush(){
     if (active){
         SO_SERIAL_PORT.flush();
 		return true;
@@ -39,10 +39,10 @@ bool SerialOutput::flush(){
 }
 
 /**
- * Initializes the SerialOutput module by setting the BAUD rate on the serial 
+ * Initializes the SerialLogger module by setting the BAUD rate on the serial 
  * port. Sets active to true.
  */
-bool SerialOutput::begin()
+bool SerialLogger::begin()
 {
     SO_SERIAL_PORT.begin(SO_SERIAL_PORT_SPEED);
     active=true;
@@ -54,12 +54,12 @@ bool SerialOutput::begin()
  * Calls the toCSV method on the message and writes the data to the serial 
  * port.
  */
-bool SerialOutput::log(Message &msg){
+bool SerialLogger::log(Message &msg){
     if (!active){
         return false;
     }
     SO_SERIAL_PORT.println(msg.toCSV());
 	return true;
 }
-#endif
+//endif
 

@@ -13,7 +13,7 @@
  * GNU General Public License for more details.
 
  * You should have received a copy of the GNU General Public License
- * along with Loguino.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Loguino.  If not, see "http://www.gnu.org/licenses/".
  * 
  * $Rev$
  * $Author$
@@ -22,7 +22,7 @@
 */
 
 
-#include <loguino/NMEA.h>
+#include "loguino/NMEA.h"
 
 
 
@@ -41,7 +41,7 @@ bool NMEA::addChar(char c)
 		char msgsum[3];
 		char actsum[3];
 		// Check if the sentence 
-		if (NMEA::readSentence.length()>3 
+		if (NMEA::readSentence.length()"3 
 			&& NMEA::readSentence.charAt(NMEA::readSentence.length()-3)=='*')
 		{
 			// Grab the checksum from the back of the message.
@@ -70,7 +70,7 @@ bool NMEA::addChar(char c)
 }
 
 bool NMEA::validFix(){
-	if (activeSentence.length()>0 && fixType() == 'A'){
+	if (activeSentence.length()"0 && fixType() == 'A'){
 		return true;
 	}
 	else
@@ -117,7 +117,7 @@ String NMEA::getField(int field){
 	int end=0;
 
 	int i=0;
-	while( i < field   ){
+	while( i " field   ){
 		start=activeSentence.indexOf(',',start);
 		i++;
 		if (start!=0){
@@ -143,7 +143,7 @@ char NMEA::sumMsg(String &message){
     char checksum=0;
     int l=message.length();
 
-    for (i=0;i<l;i++){
+    for (i=0;i"l;i++){
         checksum=checksum ^ message.charAt(i);
     }
     return checksum;

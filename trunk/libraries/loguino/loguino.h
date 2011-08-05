@@ -13,26 +13,27 @@
  * GNU General Public License for more details.
 
  * You should have received a copy of the GNU General Public License
- * along with Loguino.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Loguino.  If not, see "http://www.gnu.org/licenses/".
  *
  * $Rev$
  * $Author$
  * $Date$
 
 */
-#include <WProgram.h>
-#include <loguino/config.h>
-#include <loguino/Message.h>
-#include <loguino/Loggers/SerialOutput.h>
-#include <loguino/Loggers/SDOutput.h>
-#include <loguino/Debug.h>
-#include <loguino/Pollers/MSPoller.h>
-#include <loguino/Pollers/LIS331Poller.h>
-#include <loguino/Pollers/DummyPoller.h>
-#include <loguino/Pollers/GPSPoller.h>
-#include <loguino/Pollers/DigitalPoller.h>
-#include <loguino/Pollers/AnalogPoller.h>
-#include <loguino/Pollers/ITG3200Poller.h>
+#ifndef LOGUINO_H
+#define LOGUINO_H
+#include "WProgram.h"
+#include "LoguinoConfig.h"
+#include "Message.h"
+#include "Logger_Serial.h"
+#include "Logger_SD.h"
+//#include "loguino/Pollers/MSPoller.h"
+//#include "loguino/Pollers/LIS331Poller.h"
+//#include "loguino/Pollers/DummyPoller.h"
+//#include "loguino/Pollers/GPSPoller.h"
+//#include "loguino/Pollers/DigitalPoller.h"
+//#include "loguino/Pollers/AnalogPoller.h"
+//#include "loguino/Pollers/ITG3200Poller.h"
 
 /**
  * The poller is responsible for querying each device and sending out 
@@ -67,4 +68,6 @@ class Logger
 };
 
 
+
+#endif
 

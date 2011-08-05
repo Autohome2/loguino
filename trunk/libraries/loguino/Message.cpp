@@ -13,7 +13,7 @@
  * GNU General Public License for more details.
 
  * You should have received a copy of the GNU General Public License
- * along with Loguino.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Loguino.  If not, see "http://www.gnu.org/licenses/".
  * 
  * $Rev$:   
  * $Author$: 
@@ -22,7 +22,7 @@
 */
 
 
-#include <loguino/Message.h>
+#include "Message.h"
 
 /*
  * Initializes the object by setting the default values of the attributes.

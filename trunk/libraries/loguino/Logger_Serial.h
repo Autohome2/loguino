@@ -13,7 +13,7 @@
  * GNU General Public License for more details.
 
  * You should have received a copy of the GNU General Public License
- * along with Loguino.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Loguino.  If not, see "http://www.gnu.org/licenses/".
  * 
  * $Rev$:   
  * $Author$: 
@@ -21,37 +21,32 @@
 
 */
 
-#ifndef SDOutput_h
-#define SDOutput_h
-#include <loguino/config.h>
-#ifdef ENABLE_SD_OUTPUT
-#error we
+
+
+#ifndef LOGGER_SERIAL_H
+#define LOGGER_SERIAL_H
+
+#include "config.h"
 #include <WProgram.h>
-#include <SD.h>
-#include <loguino/Debug.h>
-#include <loguino/Message.h>
-	#ifndef SD_ACTIVE_PIN
-		#error Define SD_ACTIVE_PIN to the pin that will go high when the SD module is writing to a file.
+
+//ifdef ENABLE_SERIAL_LOGGER
+	#ifndef SO_SERIAL_PORT
+		#error SO_SERIAL_PORT must be defined as a valid arduino Serial device
+	#endif
+	#ifndef SO_SERIAL_PORT_SPEED
+		#error SO_SERIAL_PORT_SPEED must be defined as the speed to log to the serial port
 	#endif
 
-/**
- * A logger implementation that writes data to SD cards using the SD library.
- */
-class SDOutput
+
+class SerialLogger
 {
-	/**
-	 * If the logger was able to open a file on an SD Card, it becomes active.
-	 */
-    static bool active;
-	//! The open file object where the file is being written to.
-    static File _File;
+	static bool active;
     public:
         static bool begin();
         static bool log(Message &msg);
         static bool flush();
 };
+//endif
 
-
-#endif
 #endif
 
