@@ -21,10 +21,10 @@
 
 */
 
-#include "config.h"
-#include "Logger.h"
-#include "Poller.h"
-#include "Debug.h"
+
+#include <WProgram.h>
+#include <loguino.h>
+#include <SD.h>
 
 void setup(){
 	Logger::begin();
