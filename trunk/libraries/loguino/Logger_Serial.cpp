@@ -22,9 +22,9 @@
 */
 
 
-#include "config.h"
+#include "LoguinoConfig.h"
 #include "Logger_Serial.h"
-//ifdef ENABLE_SERIAL_OUTPUT
+#ifdef ENABLE_SERIAL_OUTPUT
 
 //! When the serial device is online, active is set to true.
 bool SerialLogger::active;
@@ -61,5 +61,5 @@ bool SerialLogger::log(Message &msg){
     SO_SERIAL_PORT.println(msg.toCSV());
 	return true;
 }
-//endif
+#endif
 

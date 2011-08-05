@@ -26,7 +26,7 @@
 #include "LoguinoConfig.h"
 #include "Message.h"
 #include "Logger_Serial.h"
-#include "Logger_SD.h"
+//#include "Logger_SD.h"
 //#include "loguino/Pollers/MSPoller.h"
 //#include "loguino/Pollers/LIS331Poller.h"
 //#include "loguino/Pollers/DummyPoller.h"

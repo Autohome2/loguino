@@ -26,10 +26,11 @@
 #ifndef LOGGER_SERIAL_H
 #define LOGGER_SERIAL_H
 
-#include "config.h"
+#include "LoguinoConfig.h"
+#include "Message.h"
 #include <WProgram.h>
 
-//ifdef ENABLE_SERIAL_LOGGER
+#ifdef ENABLE_SERIAL_LOGGER
 	#ifndef SO_SERIAL_PORT
 		#error SO_SERIAL_PORT must be defined as a valid arduino Serial device
 	#endif
@@ -46,7 +47,7 @@ class SerialLogger
         static bool log(Message &msg);
         static bool flush();
 };
-//endif
+#endif
 
 #endif
 

@@ -23,7 +23,8 @@
 
 
 #include <WProgram.h>
-#include <loguino.h>
+#include "loguino.h"
+#include "Logger_Serial.h"
 
 void setup(){
 	Logger::begin();
