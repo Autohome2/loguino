@@ -131,19 +131,19 @@ void ITG3200::setClockSource(byte clockSource)
 
 void ITG3200::write(byte reg, byte val) {
   Wire.beginTransmission(_gyro_address);
-  Wire.send(reg);
-  Wire.send(val);
+  Wire.write(reg);
+  Wire.write(val);
   Wire.endTransmission();
 }
 
 byte ITG3200::read(byte reg) {
   Wire.beginTransmission(_gyro_address);
-  Wire.send(reg);
+  Wire.write(reg);
   Wire.endTransmission();
   Wire.beginTransmission(_gyro_address);
   Wire.requestFrom(_gyro_address,  1);
   while (Wire.available() ==0) {}; // block unil data is available
-  byte buf = Wire.receive();
+  byte buf = Wire.read();
   Wire.endTransmission();
   return buf;
 }
