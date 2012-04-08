@@ -58,7 +58,7 @@ void MSpoll( ){
 	if (!active)
 	{
 		// If timeouts > max time out time, then become active, and reset timeouts.
-		if (timeouts++ > MSP_WAIT_TIME){
+		if (timeouts++ > MS_WAIT_TIME){
 			active=true;
 			timeouts=0;
 			Serial.println("MSPoller::poll - Megasquirt inactive, retrying");

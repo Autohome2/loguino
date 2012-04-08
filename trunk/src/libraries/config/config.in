@@ -104,10 +104,11 @@
 
 //! Enable the MegaSquirt Poller
 #cmakedefine ENABLE_MS_POLLER
-//! The time to wait after polling the megasquirt controller for an answer.
+//! The number of polls to skip after a timeout
 #define MS_WAIT_TIME @MS_WAIT_TIME@
 
 //! When the megasquirt is online, this pin will be high.  Used to show a status LED.
 #define MS_STATUS_PIN @MS_STATUS_PIN@
 
 
+#endif

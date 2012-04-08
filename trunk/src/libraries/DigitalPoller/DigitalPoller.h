@@ -20,8 +20,8 @@
  * $Date$:  
  
  */
-#ifndef DIGITALPOLLER_H
-#define DIGITALPOLLER_H
+#ifndef DIGITALPOLLER_H_
+#define DIGITALPOLLER_H_
 
 #include <Arduino.h>
 #include <config.h>
@@ -30,7 +30,7 @@
 #include <logger.h>
 
 
-void digitalpoll();
-void digitalbegin();
+void digitalPoll();
+void digitalBegin();
 
 #endif

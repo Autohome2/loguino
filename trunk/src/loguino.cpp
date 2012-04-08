@@ -25,6 +25,7 @@
 #include <config.h>
 #include <message.h>
 #include <logger.h>
+#include <DigitalPoller.h>
 #ifdef ENABLE_DUMMY_POLLER
     #include <DummyPoller.h>
 #endif
@@ -67,7 +68,7 @@ void loop(){
     analogpoll();
 #endif
 #ifdef ENABLE_DIGITAL_POLLER
-    digitalpoll();
+    digitalPoll();
 #endif
 #ifdef ENABLE_MS_POLLER
     MSpoll();
@@ -96,7 +97,7 @@ void setup(){
     analogbegin();
 #endif
 #ifdef ENABLE_DIGITAL_POLLER
-    digitalbegin();
+    digitalBegin();
 #endif
 #ifdef ENABLE_MS_POLLER
     MSbegin();
