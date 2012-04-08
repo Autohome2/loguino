@@ -2,8 +2,7 @@
 
 = Overview =
 
-The GPS Poller reads NMEA data from a serial device and logs values.
- Any NMEA device is currently supported as long as it does not use a binary format.
+The GPS Poller reads NMEA data from a serial device and logs values.  Any NMEA device is currently supported as long as it does not use a binary format.
 
 
 = Wiring =
