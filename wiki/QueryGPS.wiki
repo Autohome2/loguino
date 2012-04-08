@@ -1,0 +1,25 @@
+#summary The GPS Poller provides access to NMEA based GPS devices.
+
+= Overview =
+
+The GPS Poller reads NMEA data from a serial device and logs values.
+ Any NMEA device is currently supported as long as it does not use a binary format.
+
+
+= Wiring =
+
+The GPS is connected to one of the serial ports, this is defined in GPS_SERIAL_DEV, the default is Serial2.  Most GPS shields require no additional wiring, simply connect the pins to the appropriate serial device on the board.
+
+= NMEA Library =
+
+The NMEA processing is carried out by a NMEA library which parses the string for a valid NMEA sentance.
+
+
+= Available Metrics =
+
+ * GPS.Course: The heading in degrees
+ * GPS.Speed: The speed in Knots
+ * GPS.Latitude: The latitude in degrees
+ * GPS.Longitude: The longitude in degrees
+ * GPS.Date: The date
+ * GPS.Time: The time (UTC)
