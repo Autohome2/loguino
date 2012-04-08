@@ -1,4 +1,5 @@
 set(FIRMWARE_NAME loguino)
+set(loguino_RECURSE True)
 set(SD_RECURSE True)
 
 set(${FIRMWARE_NAME}_BOARD mega2560)
