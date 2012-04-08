@@ -45,7 +45,7 @@ ENDIF (ENABLE_LIS331_POLLER)
 OPTION( ENABLE_MS_POLLER "Enable polling of MegaSquirt ECU" ON)
 IF (ENABLE_MS_POLLER)
 	SET(MYVAR "Test" CACHE STRING "This is my variable")
-	SET(MS_WAIT_TIME "100" CACHE STRING "Time to wait for a response after sending a command to the megasquirt controller" )
+	SET(MS_WAIT_TIME "100" CACHE STRING "Time number of polls to skip after a megasquirt timout" )
 	SET(MS_STATUS_PIN "9" CACHE STRING "Pin to take high when megasquirt is online" )
 ENDIF(ENABLE_MS_POLLER)
 

@@ -30,8 +30,8 @@
 #include <MegaSquirt.h>
 #include <logger.h>
 
-#ifndef MSP_WAIT_TIME
-	#error MSP_WAIT_TIME not defined.
+#ifndef MS_WAIT_TIME
+	#error MS_WAIT_TIME not defined.
 #endif
 #ifndef MS_STATUS_PIN
 	#error MS_STATUS_PIN not defined.
