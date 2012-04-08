@@ -21,3 +21,4 @@ This is an overview of the releases, and the planned features for each release.
 == Long Term ==
 
  * Bluetooth interface to iphone/android to download and view on thie fly.
+ * Download files over serial
