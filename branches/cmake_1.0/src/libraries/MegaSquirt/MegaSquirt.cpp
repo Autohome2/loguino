@@ -540,39 +540,42 @@ byte MegaSquirt::runCommand(byte cmd[], byte cmdLength,  byte data[], byte dataL
 	for (i=0;i<cmdLength;i++){
 		MS_PORT.write(cmd[i]);
 	}
-
-	byte tries=0;
-	// Wait for output
-	delay(MS_WAIT_TIME);
-
-	// Keep waiting for output until sufficiant data is available
-	// or the number of retries maxes out.
-	while(tries<MS_MAX_RETRY_COUNT && MS_PORT.available()<dataLength)
-	{
-		delay(MS_WAIT_TIME);
-		++tries;
-	}
-
-	// If insufficiant data is received, raise a time out error.
-	if (MS_PORT.available()<dataLength)
-	{
-		return MS_ERR_COMM_TIMEOUT;
-	}
-	byte chars=0;
-
-	// Read the required amount of data from the device
-	while(chars<dataLength)
-	{
-		data[chars]=MS_PORT.read();
-		++chars;
-	}
-
+    
+    
+    int counter=0;
+    unsigned long timeout=millis()+MS_WAIT_TIME;
+    Serial.print("Data length: ");
+    Serial.println(dataLength);
+    
+    while (counter<dataLength && timeout>millis())
+    {
+        Serial.print("Waiting on data, counter: ");
+        Serial.println(counter);
+        Serial.print("Timout: ");
+        Serial.print(timeout);
+        Serial.print(" Millis: ");
+        Serial.println(millis());
+        
+        
+        while(counter<dataLength && MS_PORT.available()){
+            data[counter]=MS_PORT.read();
+            ++counter;
+        }
+    }
+	
+    Serial.print("Finished trying to find data, counter: ");
+    Serial.println(counter);
+    
 	// If there is still data pending to be read, raise OVERFLOW error.
-	if (MS_PORT.available()>0)
+	if (MS_PORT.available()>0 && counter>=dataLength)
 	{
 		return MS_ERR_COMM_OVERFLOW;
 	}
-
+    
+    // If the wrong amount of data was read, return timeout.
+    if (counter != dataLength){
+        return MS_ERR_COMM_TIMEOUT;
+    }
 	// Otherwise return success.
 	return MS_COMM_SUCCESS;
 }
@@ -708,7 +711,7 @@ byte MegaSquirt::getData(byte table[])
 	cmd[0]='a';
 	cmd[1]=byte(0);
 	cmd[2]=byte(6);
-
+    Serial.println("Getting data from command a");
 	status=runCommand(cmd,3, table,MS_TABLE_LENGTH);
 	return status;
 }
