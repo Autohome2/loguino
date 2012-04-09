@@ -1,7 +1,7 @@
 #summary How to test the hardware and install the correct firmware
 <wiki:toc max_depth="2" />
 
-Once your hardware is built, you must flash it with the latest firmware, to do so, you will need a compute with a USB port, and a USB cable to connect up your loguino board.  In this tutorial, [http://www.nongnu.org/avrdude/ avrdude] is used, other options include [http://smileymicros.com/blog/2010/10/11/ardup-an-arduino-hex-file-uploader/ ardup] which may be easier for windows users.  I chose avrdude however as it is bundled with [http://www.arduino.cc Arduino] and as such should be available on all systems.
+Once your hardware is built, you must flash it with the latest firmware, to do so, you will need a computer with a USB port, and a USB cable to connect up your loguino board.  
 
 = Downloading and Building = 
 
