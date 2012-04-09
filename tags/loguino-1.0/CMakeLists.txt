@@ -1,0 +1,20 @@
+#=============================================================================#
+# Author: QueezyTheGreat                                                      #
+# Date:   26.04.2011                                                          #
+#                                                                             #
+# Description: Arduino CMake example                                          #
+#                                                                             #
+#=============================================================================#
+set(CMAKE_MODULE_PATH    ${CMAKE_SOURCE_DIR}/cmake/modules)  # CMake module search path
+set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/toolchains/Arduino.cmake) # Arduino Toolchain
+set(SD_RECURSE True)
+
+
+cmake_minimum_required(VERSION 2.8)
+#====================================================================#
+#  Setup Project                                                     #
+#====================================================================#
+project(Loguino C CXX)
+find_package(Arduino 1.0 REQUIRED)
+
+add_subdirectory(src)  # Add example directory to build
