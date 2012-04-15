@@ -39,6 +39,16 @@
 //! Enable the Dummy Poller
 #cmakedefine ENABLE_DUMMY_POLLER
 
+//! Enable the TMP102 Poller
+#cmakedefine ENABLE_TMP102_POLLER
+#define TMP102_I2C_ADDRESS @TMP102_I2C_ADDRESS@
+
+//! Enable the BMP085 Poller
+#cmakedefine ENABLE_BMP085_POLLER
+
+//! Enable HS1101 Poller
+#cmakedefine ENABLE_HS1101_POLLER
+#define HS1101_PIN @HS1101_PIN@
 
 
 
