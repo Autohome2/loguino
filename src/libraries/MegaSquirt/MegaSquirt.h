@@ -14,7 +14,7 @@
 
  * You should have received a copy of the GNU General Public License
  * along with Loguino.  If not, see <http://www.gnu.org/licenses/>.
- *
+
  * $Rev$
  * $Author$
  * $Date$
@@ -25,10 +25,10 @@
 #define MegaSquirt_h
 
 #define LAMBDA 14.1
-#define MS_PORT Serial1
 #define MS_TABLE_LENGTH 112
 #define MS_MAX_RETRY_COUNT 30
 #define MS_WAIT_TIME 100
+#define MS_PORT Serial1
 
 #define MS_COMM_SUCCESS 0
 #define MS_ERR_COMM_TIMEOUT 1
@@ -155,4 +155,5 @@ class MegaSquirt
 		
 
 #endif
+
 

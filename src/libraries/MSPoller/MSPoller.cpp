@@ -33,7 +33,7 @@
 /* Initializes the connection to the mega squirt controller. This configures
  * the MSPoller object, sets active to true, and lights up the MegaSquirt LED.
  */
-void MSbegin(){
+void MSPoller::begin(){
 	active=true;
 	timeouts=0;
 	pinMode(MS_STATUS_PIN, OUTPUT);	
@@ -53,7 +53,7 @@ void MSbegin(){
  * function is then called, these send the actual messages out.
  *
  */
-void MSpoll( ){
+void MSPoller::poll( ){
 	// IF inactive, check if its time to try again.
 	if (!active)
 	{
@@ -61,12 +61,10 @@ void MSpoll( ){
 		if (timeouts++ > MS_WAIT_TIME){
 			active=true;
 			timeouts=0;
-			Serial.println("MSPoller::poll - Megasquirt inactive, retrying");
 		}
 		// timeouts not reached, just return.
 		else
 		{
-			Serial.println("MSPoller::poll - Megasquirt inactive, not polling");
 			return;
 		}
 	}
@@ -76,7 +74,6 @@ void MSpoll( ){
 	status=MegaSquirt::getData(table);
 	if (status != MS_COMM_SUCCESS)
 	{
-		Serial.println("MSPoller::poll - No response from Megasquirt, going offline");
 		active=false;
 		digitalWrite(MS_STATUS_PIN, LOW);
 		return;
@@ -84,10 +81,8 @@ void MSpoll( ){
 
 	digitalWrite(MS_STATUS_PIN, HIGH);
 
-	Serial.println("MSPoller::poll - Received response from MegaSquirt, loading data");
 	d.loadData(table);
 
-	Serial.println("MSPoller::poll - Loaded data, sending messages");
 
     
     m.units="ms*1000";

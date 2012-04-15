@@ -40,6 +40,9 @@ void log_message(){
 #ifdef ENABLE_SD_OUTPUT
     SDOut();
 #endif
+#ifdef ENABLE_ETHERNET_LOGGER
+	EthernetLogger::log_message();
+#endif
 }
 
 void loggerBegin(){
@@ -48,6 +51,12 @@ void loggerBegin(){
 #endif
 #ifdef ENABLE_SD_OUTPUT
     SDOutBegin();
+#endif
+
+#ifdef ENABLE_ETHERNET_LOGGER
+	Serial.begin(115200);
+	Serial.println("Starting");
+	EthernetLogger::begin();
 #endif
 }
 
@@ -58,6 +67,9 @@ void flush_output(){
 #ifdef ENABLE_SD_OUTPUT
     SDOutFlush();
     
+#endif
+#ifdef ENABLE_ETHERNET_LOGGER
+	EthernetLogger::flush();
 #endif
     
 
