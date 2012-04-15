@@ -22,10 +22,19 @@
 */
 
 #include <Arduino.h>
+#include <Shell.h>
 #include <config.h>
 #include <message.h>
 #include <logger.h>
-#include <DigitalPoller.h>
+#include <TMP102Poller.h>
+#include <BMP085Poller.h>
+#include <HS1101Poller.h>
+#ifdef ENABLE_TMP102_POLLER
+	#include <TMP102Poller.h>
+#endif
+#ifdef ENABLE_BMP085_POLLER
+	#include <BMP085Poller.h>
+#endif
 #ifdef ENABLE_DUMMY_POLLER
     #include <DummyPoller.h>
 #endif
@@ -73,11 +82,21 @@ void loop(){
 #ifdef ENABLE_MS_POLLER
     MSpoll();
 #endif
+#ifdef ENABLE_TMP102_POLLER
+	TMP102Poller::poll();
+#endif
+#ifdef ENABLE_BMP085_POLLER
+	BMP085Poller::poll();
+#endif
+#ifdef ENABLE_HS1101_POLLER
+	HS1101Poller::poll();
+#endif
 
 }
 
 
 void setup(){
+//	SDShell();
     loggerBegin();
     
     
@@ -102,6 +121,16 @@ void setup(){
 #ifdef ENABLE_MS_POLLER
     MSbegin();
 #endif
+#ifdef ENABLE_TMP102_POLLER
+	TMP102Poller::begin();
+#endif
+#ifdef ENABLE_BMP085_POLLER
+	BMP085Poller::begin();
+#endif
+#ifdef ENABLE_HS1101_POLLER
+	HS1101Poller::begin();
+#endif
+
 
 }
 

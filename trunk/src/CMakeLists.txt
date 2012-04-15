@@ -2,11 +2,22 @@ set(FIRMWARE_NAME loguino)
 set(loguino_RECURSE True)
 set(SD_RECURSE True)
 
-set(${FIRMWARE_NAME}_BOARD mega2560)
+set(${FIRMWARE_NAME}_BOARD ethernet)
+#set(${FIRMWARE_NAME}_BOARD mega2560)
 set(${FIRMWARE_NAME}_SRCS loguino.cpp)
 set(${FIRMWARE_NAME}_PORT /dev/tty.usbmodemfd121)
 
 generate_arduino_firmware(loguino)
+OPTION( ENABLE_HS1101_POLLER "Enable polling of HS1101 Relative Humidity Sensor" ON)
+IF (ENABLE_HS1101_POLLER)
+	SET(HS1101_PIN "2" CACHE STRING "Pin the sense pin of the HS1101 is connected to")
+ENDIF(ENABLE_HS1101_POLLER)
+
+OPTION( ENABLE_BMP085_POLLER "Enable polling of BMP085 Barometric Pressure Sensor" ON)
+OPTION( ENABLE_TMP102_POLLER "Enable polling of TMP102 Temperature Sensors" ON)
+IF (ENABLE_TMP102_POLLER)
+	SET(TMP102_I2C_ADDRESS "72" CACHE STRING "Address of I2C device")
+ENDIF(ENABLE_TMP102_POLLER)
 
 OPTION( ENABLE_GPS_POLLER "Enable poling of NMEA compatible GPS devices" ON)
 IF (ENABLE_GPS_POLLER)
