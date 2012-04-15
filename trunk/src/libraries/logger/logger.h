@@ -27,6 +27,10 @@
 #include <config.h>
 #include <message.h>
 
+#ifdef ENABLE_ETHERNET_LOGGER
+#include <EthernetLogger.h>
+#endif
+
 #ifdef ENABLE_SERIAL_OUTPUT
     #include <SerialOutput.h>
 #endif

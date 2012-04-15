@@ -45,11 +45,13 @@
 
 
 #include <NMEA.h>
-extern NMEA n;
-
-void GPSbegin();
-void GPSpoll();
-
+class GPSPoller
+{
+	public:
+		static NMEA n;
+		static void begin();
+		static void poll();
+};
 
 
 

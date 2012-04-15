@@ -24,12 +24,13 @@
 #ifndef MSPoller_h
 #define MSPoller_h
 
-#include <config.h>
 #include <Arduino.h>
+#include <config.h>
 #include <message.h>
-#include <MegaSquirt.h>
 #include <logger.h>
 
+#ifdef ENABLE_MS_POLLER
+#include <MegaSquirt.h>
 #ifndef MS_WAIT_TIME
 	#error MS_WAIT_TIME not defined.
 #endif
@@ -48,10 +49,17 @@
  *
  */
 
-void MSbegin();
-void MSpoll();
+class MSPoller
+{
+	    public:
+    	    static void begin();
+	        static void poll();
+};
 
 
+
+
+#endif
 
 #endif
 

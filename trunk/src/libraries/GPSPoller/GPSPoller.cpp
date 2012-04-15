@@ -21,12 +21,15 @@
  
  */
 #include <GPSPoller.h>
+#ifdef ENABLE_GPS_POLLER
 
-void GPSbegin(){
+NMEA GPSPoller::n;
+
+void GPSPoller::begin(){
     GPS_SERIAL_DEV.begin(GPS_SERIAL_DEV_SPEED);
 }
 
-void GPSpoll(){
+void GPSPoller::poll(){
     extern Message m;
     
     while(GPS_SERIAL_DEV.available()){
@@ -67,4 +70,5 @@ void GPSpoll(){
 	}
 }
 
-NMEA n;
+#endif
+

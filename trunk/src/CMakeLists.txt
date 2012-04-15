@@ -2,10 +2,10 @@ set(FIRMWARE_NAME loguino)
 set(loguino_RECURSE True)
 set(SD_RECURSE True)
 
-set(${FIRMWARE_NAME}_BOARD ethernet)
-#set(${FIRMWARE_NAME}_BOARD mega2560)
+#set(${FIRMWARE_NAME}_BOARD ethernet)
+set(${FIRMWARE_NAME}_BOARD mega2560)
 set(${FIRMWARE_NAME}_SRCS loguino.cpp)
-set(${FIRMWARE_NAME}_PORT /dev/tty.usbmodemfd121)
+SET(${FIRMWARE_NAME}_PORT "/dev/tty.usbserial" CACHE STRING "Serial port to upload firmware to")
 
 generate_arduino_firmware(loguino)
 OPTION( ENABLE_HS1101_POLLER "Enable polling of HS1101 Relative Humidity Sensor" ON)
@@ -72,6 +72,15 @@ IF (ENABLE_SD_OUTPUT)
 	SET (SD_ACTIVE_PIN "9" CACHE STRING "Pin to make high when SD card is active")
 ENDIF(ENABLE_SD_OUTPUT)
 
+OPTION (ENABLE_ETHERNET_LOGGER "Enable the Ethernet Server" ON)
+IF (ENABLE_ETHERNET_LOGGER)
+	SET ( ETHERNET_MAC_ADDRESS  "0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED" CACHE STRING "MAC Address in HEX Seperated by commas")
+	SET ( ETHERNET_IP_ADDRESS  "192,168,10,23" CACHE STRING "IP Address seperated by commas")
+	SET ( ETHERNET_DNS_ADDRESS  "8,8,8,8" CACHE STRING "DNS server IP address seperated by commas")
+	SET ( ETHERNET_GW_ADDRESS  "192,168,10,1" CACHE STRING "Default Gateway IP seperated by commas")
+	SET ( ETHERNET_NETMASK  "255,255,255,0" CACHE STRING "Netmask seperated by commas")
+
+ENDIF (ENABLE_ETHERNET_LOGGER)
 CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/src/libraries/config/config.in  ${CMAKE_SOURCE_DIR}/src/libraries/config/config.h)
 
 

@@ -23,43 +23,41 @@
 
 
 
-#ifndef TMP102POLLER_H
-#define TMP102POLLER_H
+#ifndef ETHERNETLOGGER_H
+#define ETHERNETLOGGER_H
 
 #include <Arduino.h>
-#include <stdlib.h>
 #include <config.h>
 #include <message.h>
-#include <logger.h>
-#include <Wire.h>
+#include <Ethernet.h>
 
 
 
-#ifdef ENABLE_TMP102_POLLER
-	#ifndef TMP102_I2C_ADDRESS
-		#error TMP102_I2C_ADDRESST must be defined
+#ifdef ENABLE_ETHERNET_LOGGER
+	#ifndef ETHERNET_MAC_ADDRESS
+		#error ETHERNET_MAC_ADDRESS must be defined
+    #endif
+	#ifndef ETHERNET_IP_ADDRESS
+		#error ETHERNET_IP_ADDRESS must be defined
+    #endif
+	#ifndef ETHERNET_DNS_ADDRESS
+		#error ETHERNET_DNS_ADDRESS must be defined
+    #endif
+	#ifndef ETHERNET_GW_ADDRESS
+		#error ETHERNET_GW_ADDRESS must be defined
+    #endif
+	#ifndef ETHERNET_NETMASK
+		#error ETHERNET_NETMASK must be defined
     #endif
 	
 
-/** The TMP102 is a two-wire, serial output temperature sensor available 
- * in a tiny SOT563 package. Requiring no external components, the TMP102 
- * is capable of reading temperatures to a resolution of 0.0625°C.
- *
- * This class provides a poller for the TMP102 sensor, using the i2c bus,
- * supporting both standalone sensors and the sparkfun breakout.
- * See: http://www.sparkfun.com/products/9418
- *
- * Datasheet: http://www.sparkfun.com/datasheets/Sensors/Temperature/tmp102.pdf
- *
- * \bug Conversion factor isn't correct, so temperature is currently off, although
- * reporting a linear reading still.
- *
- */
-class TMP102Poller
+class EthernetLogger
 {
     public:
+		static EthernetServer server;
+        static void log_message();
         static void begin();
-        static void poll();
+		static void flush();
 };
 #endif
 

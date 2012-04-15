@@ -22,7 +22,6 @@
 */
 
 
-#include "Arduino.h"
 #include "MegaSquirt.h"
 #define LAMBDA 14.1
 

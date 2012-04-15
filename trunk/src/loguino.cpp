@@ -62,7 +62,7 @@
 void loop(){
     m.time=millis();
 #ifdef ENABLE_GPS_POLLER
-    GPSpoll();
+	GPSPoller::poll();
 #endif
 #ifdef ENABLE_ITG3200_POLLER
     itg3200poll();
@@ -80,7 +80,7 @@ void loop(){
     digitalPoll();
 #endif
 #ifdef ENABLE_MS_POLLER
-    MSpoll();
+	MSPoller::poll();
 #endif
 #ifdef ENABLE_TMP102_POLLER
 	TMP102Poller::poll();
@@ -104,7 +104,7 @@ void setup(){
     Dummybegin();
 #endif
 #ifdef ENABLE_GPS_POLLER
-    GPSbegin();
+	GPSPoller::begin();
 #endif
 #ifdef ENABLE_ITG3200_POLLER
     itg3200begin();
@@ -119,7 +119,7 @@ void setup(){
     digitalBegin();
 #endif
 #ifdef ENABLE_MS_POLLER
-    MSbegin();
+	MSPoller::begin();
 #endif
 #ifdef ENABLE_TMP102_POLLER
 	TMP102Poller::begin();
