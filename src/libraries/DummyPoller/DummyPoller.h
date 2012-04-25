@@ -26,14 +26,20 @@
 #include <Arduino.h>
 #include <config.h>
 
+#ifdef ENABLE_DUMMY_POLLER
 #include <message.h>
 #include <logger.h>
 
 
+class DummyPoller{
+	public:
+		static void poll();
+		static void begin();
+	private:
+		static int called;
+};
 
-void Dummybegin();
-void Dummypoll();
-
+#endif
 
 
 

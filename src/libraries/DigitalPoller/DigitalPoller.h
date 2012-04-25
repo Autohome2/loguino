@@ -25,12 +25,19 @@
 
 #include <Arduino.h>
 #include <config.h>
+#ifdef ENABLE_DIGITAL_POLLER
 
 #include <message.h>
 #include <logger.h>
 
 
-void digitalPoll();
-void digitalBegin();
+class DigitalPoller{
+	public:
+		static void poll();
+		static void begin();
+};
+
 
 #endif
+#endif
+

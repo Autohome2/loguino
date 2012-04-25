@@ -21,7 +21,8 @@
  
  */
 #include <DigitalPoller.h>
-void digitalPoll(){
+#ifdef ENABLE_DIGITAL_POLLER
+void DigitalPoller::poll(){
     // pins - array of pin numbers to check.
 	int dpins[]={DIGITAL_PINS};
 	// numdPins - total number of pins to check.
@@ -38,7 +39,7 @@ void digitalPoll(){
 	}
 }
 
-void digitalBegin(){
+void DigitalPoller::begin(){
 	// pins - an array of pin numbers to check the state of
 	int dpins[]={DIGITAL_PINS};
 	// invPins - an array of pin numbers that should be held high
@@ -61,3 +62,5 @@ void digitalBegin(){
 		digitalWrite(invdPins[i], HIGH);
 	}
 }
+
+#endif

@@ -25,6 +25,7 @@
 
 #include <Arduino.h>
 #include <config.h>
+#ifdef ENABLE_LIS331_POLLER
 
 #include <message.h>
 #include <logger.h>
@@ -33,9 +34,16 @@
 #ifndef LIS_BUS_ADDRESS
 #error LIS_BUS_ADDRESS must be set to the address of the LIS331 device
 #endif
+class LIS331Poller{
+	public:
+		static void begin();
+		static void poll();
+	private:
+		static LIS331 lis;
+};
 
-void LIS331begin();
-void LIS331poll();
 
 
+
+#endif
 #endif

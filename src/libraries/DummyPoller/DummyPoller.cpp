@@ -21,15 +21,17 @@
  
  */
 #include <DummyPoller.h>
-static int dummy_called;
-void Dummybegin(){
-    dummy_called=0;
+#ifdef ENABLE_DUMMY_POLLER
+int DummyPoller::called;
+
+void DummyPoller::begin(){
+    called=0;
 }
 
-void Dummypoll(){
+void DummyPoller::poll(){
     m.units="Times";
 	m.nameSpace="Dummy.TimesCalled";
-	m.value=String(dummy_called++);
+	m.value=String(called++);
     log_message();
     
     m.units="Milliseconds";
@@ -38,3 +40,5 @@ void Dummypoll(){
 	log_message();
 
 }
+#endif
+

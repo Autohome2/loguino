@@ -31,14 +31,12 @@
 
 EthernetServer EthernetLogger::server=EthernetServer(8000);;
 
-void EthernetLogger::log_message(){
-	Serial.println("Logging Ethernet Message");
+void EthernetLogger::log(){
 	server.println(m.toCSV());
 	delay(120);
 }
 
 void EthernetLogger::begin(){
-	Serial.println("Starting Ethernet Logger");
 	byte mac[]={ETHERNET_MAC_ADDRESS};
 	byte ip[]={ETHERNET_IP_ADDRESS};
 	byte dns[]={ETHERNET_DNS_ADDRESS};
@@ -46,13 +44,11 @@ void EthernetLogger::begin(){
 	byte nm[]={ETHERNET_NETMASK};
 	Ethernet.begin(mac,ip,dns,gw,nm);
 	server.begin();
-	Serial.println("Ethernet Started");
 
 }
 
 void EthernetLogger::flush(){
-	Serial.begin(115200);
-	Serial.println("Flushing Ethernet LoggeR");
+	// Nothing to flush...
 	return;
 }
 #endif

@@ -38,10 +38,10 @@ void log_message(){
 #endif
     
 #ifdef ENABLE_SD_OUTPUT
-    SDOut();
+	SDLogger::log();
 #endif
 #ifdef ENABLE_ETHERNET_LOGGER
-	EthernetLogger::log_message();
+	EthernetLogger::log();
 #endif
 }
 
@@ -50,7 +50,7 @@ void loggerBegin(){
 	SerialLogger::begin();
 #endif
 #ifdef ENABLE_SD_OUTPUT
-    SDOutBegin();
+	SDLogger::begin();
 #endif
 
 #ifdef ENABLE_ETHERNET_LOGGER
@@ -63,7 +63,7 @@ void flush_output(){
 	SerialLogger::flush();
 #endif
 #ifdef ENABLE_SD_OUTPUT
-    SDOutFlush();
+	SDLogger::flush();
     
 #endif
 #ifdef ENABLE_ETHERNET_LOGGER

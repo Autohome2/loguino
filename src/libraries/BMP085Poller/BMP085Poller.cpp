@@ -33,6 +33,7 @@ BMP085 BMP085Poller::bmp;
 void BMP085Poller::begin(){
 	BMP085Poller::bmp.begin();
 }
+
 void BMP085Poller::poll()
 {
 
@@ -46,10 +47,6 @@ void BMP085Poller::poll()
 	m.nameSpace="BMP085.Pressure";
 	log_message();
 
-//	m.units="Meters*100";
-//	m.value=String(int(BMP085Poller::bmp.readAltitude()*100));
-//	m.nameSpace="BMP085.Altitude";
-//	log_message();
 }
 
 #endif

@@ -25,6 +25,7 @@
 
 #include <Arduino.h>
 #include <config.h>
+#ifdef ENABLE_GPS_POLLER
 
 #include <message.h>
 #include <logger.h>
@@ -61,4 +62,4 @@ class GPSPoller
 
 
 #endif
-
+#endif

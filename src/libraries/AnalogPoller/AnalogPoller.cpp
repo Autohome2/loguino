@@ -22,11 +22,14 @@
  */
 #include <AnalogPoller.h>
 
-int anpins[]={ANALOG_PINS};
-int annumPins;
 
-void analogpoll(){
+#ifdef ENABLE_ANALOG_POLLER
+void AnalogPoller::poll(){
     m.units="Volts*5/1023";
+	int anpins[]={ANALOG_PINS};
+	int annumPins;
+    annumPins=sizeof(anpins)/sizeof(int);
+
     int i;
 	for (i=0; i<annumPins; i++){
 		m.nameSpace=String("AnalogInput.Pin")+String(anpins[i]);
@@ -35,10 +38,11 @@ void analogpoll(){
 	}
 }
 
-void analogbegin(){
-    annumPins=sizeof(anpins)/sizeof(int);
+void AnalogPoller::begin(){
 #ifdef ANALOG_EXTERN_REF              
     analogReference(EXTERNAL);
 #endif
 
 }
+#endif
+
