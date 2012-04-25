@@ -24,20 +24,19 @@
 #include <LIS331Poller.h>
 
 
-LIS331 lis;
-bool lis_active;
-bool lis_timeouts;
-int16_t lis_val;
+#ifdef ENABLE_LIS331_POLLER
+LIS331 LIS331Poller::lis;
 
 
-void LIS331begin(){
+void LIS331Poller::begin(){
     lis.setPowerStatus(LR_POWER_NORM);
     lis.setXEnable(true);
     lis.setYEnable(true);
     lis.setZEnable(true);
 
 }
-void LIS331poll(){
+void LIS331Poller::poll(){
+	int16_t lis_val;
     m.units="mG";
 	lis.getXValue(&lis_val);
 	m.nameSpace="Accelerometer.LIS331.X";
@@ -52,3 +51,4 @@ void LIS331poll(){
 	m.value=String(int(lis_val));
     log_message();
 }
+#endif

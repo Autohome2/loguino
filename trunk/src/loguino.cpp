@@ -22,7 +22,6 @@
 */
 
 #include <Arduino.h>
-#include <Shell.h>
 #include <config.h>
 #include <message.h>
 #include <logger.h>
@@ -65,19 +64,19 @@ void loop(){
 	GPSPoller::poll();
 #endif
 #ifdef ENABLE_ITG3200_POLLER
-    itg3200poll();
+	ITG3200Poller::poll();
 #endif
 #ifdef ENABLE_DUMMY_POLLER
-    Dummypoll();
+	DummyPoller::poll();
 #endif
 #ifdef ENABLE_LIS331_POLLER
-    LIS331poll();
+	LIS331Poller::poll();
 #endif
 #ifdef ENABLE_ANALOG_POLLER
-    analogpoll();
+	AnalogPoller::poll();
 #endif
 #ifdef ENABLE_DIGITAL_POLLER
-    digitalPoll();
+	DigitalPoller::poll();
 #endif
 #ifdef ENABLE_MS_POLLER
 	MSPoller::poll();
@@ -96,27 +95,25 @@ void loop(){
 
 
 void setup(){
-//	SDShell();
-    loggerBegin();
     
     
 #ifdef ENABLE_DUMMY_POLLER
-    Dummybegin();
+	DummyPoller::begin();
 #endif
 #ifdef ENABLE_GPS_POLLER
 	GPSPoller::begin();
 #endif
 #ifdef ENABLE_ITG3200_POLLER
-    itg3200begin();
+	ITG3200Poller::begin();
 #endif
 #ifdef ENABLE_LIS331_POLLER
-    LIS331begin();
+	LIS331Poller::begin();
 #endif
 #ifdef ENABLE_ANALOG_POLLER
-    analogbegin();
+	AnalogPoller::begin();
 #endif
 #ifdef ENABLE_DIGITAL_POLLER
-    digitalBegin();
+   	DigitalPoller::begin();
 #endif
 #ifdef ENABLE_MS_POLLER
 	MSPoller::begin();

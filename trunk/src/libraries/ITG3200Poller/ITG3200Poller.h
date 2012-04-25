@@ -30,10 +30,13 @@
 #include <message.h>
 #include <logger.h>
 #include <itg3200.h>
-
-
-void itg3200begin();
-void itg3200poll();
+class ITG3200Poller{
+	public:
+		static void begin();
+		static void poll();
+	private:
+		static ITG3200 gyro;
+};
 
 #endif
 

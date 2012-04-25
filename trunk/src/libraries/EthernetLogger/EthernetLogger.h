@@ -55,7 +55,7 @@ class EthernetLogger
 {
     public:
 		static EthernetServer server;
-        static void log_message();
+        static void log();
         static void begin();
 		static void flush();
 };

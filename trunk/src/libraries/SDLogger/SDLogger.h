@@ -33,9 +33,16 @@
 #include <message.h>
 #include <logger.h>
 
-void SDOut();
-void SDOutBegin();
-void SDOutFlush();
+class SDLogger{
+	public:
+		static void log();
+		static void begin();
+		static void flush();
+	private:
+		static bool sd_active;
+		static File SD_File;
+};
+
 
 
 #endif

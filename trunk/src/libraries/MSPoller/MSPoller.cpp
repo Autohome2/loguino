@@ -24,9 +24,9 @@
 #include <MSPoller.h>
 
 #ifdef ENABLE_MS_POLLER
- bool active;//< when active, the megasquirt is online.
- byte timeouts;//< The number of times since the last attempt to poll.
- MegaSquirtData d;//< Megasquirt device
+ bool MSPoller::active;//< when active, the megasquirt is online.
+ byte MSPoller::timeouts;//< The number of times since the last attempt to poll.
+ MegaSquirtData MSPoller::d;//< Megasquirt device
 
 
 

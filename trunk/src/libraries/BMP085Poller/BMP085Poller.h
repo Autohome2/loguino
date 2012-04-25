@@ -28,12 +28,10 @@
 
 #include <Arduino.h>
 #include <config.h>
+#ifdef ENABLE_BMP085_POLLER
 #include <message.h>
 #include <logger.h>
 #include <BMP085.h>
-
-
-#ifdef ENABLE_BMP085_POLLER
 
 //! The BMP085 is a high precision, low power barometric pressure 
 // sensor capable of measuring 300 to 1100hPa with an absolute

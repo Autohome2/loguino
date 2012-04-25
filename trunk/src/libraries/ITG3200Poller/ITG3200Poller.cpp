@@ -23,13 +23,13 @@
 
 #include <ITG3200Poller.h>
 #ifdef ENABLE_ITG3200_POLLER
-ITG3200 gyro;
+ITG3200 ITG3200Poller::gyro;
 
-void itg3200begin(){
+void ITG3200Poller::begin(){
     gyro.begin(ITG3200_ADDRESS);
     return;
 }
-void itg3200poll(){
+void ITG3200Poller::poll(){
     m.units="Degrees*1000/Second";
 	m.nameSpace="Gyro.ITG3200.X";
 	m.value=String(int(gyro.getX()*1000));

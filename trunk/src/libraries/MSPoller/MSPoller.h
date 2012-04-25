@@ -54,6 +54,10 @@ class MSPoller
 	    public:
     	    static void begin();
 	        static void poll();
+		private:
+			static bool active;
+			static byte timeouts;
+			static MegaSquirtData d;
 };
 
 

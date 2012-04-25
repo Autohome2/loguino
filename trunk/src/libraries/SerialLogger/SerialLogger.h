@@ -30,9 +30,9 @@
 
 class SerialLogger{
 	public:
-		void log();
-		void begin();
-		void flush();
+		static void log();
+		static void begin();
+		static void flush();
 };
 
 #endif

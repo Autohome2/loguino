@@ -36,7 +36,7 @@
 #endif
 
 #ifdef ENABLE_SD_OUTPUT
-#include <SDOutput.h>
+#include <SDLogger.h>
 #endif
 
 /**

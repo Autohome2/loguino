@@ -26,6 +26,8 @@
 #include <Arduino.h>
 #include <config.h>
 
+#ifdef ENABLE_ANALOG_POLLER
+
 #include <message.h>
 #include <logger.h>
 
@@ -33,7 +35,13 @@
 #error ANALOG_PINS is not defined.
 #endif
 
-void analogpoll();
-void analogbegin();
-
+/**
+ * Polls selected analog pins and logs their value.
+ */
+class AnalogPoller{
+	public:
+		static void poll();
+		static void begin();
+};
+#endif
 #endif

@@ -20,18 +20,19 @@
  * $Date$:  
  
  */
-#include <SDOutput.h>
+#include <SDLogger.h>
 #ifdef ENABLE_SD_OUTPUT
 
-static bool sd_active;
-static File SD_File;
+bool SDLogger::sd_active;
+File SDLogger::SD_File;
 
-void SDOut(){
+void SDLogger::log(){
     if (sd_active){
                 SD_File.println(m.toCSV());
             }
 }
-void SDOutBegin(){
+
+void SDLogger::begin(){
     sd_active=true;
     char sd_fname[13];
     Serial.println("Starting");
@@ -70,7 +71,7 @@ void SDOutBegin(){
     }
     
 }
-void SDOutFlush(){
+void SDLogger::flush(){
     if (sd_active){
            SD_File.flush();
     }
