@@ -46,6 +46,8 @@ void EthernetLogger::begin(){
 	byte nm[]={ETHERNET_NETMASK};
 	Ethernet.begin(mac,ip,dns,gw,nm);
 	server.begin();
+	Serial.println("Ethernet Started");
+
 }
 
 void EthernetLogger::flush(){

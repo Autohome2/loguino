@@ -25,6 +25,7 @@
 
 #include <Arduino.h>
 #include <config.h>
+#ifdef ENABLE_SD_OUTPUT
 #ifndef SD_ACTIVE_PIN
 #error Define SD_ACTIVE_PIN to the pin that will go high when the SD module is writing to a file.
 #endif
@@ -38,3 +39,5 @@ void SDOutFlush();
 
 
 #endif
+#endif
+

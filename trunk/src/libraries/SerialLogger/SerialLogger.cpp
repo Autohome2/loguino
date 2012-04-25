@@ -20,13 +20,20 @@
  * $Date$:  
  
  */
-#include <SerialOutput.h>
-void serialOut(){
+#include <SerialLogger.h>
+#ifdef ENABLE_SERIAL_OUTPUT
+
+void SerialLogger::log(){
     SO_SERIAL_PORT.println(m.toCSV());
 }
-void serialOutBegin(){
+
+void SerialLogger::begin(){
       SO_SERIAL_PORT.begin(SO_SERIAL_PORT_SPEED);
 }
-void serialOutFlush(){
+
+void SerialLogger::flush(){
     SO_SERIAL_PORT.flush();
 }
+
+#endif
+

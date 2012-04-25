@@ -37,8 +37,12 @@
 	#ifndef HS1101_PIN
 		#error HS1101_PIN must be defined
     #endif
-	
 
+
+/// The <A HREF='http://www.parallax.com/Store/Sensors/TemperatureHumidity/tabid/174/ProductID/554/List/0/Default.aspx?SortField=ProductName,ProductName'>HS1101 humidity sensor</A>
+// is a cost-effective solution for measuring relative humidity within ±5% accuracy. The sensor’s 
+// design is based on a unique capacitive cell; therefore, by using simple RC circuit wiring it
+// is easy to interface.
 class HS1101Poller
 {
     public:

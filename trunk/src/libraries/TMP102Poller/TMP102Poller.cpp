@@ -47,7 +47,8 @@ void TMP102Poller::poll()
     float convertedtemp; /* We then need to multiply our two bytes by a scaling factor, mentioned in the datasheet. */
   
    	
-    /** Resets the register pointer (by default it is ready to read temperatures) 
+    /** 
+	 * Resets the register pointer (by default it is ready to read temperatures) 
 	 * You can alter it to a writeable register and alter some of the configuration -
 	 * the sensor is capable of alerting you if the temperature is above or below 
 	 * a specified threshold, however this is not done as part of this modeule.
@@ -60,19 +61,22 @@ void TMP102Poller::poll()
     Wire.requestFrom(TMP102_I2C_ADDRESS, 2);
     Wire.endTransmission();
     
-	/** Then reads two bytes, the first byte contains the most 
+	/** 
+	 * Then reads two bytes, the first byte contains the most 
 	 * significant bit, the second contains the least significant.
 	 */
     firstbyte      = (Wire.read());
     secondbyte     = (Wire.read());
 
-	/** The bytes are then shifted and ORed together to give the actual
+	/** 
+	 * The bytes are then shifted and ORed together to give the actual
 	 * value
 	 */
     val = ((firstbyte) << 4);  
     val |= (secondbyte >> 4);    
 
-	/** The conversion factor is then applied to give the temperature
+	/** 
+	 * The conversion factor is then applied to give the temperature
 	 * in degrees celsius multiplied by ten.
 	 */
     convertedtemp = val*0.0625;
@@ -80,7 +84,8 @@ void TMP102Poller::poll()
 	char s[32];
 	dtostrf(val, 1, 2, s);
 
-	/* After the value is obtained from the sensor, a single message is 
+	/* 
+	 * After the value is obtained from the sensor, a single message is 
 	 * logged
 	 */
     m.value=s;
