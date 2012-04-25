@@ -25,6 +25,7 @@
 
 #include <Arduino.h>
 #include <config.h>
+#ifdef ENABLE_ITG3200_POLLER
 
 #include <message.h>
 #include <logger.h>
@@ -34,6 +35,7 @@
 void itg3200begin();
 void itg3200poll();
 
+#endif
 
 
 #endif

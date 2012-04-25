@@ -35,6 +35,10 @@
 
 #ifdef ENABLE_BMP085_POLLER
 
+//! The BMP085 is a high precision, low power barometric pressure 
+// sensor capable of measuring 300 to 1100hPa with an absolute
+// accuracy down to 0.03 hPa connected via the I2C bus. In addition
+// there is a built in temperature sensor.
 class BMP085Poller
 {
 	static BMP085 bmp;

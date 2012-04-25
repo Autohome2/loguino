@@ -28,13 +28,27 @@
 #ifdef ENABLE_HS1101_POLLER
 #define HS1101_RH_CONSTANT 12169
 	
+//! Configures the HS1101Poller - Nothing is actually required however.
 void HS1101Poller::begin(){
+	return;
 }
+
+
+//! Polls the HS1101 device using an RC delay circuit.  The digital pin that is 
+//connected to is set HIGH until the device is charged, then the pin is brought
+//low and the time taken for the capacitor to discharge is measured.  
+//
+//A timeout is set so that if there is a fault, or no device connected the 
+//call is non blocking.
 void HS1101Poller::poll()
 {
+	//! The time the capacitor was fully discharged
 	unsigned long startTime;
+	//! The time in micros() to abort if there is no change from the sensor
 	unsigned long timeoutTime;
+	//! The time in micros() when the sensor changed
 	unsigned long endTime;
+	//! Boolean value indicating if the sensor has changed.
 	bool changed;
 	changed=false;
 

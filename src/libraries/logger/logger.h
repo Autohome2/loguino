@@ -32,16 +32,31 @@
 #endif
 
 #ifdef ENABLE_SERIAL_OUTPUT
-    #include <SerialOutput.h>
+#include <SerialLogger.h>
 #endif
 
 #ifdef ENABLE_SD_OUTPUT
 #include <SDOutput.h>
 #endif
 
+/**
+ * Logs the message to all active outputs.
+ */
 void log_message();
+/**
+ * Flushes the output buffer on all active outputs.
+ */
 void flush_output();
+
+/**
+ * Sets up any outputs that are available
+ */
 void loggerBegin();
+
+/**
+ * The number of messages logged that have not yet been explicitly
+ * flushed.
+ */
 extern int num_messages;
 
 

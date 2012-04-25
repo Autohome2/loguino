@@ -22,6 +22,7 @@
  */
 
 #include <ITG3200Poller.h>
+#ifdef ENABLE_ITG3200_POLLER
 ITG3200 gyro;
 
 void itg3200begin(){
@@ -48,3 +49,4 @@ void itg3200poll(){
 	log_message();
     return;
 }
+#endif

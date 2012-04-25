@@ -25,11 +25,16 @@
 
 #include <Arduino.h>
 #include <config.h>
-
+#ifdef ENABLE_SERIAL_OUTPUT
 #include <message.h>
 
-void serialOut();
-void serialOutBegin();
-void serialOutFlush();
+class SerialLogger{
+	public:
+		void log();
+		void begin();
+		void flush();
+};
+
+#endif
 
 #endif

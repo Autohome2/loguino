@@ -21,6 +21,7 @@
  
  */
 #include <SDOutput.h>
+#ifdef ENABLE_SD_OUTPUT
 
 static bool sd_active;
 static File SD_File;
@@ -74,3 +75,5 @@ void SDOutFlush(){
            SD_File.flush();
     }
 }
+#endif
+
