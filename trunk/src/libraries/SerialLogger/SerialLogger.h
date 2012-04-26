@@ -20,14 +20,21 @@
  * $Date$:  
  
  */
+// Always use an include guard.
 #ifndef SERIALOUT_H
 #define SERIALOUT_H
 
+// Include Arduino.h and config.h first.
 #include <Arduino.h>
 #include <config.h>
+// Use another ifdef to insure code is only compiled if it is activated.
 #ifdef ENABLE_SERIAL_OUTPUT
 #include <message.h>
 
+// Use doxygen to document all code.
+/**
+ * Logs messages to the specified serial device.  
+ */
 class SerialLogger{
 	public:
 		static void log();
@@ -36,5 +43,4 @@ class SerialLogger{
 };
 
 #endif
-
 #endif

@@ -41,14 +41,18 @@
 
 
 /**
- * Queries the megasquirt and logs each value retrieved.  The megasquirt device
- * is connected via a serial device, CAN style commands are sent over the serial
- * line and decoded by the MegaSquirtData object.
+ * A MegaSquirt is a complete standalone fuel injection controller with 
+ * software and hardware, developed by Bruce Bowling and Al Grippo. 
+ * Loguino can poll MegaSquirt ECU's over the Serial line at about 5-10Hz, 
+ * providing in depth metrics on the Engine Management System.
+ * 
+ * This poller queries the megasquirt and logs each value retrieved.  The 
+ * megasquirt device is connected via a serial device, CAN style commands 
+ * are sent over the serial line and decoded by the MegaSquirtData object.
  *
  * When successful, each metric is logged as a message to the logging system.
  *
  */
-
 class MSPoller
 {
 	    public:

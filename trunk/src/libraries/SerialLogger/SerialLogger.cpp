@@ -21,16 +21,26 @@
  
  */
 #include <SerialLogger.h>
+// Always check the feature is enabled before any code.
 #ifdef ENABLE_SERIAL_OUTPUT
 
+/**
+ * Writes the message to the serial port in CSV format.
+ */
 void SerialLogger::log(){
     SO_SERIAL_PORT.println(m.toCSV());
 }
 
+/** 
+ * Configures the serial line in preparation for logging messages.
+ */
 void SerialLogger::begin(){
       SO_SERIAL_PORT.begin(SO_SERIAL_PORT_SPEED);
 }
 
+/** 
+ * Flushes any data in the serial buffer.
+ */
 void SerialLogger::flush(){
     SO_SERIAL_PORT.flush();
 }

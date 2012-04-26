@@ -51,13 +51,19 @@
     #endif
 	
 
+/**
+ * Starts a server on the specified port using the ethernet shield or
+ * arduino ethernet and sends log messages to connected clients.
+ */
 class EthernetLogger
 {
+
     public:
-		static EthernetServer server;
         static void log();
         static void begin();
 		static void flush();
+	private:
+		static EthernetServer server;
 };
 #endif
 

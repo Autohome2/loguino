@@ -30,7 +30,8 @@
 
 
 
-/* Initializes the connection to the mega squirt controller. This configures
+/**
+ * Initializes the connection to the mega squirt controller. This configures
  * the MSPoller object, sets active to true, and lights up the MegaSquirt LED.
  */
 void MSPoller::begin(){

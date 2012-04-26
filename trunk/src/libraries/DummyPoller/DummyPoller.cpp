@@ -20,14 +20,28 @@
  * $Date$:  
  
  */
+// Always include the header file for the source file
 #include <DummyPoller.h>
+// Always check if the feature is enabled before any code
 #ifdef ENABLE_DUMMY_POLLER
+
 int DummyPoller::called;
 
+/**
+ * Configures the dummy poller prior to being polled. Sets the called variable
+ * to zero.
+ */
 void DummyPoller::begin(){
+	//! Called is incremented every time the poll function is called and
+	//is used to log how many times the loop has run.
     called=0;
 }
 
+/**
+ * Logs two messages everytime the poller is called:
+ * Dummy.TimesCalled - The number of times the poller has been called.
+ * Dummy.Uptime - The milliseconds the loguino has been alive for.
+ */
 void DummyPoller::poll(){
     m.units="Times";
 	m.nameSpace="Dummy.TimesCalled";

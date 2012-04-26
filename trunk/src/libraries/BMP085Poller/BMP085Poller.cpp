@@ -29,11 +29,26 @@
 	
 BMP085 BMP085Poller::bmp;
 
-
+/**
+ * As there is already an interface available for the BMP085 device, all that is required
+ * is to initalize it.
+ *
+ */
 void BMP085Poller::begin(){
 	BMP085Poller::bmp.begin();
 }
 
+
+/**
+ * Queries the BMP interface for atmospheric pressure and temperature each time 
+ * the polling loop runs. 
+ *
+ * The value returned by temperature is a float, there is no simple way
+ * to convert that to a string without using a buffer and sprintf, as such
+ * the value is multiplied by 100 and converted to an Integer before being
+ * converted to a string.
+ *
+ */
 void BMP085Poller::poll()
 {
 

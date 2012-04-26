@@ -18,17 +18,33 @@
  * $Rev$:   
  * $Author$: 
  * $Date$:  
- 
+ *
  */
 #include <GPSPoller.h>
 #ifdef ENABLE_GPS_POLLER
 
 NMEA GPSPoller::n;
 
+/**
+ * Configures the serial port in order to connect to the GPS.
+ */
 void GPSPoller::begin(){
     GPS_SERIAL_DEV.begin(GPS_SERIAL_DEV_SPEED);
 }
 
+/**
+ * NMEA GPS devices continually output data over the serial line, data forms
+ * NMEA sentances.  The GPS may send multiple types of NMEA sentances depending
+ * on the GPS, type of fix etc.  The GPS may send data only when it has a fix, or
+ * at a specified interval.
+ *
+ * As such rather than block until a valid sentance is received, each time the 
+ * poller is called, it appends any data in the serial buffer to the NMEA object.
+ * 
+ * When the appended data completes the sentance, the poller queries the NMEA object
+ * to see if the fix is valid, if so it logs each metric.
+ *
+ */
 void GPSPoller::poll(){
     extern Message m;
     

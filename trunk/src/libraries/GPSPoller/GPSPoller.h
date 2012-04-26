@@ -46,12 +46,26 @@
 
 
 #include <NMEA.h>
+/**
+ * The GPS Poller reads NMEA data from a serial device and logs values.
+ * Any NMEA device is currently supported as long as it does not use a 
+ * binary format. 
+ *
+ * The GPS is connected to one of the serial ports, this is defined in GPS_SERIAL_DEV,
+ * the default is Serial2. Most GPS shields require no additional wiring, simply 
+ * connect the pins to the appropriate serial device on the board. 
+ *
+ * The NMEA processing is carried out by a NMEA library which parses the string for
+ * a valid NMEA sentance. 
+ *
+ */
 class GPSPoller
 {
 	public:
-		static NMEA n;
 		static void begin();
 		static void poll();
+	private:
+		static NMEA n;
 };
 
 
