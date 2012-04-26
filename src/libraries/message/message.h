@@ -28,7 +28,8 @@
 /**
  * Messages are sent from pollers to the logging system, the message contains
  * everything that is required to be logged.  Each time a metric is required 
- * to be logged, a message is passed to Logger::log().
+ * to be logged first the poller sets the attributes on the global message 
+ * instance (m) then calles log_message().
  *
  * The message has a toCSV method which is used by each logger to get the
  * correct fields, this format is defined here:
@@ -57,7 +58,7 @@ public:
      */
     String units;
     /**
-     * Stringified value of the metric, such as "On", 100, or "Mode A"
+     * Stringified value of the metric, such as "On", 100, or "Mode A".
      */
     String value;
     Message();
@@ -65,7 +66,6 @@ public:
 };
 
 
-//! Global message variable.
 extern Message m;
 
 #endif

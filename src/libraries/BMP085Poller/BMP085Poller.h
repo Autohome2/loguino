@@ -33,16 +33,24 @@
 #include <logger.h>
 #include <BMP085.h>
 
-//! The BMP085 is a high precision, low power barometric pressure 
-// sensor capable of measuring 300 to 1100hPa with an absolute
-// accuracy down to 0.03 hPa connected via the I2C bus. In addition
-// there is a built in temperature sensor.
+/**
+ * The BMP085 is a high precision, low power barometric pressure 
+ * sensor capable of measuring 300 to 1100hPa with an absolute
+ * accuracy down to 0.03 hPa connected via the I2C bus. In addition
+ * there is a built in temperature sensor.
+ *
+ * This class provides a poller for BMP085 chips, logging the pressure
+ * and the temperature recorded by the device.  The altitude is not logged
+ * as this uses floating point arithmetic which is slow, and the calculation
+ * can easily be done at visualization time.
+ */
 class BMP085Poller
 {
-	static BMP085 bmp;
     public:
         static void begin();
         static void poll();
+	private:
+		static BMP085 bmp;
 };
 #endif
 

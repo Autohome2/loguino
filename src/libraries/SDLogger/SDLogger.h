@@ -33,6 +33,16 @@
 #include <message.h>
 #include <logger.h>
 
+
+/**
+ * Logs data to an SD card using the SPI bus.  Messages logged are written to a file 
+ * using CSV format.  Each time loguino starts, a new file is used.  
+ *
+ * Communication uses the SD library included as part of Arduino.
+ *
+ * \warning When using the arduino mega, you must enable SOFT SPI in SD.h
+ *
+ */
 class SDLogger{
 	public:
 		static void log();

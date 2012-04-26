@@ -25,37 +25,16 @@
 #include <config.h>
 #include <message.h>
 #include <logger.h>
+#include <HS1101Poller.h>
 #include <TMP102Poller.h>
 #include <BMP085Poller.h>
-#include <HS1101Poller.h>
-#ifdef ENABLE_TMP102_POLLER
-	#include <TMP102Poller.h>
-#endif
-#ifdef ENABLE_BMP085_POLLER
-	#include <BMP085Poller.h>
-#endif
-#ifdef ENABLE_DUMMY_POLLER
-    #include <DummyPoller.h>
-#endif
-#ifdef ENABLE_GPS_POLLER
-    #include <GPSPoller.h>
-#endif
-#ifdef ENABLE_ITG3200_POLLER
-    #include <ITG3200Poller.h>
-#endif
-#ifdef ENABLE_LIS331_POLLER
-    #include <LIS331Poller.h>
-#endif
-#ifdef ENABLE_ANALOG_POLLER
-    #include <AnalogPoller.h>
-#endif
-#ifdef ENABLE_DIGITAL_POLLER
-    #include <DigitalPoller.h>
-#endif
-
-#ifdef ENABLE_MS_POLLER
-    #include <MSPoller.h>
-#endif
+#include <DummyPoller.h>
+#include <GPSPoller.h>
+#include <ITG3200Poller.h>
+#include <LIS331Poller.h>
+#include <AnalogPoller.h>
+#include <DigitalPoller.h>
+#include <MSPoller.h>
 
 
 void loop(){

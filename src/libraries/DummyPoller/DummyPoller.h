@@ -20,22 +20,40 @@
  * $Date$:  
  
  */
+// Always use an include guard.
 #ifndef DUMMYPOLLER_H
 #define DUMMYPOLLER_H
 
+// Include Arduino.h at the top 
 #include <Arduino.h>
+// Followed by config.h, this contains the definition for the ENABLE_X...
+// Preprocessor directive.
 #include <config.h>
 
+// Only include any feature related code if the feature is enabled
+// This means checking for the feature in each source file. 
 #ifdef ENABLE_DUMMY_POLLER
+
 #include <message.h>
 #include <logger.h>
 
-
+/**
+ * A poller class to generate dummy log messages, useful for testing loguino and
+ * as an example poller implementation.
+ *
+ * Use Doxygen to document classes.
+ */
 class DummyPoller{
 	public:
+		// Poll is called each time the polling loop runs, and should
+		// query the device and call log_message()
 		static void poll();
+		
+		// Begin is called once when loguino starts up and is used to configure
+		// any devices so they are ready to be polled.
 		static void begin();
 	private:
+		// Any private variables used by logger class
 		static int called;
 };
 

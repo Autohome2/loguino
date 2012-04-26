@@ -31,11 +31,21 @@
 
 EthernetServer EthernetLogger::server=EthernetServer(8000);;
 
+/**
+ * Prints the message as CSV to any connected clients.
+ */
 void EthernetLogger::log(){
 	server.println(m.toCSV());
 	delay(120);
 }
 
+/**
+ * Configures the TCP Server using the Ethernet library.  Takes the 
+ * configuration settings for MAC, IP, GW etc from the preprocessor
+ * directives and configures the network interface.  
+ *
+ * Starts a server on the specified port ready for clients to connected.
+ */
 void EthernetLogger::begin(){
 	byte mac[]={ETHERNET_MAC_ADDRESS};
 	byte ip[]={ETHERNET_IP_ADDRESS};
@@ -47,6 +57,10 @@ void EthernetLogger::begin(){
 
 }
 
+/**
+ * There are no buffers to flush, however is mandatory to implement a flush
+ * method.
+ */
 void EthernetLogger::flush(){
 	// Nothing to flush...
 	return;
