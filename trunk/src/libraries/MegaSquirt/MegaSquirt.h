@@ -28,8 +28,9 @@
 #define MS_TABLE_LENGTH 112
 #define MS_MAX_RETRY_COUNT 30
 #define MS_WAIT_TIME 100
-#define MS_PORT Serial1
-#define MS_PORT Serial
+#ifndef MS_PORT
+	#define MS_PORT Serial
+#endif
 
 #define MS_COMM_SUCCESS 0
 #define MS_ERR_COMM_TIMEOUT 1
