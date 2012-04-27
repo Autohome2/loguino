@@ -63,6 +63,7 @@ void PulsePoller::poll(){
 
 	m.units="MicroHertz";
 	for ( i=0; i<numPins; i++){
+		val=0;
 		for ( c=0; c<PULSE_AVERAGE_COUNT; c++){
 			val+=pulseIn(pins[i],LOW,PULSE_TIMEOUT);
 		}
@@ -72,6 +73,7 @@ void PulsePoller::poll(){
 		log_message();
 	}   
 	for ( i=0; i<numHPins; i++){
+		val=0;
 		for ( c=0; c<PULSE_AVERAGE_COUNT; c++){
 			val+=pulseIn(hPins[i],HIGH,PULSE_TIMEOUT);
 		}
