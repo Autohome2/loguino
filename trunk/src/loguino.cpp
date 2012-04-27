@@ -35,12 +35,16 @@
 #include <AnalogPoller.h>
 #include <DigitalPoller.h>
 #include <MSPoller.h>
+#include <PulsePoller.h>
 
 
 void loop(){
     m.time=millis();
 #ifdef ENABLE_GPS_POLLER
 	GPSPoller::poll();
+#endif
+#ifdef ENABLE_PULSE_POLLER
+	PulsePoller::poll();
 #endif
 #ifdef ENABLE_ITG3200_POLLER
 	ITG3200Poller::poll();
@@ -105,6 +109,10 @@ void setup(){
 #endif
 #ifdef ENABLE_HS1101_POLLER
 	HS1101Poller::begin();
+#endif
+
+#ifdef ENABLE_PULSE_POLLER
+	PulsePoller::begin();
 #endif
 
 

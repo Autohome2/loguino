@@ -113,5 +113,12 @@ ELSE()
 ENDIF (ENABLE_ETHERNET_LOGGER)
 CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/src/libraries/config/config.in  ${CMAKE_SOURCE_DIR}/src/libraries/config/config.h)
 
+OPTION(ENABLE_PULSE_POLLER "Enable polling of digital pins for a freqencies" OFF)
+IF (ENABLE_PULSE_POLLER)
+	SET (PULSE_DIGITAL_PINS "27" CACHE STRING "Comma seperated list of digital pins that will be held LOW")
+	SET (INVERTED_PULSE_DIGITAL_PINS "28" CACHE STRING "Comma seperated list of digital pins that will be held HIGH")
+	SET (PULSE_AVERAGE_COUNT "10" CACHE STRING "The number of times to read the value before taking an average")
+	SET (PULSE_TIMEOUT "1000" CACHE STRING "The number of microseconds to wait before giving up on a reading")
+ENDIF(ENABLE_PULSE_POLLER)
 
 

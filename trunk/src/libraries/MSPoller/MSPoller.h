@@ -52,6 +52,12 @@
  *
  * When successful, each metric is logged as a message to the logging system.
  *
+ * @note The serial interface on the Arduino mega is a TTL (link) device, 
+ * this operates at or below 5v, whereas the MegaSquirt uses rs232, that
+ * uses 12volts. In order to avoid damage to the Arduino, voltage conversion
+ * is required, the max2323 chip accomplishes this on a single chip and is 
+ * assumed in this instance.  Although any similar chip should also work.
+ *
  */
 class MSPoller
 {
