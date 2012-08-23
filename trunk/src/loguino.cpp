@@ -34,6 +34,7 @@
 #include <LIS331Poller.h>
 #include <AnalogPoller.h>
 #include <DigitalPoller.h>
+#include <DS18B20Poller.h>
 #include <MSPoller.h>
 #include <PulsePoller.h>
 
@@ -60,6 +61,9 @@ void loop(){
 #endif
 #ifdef ENABLE_DIGITAL_POLLER
 	DigitalPoller::poll();
+#endif
+#ifdef ENABLE_DS18B20_POLLER
+        DS18B20Poller::poll();
 #endif
 #ifdef ENABLE_MS_POLLER
 	MSPoller::poll();
@@ -97,6 +101,9 @@ void setup(){
 #endif
 #ifdef ENABLE_DIGITAL_POLLER
    	DigitalPoller::begin();
+#endif
+#ifdef ENABLE_DS18B20_POLLER
+        DS18B20Poller::begin();
 #endif
 #ifdef ENABLE_MS_POLLER
 	MSPoller::begin();
