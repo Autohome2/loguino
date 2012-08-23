@@ -58,7 +58,9 @@
 #cmakedefine ENABLE_HS1101_POLLER
 #define HS1101_PIN @HS1101_PIN@
 
-
+//! Enable the DS18B20 Poller
+#cmakedefine ENABLE_DS18B20_POLLER
+#define ONE_WIRE_PIN @ONE_WIRE_PIN@
 
 //! Enable the Digital Input Poller
 #cmakedefine ENABLE_DIGITAL_POLLER
