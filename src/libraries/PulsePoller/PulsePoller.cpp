@@ -72,6 +72,7 @@ void PulsePoller::poll(){
 		m.value=String(val/PULSE_AVERAGE_COUNT);
 		log_message();
 	}   
+
 	for ( i=0; i<numHPins; i++){
 		val=0;
 		for ( c=0; c<PULSE_AVERAGE_COUNT; c++){
