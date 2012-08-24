@@ -25,15 +25,11 @@
 #ifdef ENABLE_DS18B20_POLLER
 
 OneWire DS18B20Poller::oneWire(ONE_WIRE_PIN);
-
 DallasTemperature DS18B20Poller::sensors(&oneWire);
-
 DeviceAddress DS18B20Poller::addr;
 
 void DS18B20Poller::begin(){
-	
 	sensors.begin();
-	
 	// Search the bus for any devices and set the resolution to 10 bit
 	while(oneWire.search(addr)) {  				// This returns true if a device is found with this address
 		if ( OneWire::crc8( addr, 7) == addr[7]) { 	// Only if the CRC matches
@@ -43,9 +39,7 @@ void DS18B20Poller::begin(){
 }
 
 void DS18B20Poller::poll(){
-	
 	// Do stuff to read the sensors
-
 	m.units="Degrees C";
   	oneWire.reset_search();
 	while(oneWire.search(addr)) {
@@ -64,9 +58,8 @@ void DS18B20Poller::poll(){
 			}
 			m.nameSpace+=".Temp";
 			log_message();
-    		}
+   		}
   	}
-	
 }
 
 #endif

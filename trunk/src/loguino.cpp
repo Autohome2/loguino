@@ -84,6 +84,8 @@ void loop(){
 void setup(){
     
     
+	loggerBegin();
+
 #ifdef ENABLE_DUMMY_POLLER
 	DummyPoller::begin();
 #endif
