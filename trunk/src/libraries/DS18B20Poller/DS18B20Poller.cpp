@@ -28,36 +28,69 @@ OneWire DS18B20Poller::oneWire(ONE_WIRE_PIN);
 DallasTemperature DS18B20Poller::sensors(&oneWire);
 DeviceAddress DS18B20Poller::addr;
 
+/**
+ * Open up the bus, search for DS18x20 devices and set their 
+ * resolution to 10 bit
+ */
 void DS18B20Poller::begin(){
 	sensors.begin();
-	// Search the bus for any devices and set the resolution to 10 bit
-	while(oneWire.search(addr)) {  				// This returns true if a device is found with this address
-		if ( OneWire::crc8( addr, 7) == addr[7]) { 	// Only if the CRC matches
+  	oneWire.reset_search(); 
+	// For every device on the bus
+	while(oneWire.search(addr)) { 
+		if (
+				// That has a correct CRC
+				( OneWire::crc8( addr, 7) == addr[7]) 
+				&& (
+					// And matches the correct series of devices
+					(addr[0] == 0x10) 
+					|| (addr[0] == 0x22) 
+					|| (addr[0] == 0x28)
+					)
+				) { 
+			// Set the resolution to 10bit.
 			sensors.setResolution(10);
 		}
 	}
 }
 
+
+/**
+ * Reads the value from the connected sensors by iterating 
+ * through each sensor found with the correct type.
+ */
 void DS18B20Poller::poll(){
-	// Do stuff to read the sensors
+	float tempC; // Sensor Temperature
+	char buf[15]; // Buffer to store temperature value
+	int i;
+	// Temperature unit is Degrees Centigrade
 	m.units="Degrees C";
-  	oneWire.reset_search();
-	while(oneWire.search(addr)) {
-		if ( OneWire::crc8( addr, 7) == addr[7]) {
+	// Reset the counter so the first sensor is returned
+  	oneWire.reset_search();					
+	while(oneWire.search(addr)) { 
+		if (
+				// That has a correct CRC
+				( OneWire::crc8( addr, 7) == addr[7]) 
+				&& (
+					// And matches the correct series of devices
+					(addr[0] == 0x10) 
+					|| (addr[0] == 0x22) 
+					|| (addr[0] == 0x28)
+					)
+				) { 
+			// Get the temperature
 			sensors.requestTemperatures();
-			float tempC = sensors.getTempC(addr);
-			//m.value=String(called++);
-			m.value=String(int(tempC));
-			char buf[15];
-			m.value=dtostrf(tempC,6,2,buf);
-			
-			m.nameSpace="DS18B20.";
-			int i;
+			tempC = sensors.getTempC(addr);
+			// Convert the value to a string using dtostrf from stdlib
+			m.value=dtostrf(tempC,1,2,buf);		
+			m.nameSpace="DS18B20.";			
+			// Use the address of the device to form the namespace
 			for (i=0;i<8;i++){
 				m.nameSpace+=String(addr[i],HEX);
 			}
+			// This is a temperature value so append .Temp to namespace
 			m.nameSpace+=".Temp";
-			log_message();
+			// Log the message
+			log_message();	
    		}
   	}
 }

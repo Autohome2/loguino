@@ -27,21 +27,21 @@
 #include <config.h>
 #ifdef ENABLE_DS18B20_POLLER
 
+#include <stdlib.h> 
+#include <OneWire.h>
+#include <DallasTemperature.h>
 #include <message.h>
 #include <logger.h>
 
-#include<stdlib.h> //This is for dtostrf as per http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1205038401
-
-#include <OneWire.h>
-#include <DallasTemperature.h>
-
 /**
- * A DS18B20 OneWire class to grab temperature data
+ * The Maxim DS18B20 digital thermometer provides 9-bit to 12-bit
+ * Celsius temperature measurements over a 1-Wire interface providing 
+ * accurate and inexpensive temperature readings.
  *
- * Use Doxygen to document classes.
-*/ 
-
-
+ * This class builds on Jim Studt's 1-Wire library and Jordan Hochenbaum's
+ * DallasTemperature implementation to integrate into Loguino.
+ *
+*/
 class DS18B20Poller{
 	public:
 		static void poll();
@@ -51,7 +51,6 @@ class DS18B20Poller{
 		static DallasTemperature sensors;
 		static DeviceAddress addr;
 };
-
 
 #endif
 #endif
