@@ -540,31 +540,23 @@ byte MegaSquirt::runCommand(byte cmd[], byte cmdLength,  byte data[], byte dataL
 		MS_PORT.write(cmd[i]);
 	}
     
-    
-    int counter=0;
-    unsigned long timeout=millis()+MS_WAIT_TIME;
-    Serial.print("Data length: ");
-    Serial.println(dataLength);
-    
-    while (counter<dataLength && timeout>millis())
+	unsigned long timeOut;
+    int counter;
+	
+	// The Serial buffer is 64 bytes, this is less than the largest payload
+	// from the controller, as such don't wait, start reading the data right
+	// away and don't stop until either the requested number of bytes has 
+	// been read or the timeout is reached.
+	//
+	counter=0;
+	timeOut=millis()+MS_WAIT_TIME;
+	while (counter<dataLength && millis()<timeOut)
     {
-        Serial.print("Waiting on data, counter: ");
-        Serial.println(counter);
-        Serial.print("Timout: ");
-        Serial.print(timeout);
-        Serial.print(" Millis: ");
-        Serial.println(millis());
-        
-        
         while(counter<dataLength && MS_PORT.available()){
             data[counter]=MS_PORT.read();
             ++counter;
         }
     }
-	
-    Serial.print("Finished trying to find data, counter: ");
-    Serial.println(counter);
-    
 	// If there is still data pending to be read, raise OVERFLOW error.
 	if (MS_PORT.available()>0 && counter>=dataLength)
 	{
