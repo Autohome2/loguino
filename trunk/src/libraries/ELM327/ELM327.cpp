@@ -91,7 +91,7 @@ byte Elm327::fuelPressure(int &pressure){
 	return ELM_SUCCESS;
 }
 
-byte Elm327::intakeManifoldAbsolutePressure(int &pressure){
+byte Elm327::intakeManifoldAbsolutePressure(byte &pressure){
 	byte status;
 	byte values[1];
 	status=getBytes("01","41","0B",values,1);
@@ -126,7 +126,7 @@ byte Elm327::vehicleSpeed(byte &speed){
 	speed=values[0];
 	return ELM_SUCCESS;
 }
-byte Elm327::timingAdvance(byte &advance){
+byte Elm327::timingAdvance(int &advance){
 	byte status;
 	byte values[1];
 	status=getBytes("01","41","0E",values,1);
@@ -137,7 +137,7 @@ byte Elm327::timingAdvance(byte &advance){
 	return ELM_SUCCESS;
 }
 
-byte Elm327::intakeAirTemperature(byte &temperature){
+byte Elm327::intakeAirTemperature(int &temperature){
 	byte status;
 	byte values[1];
 	status=getBytes("01","41","0F",values,1);
