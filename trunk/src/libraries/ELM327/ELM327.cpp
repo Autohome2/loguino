@@ -31,7 +31,7 @@ byte Elm327::begin(){
 	return runCommand("AT SP 0",data,20);
 }
 
-byte Elm327::engineLoad(int &load){
+byte Elm327::engineLoad(byte &load){
 	byte status;
 	byte values[1];
 	status=getBytes("01","41","04",values,1);
@@ -105,9 +105,6 @@ byte Elm327::intakeManifoldAbsolutePressure(byte &pressure){
 byte Elm327::engineRPM(int &rpm){
 	byte status;
 	byte values[2];
-	char mode[]="01";
-	char chkMode[]="41";
-	char pid[]="0C";
 	status=getBytes("01","41","0C",values,2);
 	if (status != ELM_SUCCESS){
 		return status;
@@ -311,7 +308,7 @@ byte Elm327::commandedEGR(byte &egr){
 	return ELM_SUCCESS;
 }
 
-byte Elm327::EGRError(byte &error){
+byte Elm327::EGRError(int &error){
 	byte status;
 	byte values[1];
 	status=getBytes("01","41","2D",values,1);
@@ -697,7 +694,7 @@ byte Elm327::getVersion(String &rev)
 {
 	char data[20];
 	byte status;
-	char cmd[]="ATI";;
+	char cmd[]="ATI";
 	status=runCommand(cmd,data,20);
 	rev=String(data);
 	return status;

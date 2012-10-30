@@ -29,11 +29,11 @@
 #include <Arduino.h>
 #include <config.h>
 #include <message.h>
-#include <Ethernet.h>
 
 
 
 #ifdef ENABLE_ETHERNET_LOGGER
+	#include <Ethernet.h>
 	#ifndef ETHERNET_MAC_ADDRESS
 		#error ETHERNET_MAC_ADDRESS must be defined
     #endif
