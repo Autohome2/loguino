@@ -25,9 +25,6 @@
 #include "MegaSquirt.h"
 #define LAMBDA 14.1
 
-
-
-
 //! Loads a new set of registers.
 bool MegaSquirtData::loadData(byte newReg[112]){
 	uint8_t i=0;
@@ -611,7 +608,7 @@ byte MegaSquirt::seconds(uint16_t *secs)
 
 //! Sets rev to the revision string returned by the megasquirt controller.
 //! The revision string contains the version of the megasquirt controller.
-//! @params rev Pointer to a string containing the revision of the controller.
+//! @param rev Pointer to a string containing the revision of the controller.
 byte MegaSquirt::revision(String *rev)
 {
 	byte data[20];

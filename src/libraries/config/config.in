@@ -26,6 +26,21 @@
 
 
 
+//! Enable the ELM327 OBD Poller
+#cmakedefine ENABLE_ELM_POLLER
+//! Sets the serial device of the GPS
+#define ELM_PORT @ELM_PORT@
+
+//! Log simple or extended values
+#define ELMPOLLER_EXTENDED_VALS @ELMPOLLER_EXTENDED_VALS@
+
+
+
+//! Set the BAUD rate of the ELM device
+#define ELM_BAUD_RATE @ELM_BAUD_RATE@
+
+//! Set the timeout for the ELM device
+#define ELM_TIMEOUT @ELM_TIMEOUT@
 
 //! Enable the GPS Poller
 #cmakedefine ENABLE_GPS_POLLER

@@ -25,9 +25,32 @@
 #define ELM327_h
 #include "Arduino.h"
 
-#define ELM_TIMEOUT 15000
-#define ELM_BAUD_RATE 9600
-#define ELM_PORT Serial3
+/**
+ * The timeout in milliseconds to wait for a response from the ELM device.  
+ * If this timeout is reached before a prompt is returned then functions 
+ * will return ELM_NO_RESPONSE.
+ */
+#ifndef ELM_TIMEOUT
+	#warning "ELM_TIMEOUT must be defined."
+	#define ELM_TIMEOUT 9000
+#endif
+/**
+ * The BAUD rate to use when communicating with the ELM device. Generally
+ * this is 9600 however it can be changed in both hardware and software.
+ * This setting is the speed that the ELM device will use at startup.
+ */
+#ifndef ELM_BAUD_RATE
+	#warning "ELM_BAUD_RATE must be defined"
+	#define ELM_BAUD_RATE 9600
+#endif
+
+/**
+ * The serial port/device that the ELM327 chip is connected to.  
+ */
+#ifndef ELM_PORT
+	#warning "ELM_PORT is not defined, using default value"
+	#define ELM_PORT Serial
+#endif
 
 /**
  * Return code when communication with the ELM device returned succesfully
@@ -83,11 +106,93 @@
 
 
 
-/** Interface for the ELM327 multi-function OBDII Interpreter IC.  Providing
- * both a low level interface to run commands directly on the IC, and a
- * higher level API that provides convenience functions to read from the OBD2
- * PIDS, read and reset error codes, and otherwise interrogate the connected
- * vehicle.
+/**
+ *  Interface for the ELM327 multi-function OBDII Interpreter IC.  Providing
+ *  both a low level interface to run commands directly on the IC, and a
+ *  higher level API that provides convenience functions to read from the OBD2
+ *  PIDS, read and reset error codes, and otherwise interrogate the connected
+ *  vehicle.
+ *
+ *  \par High Level API 
+ *
+ *  The high levle API provides an easy to use way to get OBD metrics from
+ *  the vehicle.  All high level functions return the status, and set one or
+ *  more variables to the converted values.
+ *
+ *  \par
+ *  Regardless of the API level used, the constants for timeout, BAUD rate and
+ *  port must be configured, prior to including the ELM327 header.
+ *
+ * 	The Elm class contains all the methods used to interact with the ELM device, 
+ * 	this must be initialized using the begin() method.  All methods (including
+ * 	begin) return the status.  This is a byte, with constants defined for SUCCESS
+ * 	TIMEOUT, etc.
+ *
+ *  To read a value from the OBD controller,  call the method with an appropriate 
+ *  variable.  Upon success the variable will contain the converted value.
+ *
+ *  @code
+ *  #define ELM_TIMEOUT 9000
+ *  #define ELM_BAUD_RATE 9600
+ *  #define ELM_PORT Serial3
+ *  #include <ELM327.h>
+ *
+ *  Elm327 Elm;
+ *	byte status;
+ *	int temperature;
+ *
+ *	status=Elm.begin();
+ *	if (status != ELM_SUCCESS){
+ *		Serial.print("Elm begin failed with error: ");
+ *		Serial.println(status);
+ *	}
+ *
+ *  status=Elm.coolantTemperature(temperature);
+ *  if (status  == ELM_SUCCESS){
+ *  		Serial.print("Coolant Temperature: ");
+ *  		Serial.println(temperature);
+ *  }else{
+ *  		Serial.print("Elm begin failed with error: ");
+ * 		Serial.println(status);
+ *  }
+ *
+ * 	@endcode
+ *
+ * 	\par Low Level API
+ *
+ * 	In addition to being able to query common OBD parameters, it is possible 
+ * 	to run arbitrary commands directly on the ELM device, or request PIDS and
+ * 	raw commands.
+ *
+ * 	To run an arbitrary command on the ELM device, runCommand can be used.  
+ * 	This will run the given command and wait until the prompt is returned or 
+ * 	ELM_TIMEOUT is reached.  The buffer is filled with any data returned from 
+ * 	the ELM controller.
+ *
+ * 	You can also request byte values, for example if you are running a command
+ * 	that will return a series of bytes, getBytes can be used.  This runs the 
+ * 	command, and parses the output into an array of bytes.
+ *
+ * 	@code
+ *  #include <ELM327.h>
+ *  byte status;
+ *  status=Elm.begin();
+ *	if (status != ELM_SUCCESS){
+ *    Serial.print("Elm begin failed with error: ");
+ *    Serial.println(status);
+ *  }
+ *  byte values[1];
+ *  status=getBytes("01","41","05",values,1);
+ *  if (status != ELM_SUCCESS){
+ *     Serial.print("Failed to get value for Temperature: ");
+ *     Serial.println(status);
+ *  } else{
+ *     Serial.print ("Elm returned:  ");
+ *     Serial.println(values[0], HEX);
+ *     Serial.print ("Converted to degrees this is: ");
+ *     Serial.print(values[0]-40,DEC);
+ *  }
+ *  @endcode
  */
 class Elm327
 {
@@ -146,12 +251,12 @@ class Elm327
 		/**
 		 * Gets the Calculated Engine Load.  Reads PID 04 from the OBD interface and sets 
 		 * load to the the value returned after conversion.
-		 * @param[out] load Integer value is set to the calculated Engine Load.
+		 * @param[out] load byte value is set to the calculated Engine Load.
 		 * - Minimum value: 0
 		 * - Maximum value: 100
 		 * - Units: %
 		 */
-		byte engineLoad(int &load);
+		byte engineLoad(byte &load);
 
 
 		/**
@@ -245,7 +350,7 @@ class Elm327
 		/**
 		 * Gets the current speed of the vehicle in km/h.  Reads PID 0D form the OBD 
 		 * interface and sets speed to the value returned after conversion.
-		 * @param[out]	rpm	Byte is set to the current speed of the vehicle.
+		 * @param[out]	speed	Byte is set to the current speed of the vehicle.
 		 * - Minimum Value: 0
 		 * - Maximum Value: 255
 		 * - Units: km/h
@@ -319,7 +424,7 @@ class Elm327
 		byte o2S7WRVoltage(unsigned int &equivRatio, unsigned int &voltage);
 		byte o2S8WRVoltage(unsigned int &equivRatio, unsigned int &voltage);
 		byte commandedEGR(byte &egr);
-		byte EGRError(byte &error);
+		byte EGRError(int &error);
 		byte commandedEvaporativePurge(byte &purge);
 		byte fuelLevel(byte &level);
 		byte warmUpsSinceLastCleared(byte &warmUps);

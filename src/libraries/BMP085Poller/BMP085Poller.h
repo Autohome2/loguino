@@ -29,6 +29,7 @@
 #include <Arduino.h>
 #include <config.h>
 #ifdef ENABLE_BMP085_POLLER
+#warn foo
 #include <message.h>
 #include <logger.h>
 #include <BMP085.h>

@@ -20,56 +20,34 @@
  * $Date$:  
  
  */
-#ifndef LOGGER_H
-#define LOGGER_H
-
+#ifndef ELMPOLLER_H
+#define ELMPOLLER_H
 #include <Arduino.h>
 #include <config.h>
+#include "ELM327.h"
+#ifdef ENABLE_ELM_POLLER
+
+//! The number of times to skip before trying again. 
+#define ELM_SKIP 100 
 #include <message.h>
-
-#ifdef ENABLE_ETHERNET_LOGGER
-#include <EthernetLogger.h>
-#endif
-
-#ifdef ENABLE_SERIAL_OUTPUT
-#include <SerialLogger.h>
-#endif
-
-#ifdef ENABLE_SD_OUTPUT
-#include <SDLogger.h>
-#endif
+#include <logger.h>
 
 /**
- * Logs the message to all active outputs.
+ * A poller class for ELM327 OBD chips.  Logs messages from OBD2 interface from most
+ * newer vehicles.
  */
-void log_message();
-
-/**
- * Logs a debug message to all loggers.  This should *NEVER* be called
- * from within a logger as it will recurse infinitely.
- */
-//void debug_message(String message);
-
-/**
- * Flushes the output buffer on all active outputs.
- */
-void flush_output();
-
-/**
- * Sets up any outputs that are available.   Contains a call to the setup function 
- * of each logger installed.
- */
-void loggerBegin();
-
-/**
- * The number of messages logged that have not yet been explicitly
- * flushed.
- */
-extern int num_messages;
-
-
-
-
+class ELMPoller{
+	public:
+		static void poll();
+		static void begin();
+	private:
+		//! True when the poller is active and an ELM device is found and alive.
+		static bool active;
+		//! Increments each poll until ELM_SKIP is reached, at which point 
+		//communication is re-initilized.
+		static unsigned int retries;
+		static Elm327 Elm;
+};
 
 #endif
 
@@ -80,3 +58,4 @@ extern int num_messages;
 
 
 
+#endif

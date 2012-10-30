@@ -1,13 +1,3 @@
-set(FIRMWARE_NAME loguino)
-set(loguino_RECURSE True)
-set(SD_RECURSE True)
-
-#set(${FIRMWARE_NAME}_BOARD ethernet)
-set(loguino_BOARD ethernet CACHE STRING "Board to build for")
-set(${FIRMWARE_NAME}_SRCS loguino.cpp)
-SET(${FIRMWARE_NAME}_PORT "/dev/tty.usbserial" CACHE STRING "Serial port to upload firmware to")
-
-generate_arduino_firmware(loguino)
 
 OPTION( ENABLE_HS1101_POLLER "Enable polling of HS1101 Relative Humidity Sensor" OFF)
 IF (ENABLE_HS1101_POLLER)
@@ -32,6 +22,21 @@ ELSE()
 	SET(GPS_SERIAL_DEV)
 	SET(GPS_SERIAL_DEV_SPEED)
 ENDIF(ENABLE_GPS_POLLER)
+
+
+
+OPTION( ENABLE_ELM_POLLER "Enable poling of ELM327 compatible OBD2 devices" OFF)
+IF (ENABLE_ELM_POLLER)
+	SET(ELM_PORT "Serial3" CACHE STRING "Serial device for ELM device" )
+	SET(ELM_BAUD_RATE "9600" CACHE STRING "BAUD rate of ELM327 Device" )
+	SET(ELM_TIMEOUT "9000" CACHE STRING "Milliseconds to wait for ELM device to respond" )
+	OPTION(ELMPOLLER_EXTENDED_VALS "Enabling this option logs all known PIDS rather than the most common")
+ELSE()
+	SET (ELM_PORT)
+	SET (ELM_BAUD_RATE)
+	SET (ELM_TIMEOUT)
+	SET (ELMPOLLER_EXTENDED_VALS)
+ENDIF(ENABLE_ELM_POLLER)
 
 OPTION( ENABLE_DUMMY_POLLER "Enable polling of the dummy poller" OFF)
 OPTION( ENABLE_DIGITAL_POLLER "Enable polling of digital pins" OFF)
@@ -130,3 +135,12 @@ IF (ENABLE_PULSE_POLLER)
 ENDIF(ENABLE_PULSE_POLLER)
 
 
+generate_arduino_firmware(loguino
+	SRCS loguino.cpp
+)
+generate_arduino_firmware(test-elm
+	SRCS tests/elm.cpp
+)
+generate_arduino_firmware(test-serial
+	SRCS tests/serial.cpp
+)

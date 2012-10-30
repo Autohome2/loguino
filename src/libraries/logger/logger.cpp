@@ -23,16 +23,19 @@
 #include <logger.h>
 #include <message.h>
 
+/// Number of messages logged since last flush
 int num_messages=0;
 void log_message(){
     extern Message m;
-    
 	num_messages++;
+	// If the number of messages is larger than the maximum permitted, then flush the 
+	// output prior to logging the message.
   	if (num_messages>500){
   	  	flush_output();
   	  	num_messages=0;
   	}
     
+	// Log the message to each of the logger modules.
 #ifdef ENABLE_SERIAL_OUTPUT
 	SerialLogger::log();
 #endif

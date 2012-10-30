@@ -109,12 +109,12 @@ void setup(){
 	}
 	
 	Serial.print("OBD2 Engine Load: ");
-	status=Elm.engineLoad(i);
+	status=Elm.engineLoad(by);
 	if (status  == ELM_SUCCESS)
 	{
 		Serial.println ("Pass");
 		Serial.print(" Value: ");
-		Serial.println(i);
+		Serial.println(by);
 	}else{
 		printStatus(status);
 	}
@@ -522,12 +522,12 @@ void setup(){
 		printStatus(status);
 	}
 	Serial.print("OBD2 EGR Error: ");
-	status=Elm.EGRError(by);
+	status=Elm.EGRError(i);
 	if (status  == ELM_SUCCESS)
 	{
 		Serial.println ("Pass");
 		Serial.print(" Value: ");
-		Serial.println(by);
+		Serial.println(i);
 	}else{
 		printStatus(status);
 	}

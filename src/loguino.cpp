@@ -22,9 +22,13 @@
 */
 
 #include <Arduino.h>
+#include <SPI.h>
+#include <Wire.h>
 #include <config.h>
 #include <message.h>
 #include <logger.h>
+#include <ELM327.h>
+#include <ELMPoller.h>
 #include <HS1101Poller.h>
 #include <TMP102Poller.h>
 #include <BMP085Poller.h>
@@ -41,6 +45,9 @@
 
 void loop(){
     m.time=millis();
+#ifdef ENABLE_ELM_POLLER
+	ELMPoller::poll();
+#endif
 #ifdef ENABLE_GPS_POLLER
 	GPSPoller::poll();
 #endif
@@ -86,6 +93,9 @@ void setup(){
     
 	loggerBegin();
 
+#ifdef ENABLE_ELM_POLLER
+	ELMPoller::begin();
+#endif
 #ifdef ENABLE_DUMMY_POLLER
 	DummyPoller::begin();
 #endif
