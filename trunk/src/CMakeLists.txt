@@ -1,4 +1,11 @@
 
+OPTION (DEBUG_MODE "Enable debugging output" ON)
+IF (DEBUG_MODE)
+	SET(DEBUG "debug")
+ELSE()
+	SET (DEBUG "//")
+ENDIF(DEBUG_MODE)
+
 SET(SD_RECURSE True)
 SET (logger_RECURSE True)
 set (loguino_RECURSE True)

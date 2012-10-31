@@ -41,7 +41,6 @@ bool LIS331::readReg(byte addr, byte *val){
 		*val=Wire.read();
 		return true;
   }else{
-	Serial.println("FAIL");
     return false;
   }
 }
