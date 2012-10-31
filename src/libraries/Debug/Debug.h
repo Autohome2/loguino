@@ -11,39 +11,19 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ 
  * You should have received a copy of the GNU General Public License
  * along with Loguino.  If not, see <http://www.gnu.org/licenses/>.
  * 
- * $Rev$
- * $Author$
- * $Date$
+ * $Rev$:   
+ * $Author$: 
+ * $Date$:  
+ 
+ */
+#ifndef DEBUG_H
+#define DEBUG_H
 
-*/
-
-
-#ifndef NMEA_H
-#define NMEA_H
 #include <Arduino.h>
-
-class NMEA{
-	String getField(int field);
-	char sumMsg(String &message);
-	String activeSentence;
-	int state;
-	public:
-		String readSentence;
-		bool addChar(char c);
-		bool validFix();
-		String getTime();
-		char fixType();
-		String getLatitude();
-		String getLongitude();
-		String getSpeed();
-		String getCourse();
-		String getDate();
-};
-
-
-
+#include <config.h>
+void debug (const  char* msg);
 #endif

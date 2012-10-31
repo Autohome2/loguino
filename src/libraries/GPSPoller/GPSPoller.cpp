@@ -29,7 +29,9 @@ NMEA GPSPoller::n;
  * Configures the serial port in order to connect to the GPS.
  */
 void GPSPoller::begin(){
+	DEBUG ("GPS Poller: Starting Begin");
     GPS_SERIAL_DEV.begin(GPS_SERIAL_DEV_SPEED);
+	DEBUG ("GPS Poller: Begin Finished");
 }
 
 /**
@@ -47,40 +49,58 @@ void GPSPoller::begin(){
  */
 void GPSPoller::poll(){
     extern Message m;
-    
+	DEBUG ("GPS Poller: Beginning Poll ");
     while(GPS_SERIAL_DEV.available()){
+	DEBUG ("GPS Poller:  Bytes Available from serial device");
+	#ifdef DEBUG_MODE
+	Serial.println(n.readSentence);
+	#endif
 		if (n.addChar(GPS_SERIAL_DEV.read())){
+			DEBUG ("GPS Poller:  Sentance Recieved from GPS ");
 			if (n.validFix()){
+				DEBUG ("GPS Poller:   Valid Fix, logging. ");
                 
+				DEBUG ("GPS Poller:   Logging Course");
 				m.units="Degrees";
 				m.nameSpace="GPS.Course";
 				m.value=n.getCourse();
 				log_message();
+				DEBUG ("GPS Poller:   Logged");
                 
+				DEBUG ("GPS Poller:   Logging Speed");
 				m.units="Knots";
 				m.nameSpace="GPS.Speed";
 				m.value=n.getSpeed();
 				log_message();
+				DEBUG ("GPS Poller:   Logged");
                 
+				DEBUG ("GPS Poller:   Logging Latitude");
 				m.units="Latitude";
 				m.nameSpace="GPS.Latitude";
 				m.value=n.getLatitude();
 				log_message();
+				DEBUG ("GPS Poller:   Logged");
                 
+				DEBUG ("GPS Poller:   Logging Longitude");
 				m.units="Longitude";
 				m.nameSpace="GPS.Longitude";
 				m.value=n.getLongitude();
 				log_message();
+				DEBUG ("GPS Poller:   Logged");
                 
+				DEBUG ("GPS Poller:   Logging Date");
 				m.units="Date";
 				m.nameSpace="GPS.Date";
 				m.value=n.getDate();
                 log_message();
+				DEBUG ("GPS Poller:   Logged");
                 
+				DEBUG ("GPS Poller:   Time");
 				m.units="Time";
 				m.nameSpace="GPS.Time";
 				m.value=n.getTime();
                 log_message();
+				DEBUG ("GPS Poller:   Logged");
             }
 		}
 	}

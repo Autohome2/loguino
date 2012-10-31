@@ -34,6 +34,8 @@
 //! Log simple or extended values
 #define ELMPOLLER_EXTENDED_VALS @ELMPOLLER_EXTENDED_VALS@
 
+#define DEBUG @DEBUG@
+#cmakedefine DEBUG_MODE
 
 
 //! Set the BAUD rate of the ELM device
