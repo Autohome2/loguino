@@ -27,17 +27,9 @@
 #include <config.h>
 #include <message.h>
 
-#ifdef ENABLE_ETHERNET_LOGGER
 #include <EthernetLogger.h>
-#endif
-
-#ifdef ENABLE_SERIAL_OUTPUT
 #include <SerialLogger.h>
-#endif
-
-#ifdef ENABLE_SD_OUTPUT
 #include <SDLogger.h>
-#endif
 
 /**
  * Logs the message to all active outputs.

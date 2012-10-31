@@ -22,9 +22,16 @@
 */
 
 #include <Arduino.h>
+#include <config.h>
+#include <itg3200.h>
+#include <NMEA.h>
+#include <LIS331.h>
+#include <EthernetLogger.h>
+#include <SerialLogger.h>
+#include <SDLogger.h>
+#include <SD.h>
 #include <SPI.h>
 #include <Wire.h>
-#include <config.h>
 #include <message.h>
 #include <logger.h>
 #include <ELM327.h>
