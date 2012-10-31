@@ -1,4 +1,9 @@
 
+SET(SD_RECURSE True)
+SET (logger_RECURSE True)
+set (loguino_RECURSE True)
+SET (ELM327_RECURSE True)
+
 OPTION( ENABLE_HS1101_POLLER "Enable polling of HS1101 Relative Humidity Sensor" OFF)
 IF (ENABLE_HS1101_POLLER)
 	SET(HS1101_PIN "2" CACHE STRING "Pin the sense pin of the HS1101 is connected to")
@@ -31,11 +36,15 @@ IF (ENABLE_ELM_POLLER)
 	SET(ELM_BAUD_RATE "9600" CACHE STRING "BAUD rate of ELM327 Device" )
 	SET(ELM_TIMEOUT "9000" CACHE STRING "Milliseconds to wait for ELM device to respond" )
 	OPTION(ELMPOLLER_EXTENDED_VALS "Enabling this option logs all known PIDS rather than the most common")
+	add_definitions( -DELM_PORT=${ELM_PORT} )
+	add_definitions( -DELM_BAUD_RATE=${ELM_BAUD_RATE} )
+	add_definitions( -DELM_TIMEOUT=${ELM_TIMEOUT} )
 ELSE()
 	SET (ELM_PORT)
 	SET (ELM_BAUD_RATE)
 	SET (ELM_TIMEOUT)
 	SET (ELMPOLLER_EXTENDED_VALS)
+
 ENDIF(ENABLE_ELM_POLLER)
 
 OPTION( ENABLE_DUMMY_POLLER "Enable polling of the dummy poller" OFF)
@@ -124,7 +133,6 @@ ELSE()
 	SET (ETHERNET_GW_ADDRESS)
 	SET (ETHERNET_NETMASK)
 ENDIF (ENABLE_ETHERNET_LOGGER)
-CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/src/libraries/config/config.in  ${CMAKE_SOURCE_DIR}/src/libraries/config/config.h)
 
 OPTION(ENABLE_PULSE_POLLER "Enable polling of digital pins for a freqencies" OFF)
 IF (ENABLE_PULSE_POLLER)
@@ -134,6 +142,7 @@ IF (ENABLE_PULSE_POLLER)
 	SET (PULSE_TIMEOUT "1000" CACHE STRING "The number of microseconds to wait before giving up on a reading")
 ENDIF(ENABLE_PULSE_POLLER)
 
+CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/src/libraries/config/config.in  ${CMAKE_SOURCE_DIR}/src/libraries/config/config.h)
 
 generate_arduino_firmware(loguino
 	SRCS loguino.cpp
