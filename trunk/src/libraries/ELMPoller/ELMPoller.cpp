@@ -32,13 +32,26 @@ Elm327 ELMPoller::Elm;
  * poller.
  */
 void ELMPoller::begin(){
+	DEBUG("Configuring ELM Poller");
+#ifdef ELM_LED
+	DEBUG("Configuring ELM LED Pin to Output, LOW");
+	pinMode(ELM_LED_PIN, OUTPUT);
+	digitalWrite(ELM_LED_PIN,LOW);
+#endif
 	retries=0;
 	active=false;
 	byte status;
+	DEBUG ("Starting ELM device");
 	status=Elm.begin();
+	DEBUG ("ELM Device Started");
 	if (status == ELM_SUCCESS){
 		active=true;
+#ifdef ELM_LED
+		DEBUG ("ELM Poller Online, setting LED to ON")
+		digitalWrite(ELM_LED_PIN,HIGH);
+#endif
 	}
+	DEBUG ("ELM Poller Configured");
 }
 
 /**
@@ -57,6 +70,10 @@ void ELMPoller::poll(){
 		if (status == ELM_SUCCESS)
 		{
 			active=true;
+			#ifdef ELM_LED
+				DEBUG(" Setting ELM LED to HIGH")
+				digitalWrite(ELM_LED_PIN,HIGH);
+			#endif
 		}
 	}
 	if (!active){
@@ -67,6 +84,9 @@ void ELMPoller::poll(){
 	status=Elm.getIgnMon(b);
 	if (status!=ELM_SUCCESS){
 		active=false;
+		#ifdef ELM_LED
+			digitalWrite(ELM_LED_PIN,LOW);
+		#endif
 		return;
 	}
 	m.units="Boolean";

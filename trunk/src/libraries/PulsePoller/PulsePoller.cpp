@@ -28,6 +28,7 @@
  * their value to HIGH.
  */
 void PulsePoller::begin(){
+#ifdef ENABLE_PULSE_POLLER
 	int pins[]={PULSE_DIGITAL_PINS};
 	int hPins[]={INVERTED_PULSE_DIGITAL_PINS};
 	int numPins=sizeof(pins)/sizeof(int);
@@ -42,6 +43,7 @@ void PulsePoller::begin(){
 		pinMode(hPins[i],INPUT);
 		digitalWrite(hPins[i], HIGH);
 	}   
+#endif
 }
 
 /**
