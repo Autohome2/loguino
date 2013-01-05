@@ -164,7 +164,7 @@ void setup(){
 #endif
 #ifdef ENABLE_DIGITAL_POLLER
 	DEBUG ("Main: Starting Digital Poller");
-   	DigitalPoller::begin();
+    DigitalPoller::begin();
 	DEBUG ("Main: Digital Poller Started");
 #endif
 #ifdef ENABLE_DS18B20_POLLER

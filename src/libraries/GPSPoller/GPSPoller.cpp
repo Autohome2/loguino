@@ -26,11 +26,34 @@
 NMEA GPSPoller::n;
 
 /**
- * Configures the serial port in order to connect to the GPS.
+ * Configures the serial port in order to connect to the GPS.  Attempts to 
+ * turn off messages that are not used, this puts less pressure on the 
+ * serial buffer which has been reduced to 64 bytes.  
+ *
+ * If your GPS does not support disabling messages, there are two other 
+ * options, the first is to increase the buffer used in arduino by 
+ * editing HardwareSerial.h, the other is to poll this poller more
+ * frequently.
  */
 void GPSPoller::begin(){
 	DEBUG ("GPS Poller: Starting Begin");
+	#ifdef GPS_LED
+		DEBUG ("PS Poller:  Setting GPS_LED_PIN to OUTPUT, and LOW");
+		pinMode(GPS_LED_PIN, OUTPUT);
+		digitalWrite(GPS_LED_PIN,LOW);
+		DEBUG ("PS Poller:  Set LED Pin");
+	#endif
     GPS_SERIAL_DEV.begin(GPS_SERIAL_DEV_SPEED);
+	DEBUG ("GPS Poller:  Switching off unneeded GPS data");
+	GPS_SERIAL_DEV.println("$PSRF103,0,0,0,1*24");
+	GPS_SERIAL_DEV.println("$PSRF103,1,0,0,1*25");
+	GPS_SERIAL_DEV.println("$PSRF103,2,0,0,1*26");
+	GPS_SERIAL_DEV.println("$PSRF103,3,0,0,1*27");
+	GPS_SERIAL_DEV.println("$PSRF103,4,0,0,1*20");
+	GPS_SERIAL_DEV.println("PSRF103,5,0,0,1*21");
+	GPS_SERIAL_DEV.println("$PSRF103,8,0,0,1*2C");
+	DEBUG ("GPS Poller:  Switching on RMC data");
+	GPS_SERIAL_DEV.println("$PSRF103,4,0,1,1*21");
 	DEBUG ("GPS Poller: Begin Finished");
 }
 
@@ -47,17 +70,19 @@ void GPSPoller::begin(){
  * to see if the fix is valid, if so it logs each metric.
  *
  */
+
 void GPSPoller::poll(){
     extern Message m;
 	DEBUG ("GPS Poller: Beginning Poll ");
     while(GPS_SERIAL_DEV.available()){
-	DEBUG ("GPS Poller:  Bytes Available from serial device");
-	#ifdef DEBUG_MODE
-	Serial.println(n.readSentence);
-	#endif
 		if (n.addChar(GPS_SERIAL_DEV.read())){
 			DEBUG ("GPS Poller:  Sentance Recieved from GPS ");
 			if (n.validFix()){
+				Serial.print(GPS_LED_PIN);
+				#ifdef GPS_LED
+					DEBUG ("GPS Poller:  Setting GPS_LED_PIN HIGH");
+					digitalWrite(GPS_LED_PIN,HIGH);
+				#endif 
 				DEBUG ("GPS Poller:   Valid Fix, logging. ");
                 
 				DEBUG ("GPS Poller:   Logging Course");
@@ -101,7 +126,12 @@ void GPSPoller::poll(){
 				m.value=n.getTime();
                 log_message();
 				DEBUG ("GPS Poller:   Logged");
-            }
+            }else{
+				#ifdef GPS_LED
+					digitalWrite(GPS_LED_PIN,LOW);
+					Serial.println("Setting GPS LOW");
+				#endif
+			}
 		}
 	}
 }

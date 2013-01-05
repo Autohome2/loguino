@@ -22,6 +22,7 @@
  */
 #include <Debug.h>
 void debug (const  char* msg){
+	 Serial.print("# ");
      Serial.print(millis());
      Serial.print("  ");
      Serial.println(msg);

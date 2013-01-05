@@ -1,17 +1,17 @@
 #include <Arduino.h>
 #include <ELM327.h>
 void setup(){
-	Serial3.begin(9600);
+	Serial2.begin(4800);
 	Serial.begin(115200);
 
 }
 void loop(){
-while(Serial.available()){
-	Serial3.write(Serial.read());
-}
-while (Serial3.available()){
-	Serial.write(Serial3.read());
-}
+	while(Serial.available()){
+		Serial2.write(Serial.read());
+	}
+	while (Serial2.available()){
+		Serial.write(Serial2.read());
+	}
 
 }
 
