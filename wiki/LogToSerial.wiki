@@ -1,3 +1,0 @@
-#summary The serial port logger logs a continuous output steam to the usb serial interface.
-
-The serial port logger logs a continuous output steam to the usb serial interface. This is used to see live log information using a laptop or other physically connected device in real time.
