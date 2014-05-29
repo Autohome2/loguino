@@ -1,1 +1,0 @@
-See: https://www.clusterfsck.io/blog/2014/05/26/arduino-megasquirt-library/
